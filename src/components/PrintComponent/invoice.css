@@ -1,0 +1,174 @@
+/* @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"); */
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap");
+/* * {
+  font-family: "Roboto", sans-serif;
+  font-size: 12px;
+} */
+.ticket p {
+  margin: 0;
+}
+.postable td,
+.postable th,
+.postable tr,
+.postable {
+  font-size: 18px;
+  width: 100%;
+  text-align: right;
+}
+.postable {
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  border-collapse: collapse;
+}
+.postable th {
+  border-bottom: 1px solid black;
+  padding: 5px 0;
+}
+.postable td {
+  padding: 0 0 5px 0;
+}
+.postable tbody tr:first-child td {
+  padding-top: 5px;
+}
+.postable td.sr,
+.postable th.sr {
+  text-align: left;
+  width: 7%;
+  max-width: 7%;
+}
+
+.postable td.pro,
+.postable th.pro {
+  text-align: left;
+  width: 50%;
+  max-width: 50%;
+}
+
+.postable td.quantity,
+.postable th.quantity {
+  width: 10%;
+  max-width: 10%;
+  word-break: break-all;
+}
+
+.postable td.price,
+.postable th.price {
+  width: 15%;
+  max-width: 15%;
+  word-break: break-all;
+}
+
+.postable td.amount,
+th.amount {
+  width: 25%;
+  max-width: 25%;
+  word-break: break-all;
+}
+.postable td.subtotal {
+  text-transform: uppercase;
+  text-align: right;
+}
+
+.postable td.discount {
+  text-align: right;
+}
+
+.postable td.subtotalamount {
+  font-size: 20px;
+  font-weight: 600;
+  text-align: right;
+}
+.postable td.grand {
+  padding: 5px 0;
+  border-top: 1px solid black;
+  font-weight: 500;
+  font-size: 20px;
+  text-align: right;
+}
+
+.postable td.grandtotal {
+  padding: 5px 0;
+  border-top: 1px solid black;
+  font-size: 20px;
+  font-weight: 600;
+  text-align: right;
+}
+
+.postable td.priceword {
+  padding: 5px 0;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  font-weight: 500;
+  text-align: left;
+  font-style: italic;
+}
+
+.postable.top-table {
+  border-top: 1px solid transparent;
+}
+
+.centered {
+  padding: 0;
+  padding: 5px 0;
+  margin: 0;
+  text-align: center;
+  align-content: center;
+}
+.centered p {
+  font-size: 20px;
+  margin: 5px;
+  text-transform: capitalize;
+  font-weight: 700;
+}
+.centered p.gstNumber {
+  font-size: 17px;
+  margin: 5px;
+  text-transform: capitalize;
+  font-weight: 300;
+}
+.ticket {
+  /* font-family: "Roboto", sans-serif; */
+  font-family: "Open Sans", sans-serif;
+  font-size: 20px;
+  /* padding: 5px; */
+  width: 100mm;
+  max-width: 100mm;
+}
+
+.info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  padding: 5px 0 10px 0;
+}
+
+.info .subinfo {
+  text-transform: capitalize;
+  padding: 2px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.info .subinfo p {
+  font-size: 18px;
+}
+
+.mobile {
+  padding: 0 0 5px 0;
+}
+
+.logo {
+  width: 150px;
+}
+.gstNumber {
+  font-weight: 400;
+}
+@media print {
+  .hidden-print,
+  .hidden-print * {
+    display: none !important;
+  }
+}
