@@ -1,94 +1,15 @@
-import { hotKeyTypes, tableTypes } from "../types";
+import { currency } from "../types";
 
-import tableApi from "../api/tableApi";
 import superadminapi from "../api/superadmin";
-import checkIfAsyncReqSuccess from "./checkIfAsyncReqSuccess";
 
-export const createTable = (data, cb) => {
-  return (dispatch) =>
-    checkIfAsyncReqSuccess(dispatch, {
-      successMessage: "Table Added Succesfully",
-      errorMessage: "Failed to Add Table",
-      enableMessage: true,
-      cb: cb,
-      type: tableTypes.CREATE_TABLE,
-      payload: {
-        request: {
-          url: tableApi.CREATE_TABLES,
-          method: "post",
-          data: data,
-          headers: {
-            "Content-type": "application/json",
-          },
-        },
-      },
-    });
-};
+//currency
 
-export const updateTable = (data, cb) => {
-  return (dispatch) =>
-    checkIfAsyncReqSuccess(dispatch, {
-      successMessage: "Table Updated Succesfully",
-      errorMessage: "Failed to update Table",
-      enableMessage: true,
-      cb: cb,
-      type: tableTypes.UPDATE_TABLE,
-      payload: {
-        request: {
-          url: tableApi.UPDATE_TABLES,
-          method: "PUT",
-          data: data,
-          headers: {
-            "Content-type": "application/json",
-          },
-        },
-      },
-    });
-};
-
-export const deleteTable = (data, cb) => {
-  return (dispatch) =>
-    checkIfAsyncReqSuccess(dispatch, {
-      successMessage: "Table Deleted Succesfully",
-      errorMessage: "Failed to delete Table",
-      enableMessage: true,
-      cb: cb,
-      type: tableTypes.DELETE_TABLE,
-      payload: {
-        request: {
-          url: tableApi.DELETE_TABLES,
-          method: "delete",
-          data: data,
-        },
-      },
-    });
-};
-
-export const getAllTables = (resId, branchId, status) => {
+export const createCurrency = (data) => {
   return {
-    type: tableTypes.GET_ALL_TABLES,
+    type: currency.CREATE_CURRENCY,
     payload: {
       request: {
-        url: tableApi.GET_ALL_TABLES,
-        method: "get",
-        params: {
-          resId: resId,
-          branchId: branchId,
-          status: status,
-        },
-      },
-    },
-  };
-};
-
-//table types
-
-export const createTableType = (data) => {
-  return {
-    type: tableTypes.CREATE_TABLETYPE,
-    payload: {
-      request: {
-        url: superadminapi.CREATE_SUPERADMIN_TABLETYPE,
+        url: superadminapi.CREATE_SUPERADMIN_CURRENCY,
         method: "post",
         data: data,
         headers: {
@@ -99,12 +20,12 @@ export const createTableType = (data) => {
   };
 };
 
-export const updateTableType = (data) => {
+export const updateCurrency = (data) => {
   return {
-    type: tableTypes.UPDATE_TABLETYPE,
+    type: currency.UPDATE_CURRENCY,
     payload: {
       request: {
-        url: superadminapi.UPDATE_SUPERADMIN_TABLETYPE,
+        url: superadminapi.UPDATE_SUPERADMIN_CURRENCY,
         method: "PUT",
         data: data,
         headers: {
@@ -115,12 +36,12 @@ export const updateTableType = (data) => {
   };
 };
 
-export const deleteTableType = (data) => {
+export const deleteCurrency = (data) => {
   return {
-    type: tableTypes.DELETE_TABLETYPE,
+    type: currency.DELETE_CURRENCY,
     payload: {
       request: {
-        url: superadminapi.DELETE_SUPERADMIN_TABLETYPE,
+        url: superadminapi.DELETE_SUPERADMIN_CURRENCY,
         method: "delete",
         data: {
           id: data,
@@ -130,12 +51,12 @@ export const deleteTableType = (data) => {
   };
 };
 
-export const getAllTableTypes = (status) => {
+export const getAllCurrencies = (status) => {
   return {
-    type: tableTypes.GET_ALL_TABLETYPES,
+    type: currency.GET_ALL_CURRENCIES,
     payload: {
       request: {
-        url: superadminapi.GET_ALL_SUPERADMIN_TABLETYPES,
+        url: superadminapi.GET_ALL_SUPERADMIN_CURRENCIES,
         method: "get",
         params: {
           status: status,

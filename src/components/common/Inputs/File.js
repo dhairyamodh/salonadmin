@@ -31,7 +31,7 @@ import InputContainer from "./InputContainer";
 
 import Form from "react-bootstrap/Form";
 import { RootUrl } from "../../../redux/types";
-
+import { Field, useFormikContext, useField } from 'formik';
 const MyTextField = React.forwardRef((props, ref) => {
   const {
     label,
@@ -42,10 +42,14 @@ const MyTextField = React.forwardRef((props, ref) => {
     error,
     size,
     mode,
+    required,
+    onChange
   } = props;
   const [file, selectedFile] = React.useState();
   const [preview, setPreview] = React.useState();
-
+  const [field, meta, helpers] = useField(props);
+  console.log('meta', field, meta, helpers);
+  const { setValue } = helpers;
   React.useEffect(() => {
     if (!file) {
       setPreview(undefined);
@@ -61,28 +65,40 @@ const MyTextField = React.forwardRef((props, ref) => {
 
   const value = mode === "Edit" ? "" : props.value;
   const picturePreview = preview || typeof value === "string";
+  const handleChange = (e) => {
+    let target = {
+      name,
+      value: e,
+    };
+
+    let newEvent = { target: target };
+
+    props.onChange(newEvent);
+  }
   const defaultValue = props.defaultValue;
+  console.log('file', file?.name);
   return (
     <div class={`form-group col-md-${size || "6"}`}>
       <label for="customFile">Choose file</label>
+      {required && <span className="text-danger"> *</span>}
       <Form.File
         name={name}
-        ref={ref}
         id="customFile"
         style={{
           opacity: 0,
-
           position: "absolute",
         }}
         onChange={(e) => {
           if (e.target.files.length > 0) {
             selectedFile(e.target.files[0]);
+            // handleChange(e.target.files[0])
+            setValue(e.target.files[0])
           }
         }}
-        {...{
-          ...(mode !== "Edit" && { value: value }),
-        }}
-        // value={file}
+      // {...{
+      //   ...(mode !== "Edit" && { value: value }),
+      // }}
+      // value={file ? file?.name : undefined}
       />
 
       <div

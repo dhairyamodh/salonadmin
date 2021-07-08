@@ -13,88 +13,115 @@ import { getAllBranches } from "../../../redux/action/branchActions";
 import { useHistory } from "react-router-dom";
 import DeleteModal from "../../../components/common/Modals/DeleteModal";
 import AddCommonAction from "../../../components/common/Actions/AddCommonAction";
+import ViewCommonAction from "../../../components/common/Actions/ViewCommonAction";
 import EditCommonAction from "../../../components/common/Actions/EditAction";
 import DeleteCommonAction from "../../../components/common/Actions/DeleteCommonAction";
-import { mobileRegex } from "../../../helpers/regex";
+import { mobileRegex, yupArray, yupMobile } from "../../../helpers/regex";
+import CommonTableModal from "../../../components/common/Modals/CommonTableModal";
+import { createUserGrpups, deleteUserGrpups, getAllUserGrpups, updateUserGrpups } from "../../../redux/action/userGroupActions";
+import { getSalonServices } from "../../../redux/action/serviceActions";
 
 const PageTitle = "Employees";
 
-const formData = [
-  {
-    type: "text",
-    name: "userName",
-    label: "Employee Name",
-    placeholder: "Type Employee Name",
-    required: true,
-    rules: {
-      required: {
-        value: true,
-        message: "Employee Name is required",
-      },
-    },
-  },
-  {
-    type: "text",
-    name: "userMobile",
-    label: "Employee Mobile Number",
-    placeholder: "Type Mobile Number",
-    rules: {
-      required: {
-        value: true,
-        message: "Mobile Number is required",
-      },
 
-      pattern: {
-        value: mobileRegex,
-        message: "Invalid mobile number",
-      },
-    },
-  },
-
-  {
-    type: "select",
-    name: "status",
-    label: "Status",
-    options: [
-      {
-        title: "Active",
-        value: true,
-      },
-      {
-        title: "Inactive",
-        value: false,
-      },
-    ],
-    optionLabelProp: "title",
-    optionValueProp: "value",
-
-    required: true,
-    rules: {
-      required: {
-        value: true,
-        message: "Branch Name is required",
-      },
-    },
-  },
-];
 
 const ManageUsers = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const [open, setOpen] = React.useState();
+  const [TableOpen, setTableOpen] = React.useState(false);
   const [actionData, setActionData] = React.useState();
-
   const { role, salonId, branchId } = useSelector((state) => state.user);
-
+  const isSalonAdmin = ["salonadmin"].includes(role);
+  const isBranchAdmin = ["branchadmin"].includes(role);
   const [selectedRes, setSelectedRes] = React.useState(salonId || "all");
-
-  const CurrentRestaurant = salonId || selectedRes;
+  const { salonItems } = useSelector((state) => state.branch);
+  const CurrentSalon = salonId || selectedRes;
 
   const [selectedBranch, setSelectedBranch] = React.useState(branchId || "all");
 
   const salons = useSelector((state) => state.salon.allSalons);
   const branches = useSelector((state) => state.branch.allBranches);
   const allUsers = useSelector((state) => state.user.allUsers);
+  const [actionType, setActionType] = React.useState('')
+  const salonUserGroup = useSelector(
+    (state) => state.common.allUserGroup
+  );
+  const formData = [
+    {
+      type: "text",
+      name: "userName",
+      label: "Employee Name",
+      placeholder: "Type Employee Name",
+      required: true,
+
+    },
+    {
+      type: "text",
+      name: "userMobile",
+      label: "Employee Mobile Number",
+      placeholder: "Type Mobile Number",
+      required: true,
+      rules: yupMobile('Invalid Mobile Number')
+    },
+    {
+      type: "select",
+      name: "groupId",
+      label: "Employee Group",
+      options: salonUserGroup,
+      optionLabelProp: "groupName",
+      optionValueProp: "_id",
+      defaultOption: () => (
+        <option value={undefined} selected>
+          Select group
+        </option>
+      ),
+
+    },
+
+    {
+      type: "select",
+      name: "status",
+      label: "Status",
+      options: [
+        {
+          title: "Active",
+          value: true,
+        },
+        {
+          title: "Inactive",
+          value: false,
+        },
+      ],
+      optionLabelProp: "title",
+      optionValueProp: "value",
+
+      required: true,
+
+    },
+  ];
+
+  const groupFormData = [
+    {
+      type: "text",
+      name: "groupName",
+      label: "Group Name",
+      placeholder: "Type Group Name",
+      required: true,
+      size: 6,
+
+    },
+    {
+      type: "multiselect",
+      name: "services",
+      label: "Services",
+      placeholder: "Choose Services",
+      data: salonItems,
+      size: 6,
+      rules: yupArray('Services')
+    },
+
+  ];
 
   const toggleAdd = (mode) => {
     setOpen(mode);
@@ -114,14 +141,31 @@ const ManageUsers = () => {
   };
 
   const confirmDelete = (data) => {
-    dispatch(deleteUser(actionData)).then((res) => {
-      if (res.payload.status === 200) {
-        toggleAdd();
-        dispatch(showSnackBar("Deleted succesfully"));
-        dispatch(getAllUsers(selectedRes, selectedBranch));
-      }
-    });
+    if (actionType === 'employee') {
+      dispatch(deleteUser(actionData)).then((res) => {
+        if (res.payload.status === 200) {
+          toggleAdd();
+          dispatch(showSnackBar("Deleted succesfully"));
+          dispatch(getAllUsers(selectedRes, selectedBranch));
+        }
+      });
+    } else {
+      dispatch(deleteUserGrpups(actionData)).then((res) => {
+        if (res.payload.status === 200) {
+          dispatch(showSnackBar("Deleted succesfully"));
+          groupModalClose()
+        }
+      });
+    }
+
   };
+
+  const groupModalClose = () => {
+    console.log('yes');
+    toggleAdd()
+    dispatch(getAllUserGrpups(salonId, undefined))
+    actionType === 'group' && setTableOpen(true)
+  }
 
   const onAdd = (data) => {
     if (open === "Edit") {
@@ -141,10 +185,47 @@ const ManageUsers = () => {
           }
         })
         .catch((err) => {
-          dispatch(showSnackBar("Failed to update user", "error"));
+          dispatch(showSnackBar("Failed to update Employee", "error"));
         });
     }
   };
+
+  const onAddUserGroup = (data) => {
+    if (open === "Add") {
+      dispatch(createUserGrpups({
+        ...data,
+        salonId: salonId
+      })).then((res) => {
+        if (res.payload.status === 200) {
+          // alert("ASd");
+          dispatch(showSnackBar("Employee Group created successfully"));
+          groupModalClose()
+        } else {
+          // alert("ASd");
+          dispatch(showSnackBar("Failed to create employee group", "error"));
+        }
+      })
+    }
+    if (open === "Edit") {
+      dispatch(
+        updateUserGrpups({
+          ...actionData,
+          ...data,
+        })
+      )
+        .then((res) => {
+          if (res.payload.status === 200) {
+            dispatch(showSnackBar("Employee Group Updated Successfully", "success"));
+            groupModalClose()
+          } else {
+            dispatch(showSnackBar("Failed to update Employee Group", "error"));
+          }
+        })
+        .catch((err) => {
+          dispatch(showSnackBar("Failed to update Employee Group", "error"));
+        });
+    }
+  }
 
   const AddAction = () => {
     return (
@@ -155,82 +236,129 @@ const ManageUsers = () => {
     );
   };
 
-  const EditAction = (action) => (
-    <EditCommonAction onClick={() => handleEdit(action.data.branchUser)} />
-  );
+  const EmployeeGroupAction = () => {
+    return (
+      <ViewCommonAction onClick={() => {
+        dispatch(getAllUserGrpups(salonId, undefined))
+        setTableOpen(true)
+        setActionType('group')
+      }} title={`${PageTitle} Group`} />
+    );
+  };
+
+  const headerGroupComponents = () => {
+    return [AddEmployeeGroupAction]
+  };
+
+  const AddEmployeeGroupAction = () => {
+    return (
+      <AddCommonAction onClick={() => {
+        toggleAdd("Add")
+        if (isSalonAdmin) {
+          dispatch(getSalonServices(true))
+        }
+        setTableOpen(false)
+      }} title={`${PageTitle} Group`} />
+    );
+  }
+
+  const EditAction = (action) => {
+    return (<EditCommonAction onClick={() => {
+      setActionType('employee')
+      handleEdit(action.data.branchUser)
+
+    }} />)
+  };
 
   const DeleteAction = (action) => (
     <DeleteCommonAction onClick={() => handleDelete(action.data.branchUser)} />
+  );
+
+  const EditGroupAction = (action) => (
+    <EditCommonAction onClick={() => {
+      setActionType('group')
+      setTableOpen(false)
+      handleEdit(action.data)
+    }} />
+  );
+
+  const DeleteGroupAction = (action) => (
+    <DeleteCommonAction onClick={() => {
+      handleDelete(action.data)
+    }} />
   );
 
   const headers = [
     { title: "Employee Name", key: "userName" },
 
     { title: "Employee Mobile", key: "userMobile" },
+    { title: "Employee Group", key: "groupName" },
 
     { title: "Role", key: "userRole" },
     { title: "Associated With", key: "associatedWith" },
     { title: "Status", key: "status" },
   ];
 
+  const groupHeaders = [
+    { title: 'Group Name', key: 'groupName' },
+    { title: 'Services', key: 'servicesWithComma' },
+  ]
+
   React.useEffect(() => {
     dispatch(getAllUsers(selectedRes, selectedBranch));
+    dispatch(getAllUserGrpups(salonId, undefined))
   }, [selectedRes, selectedBranch]);
 
-  const RestaurantFilter = (action) => (
-    <div class="">
-      <select
-        name="salonId"
-        class="form-control"
-        defaultValue="true"
-        required
-        value={selectedRes}
-        onChange={(e) => {
-          setSelectedBranch("all");
+  const SalonFilter = (action) => (
+    <select
+      name="salonId"
+      class="form-control"
+      defaultValue="true"
+      required
+      value={selectedRes}
+      onChange={(e) => {
+        setSelectedBranch("all");
 
-          setSelectedRes(e.target.value);
-        }}
-      >
-        <option value={"all"}>All Restaurants</option>
-        {salons.map((res, resindex) => {
-          return (
-            <option key={resindex} value={res._id}>
-              {res.name}
-            </option>
-          );
-        })}
-      </select>
-    </div>
+        setSelectedRes(e.target.value);
+      }}
+    >
+      <option value={"all"}>All Salons</option>
+      {salons.map((res, resindex) => {
+        return (
+          <option key={resindex} value={res._id}>
+            {res.name}
+          </option>
+        );
+      })}
+    </select>
   );
 
   const BranchFilter = (action) => (
-    <div class="">
-      <select
-        name="status"
-        class="form-control"
-        defaultValue="true"
-        required
-        value={selectedBranch}
-        onChange={(e) => setSelectedBranch(e.target.value)}
-      >
-        <option value={"all"}>All Branches</option>
-        {branches.map((res, resindex) => {
-          return (
-            <option key={resindex} value={res._id}>
-              {res.branchName}
-            </option>
-          );
-        })}
-      </select>
-    </div>
+    <select
+      name="status"
+      class="form-control"
+      defaultValue="true"
+      required
+      value={selectedBranch}
+      onChange={(e) => setSelectedBranch(e.target.value)}
+    >
+      <option value={"all"}>All Branches</option>
+      {branches.map((res, resindex) => {
+        return (
+          <option key={resindex} value={res._id}>
+            {res.branchName}
+          </option>
+        );
+      })}
+    </select>
   );
 
   const headerComponents = {
     superadmin: [
-      RestaurantFilter,
-      ...(selectedRes != "all" ? [BranchFilter] : []),
+      SalonFilter,
+      ...(selectedRes != "all" ? [BranchFilter, EmployeeGroupAction] : []),
     ],
-    salonadmin: [BranchFilter],
+    salonadmin: [BranchFilter, EmployeeGroupAction],
   };
 
   React.useEffect(() => {
@@ -241,8 +369,19 @@ const ManageUsers = () => {
     dispatch(getAllBranches(selectedRes, "true"));
   }, [selectedRes]);
 
+
   return (
     <div class="page-content-tab">
+      <CommonTableModal
+        headers={groupHeaders}
+        headerComponents={headerGroupComponents()}
+        open={TableOpen}
+        title={`${PageTitle} Group`}
+        data={salonUserGroup}
+        onClose={() => setTableOpen(false)}
+        actions={[EditGroupAction, DeleteGroupAction]}
+
+      />
       <DeleteModal
         size="md"
         open={open === "Delete"}
@@ -253,12 +392,12 @@ const ManageUsers = () => {
 
       <AddModal
         open={open === "Add" || open === "Edit"}
-        onClose={() => toggleAdd()}
+        onClose={() => groupModalClose()}
         mode={open}
-        onSubmit={(e) => onAdd(e)}
+        onSubmit={(e) => actionType !== 'employee' ? onAddUserGroup(e) : onAdd(e)}
         data={actionData}
-        formData={formData}
-        title={PageTitle}
+        formData={actionType === 'employee' ? formData : groupFormData}
+        title={`${PageTitle} Group`}
       />
 
       <SmartTable

@@ -91,7 +91,7 @@ const SmartTable = ({
   React.useEffect(() => {
     setRows(tableData);
     if (!paginated) {
-      setRowsPerPage(perPageRows || tableData.length);
+      setRowsPerPage(perPageRows || tableData?.length);
     }
   }, [tableData]);
 
@@ -122,7 +122,7 @@ const SmartTable = ({
   };
 
   const emptyRows =
-    rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
+    rowsPerPage - Math.min(rowsPerPage, rows?.length - page * rowsPerPage);
 
   return (
     <div class="row">
@@ -186,9 +186,9 @@ const SmartTable = ({
                 />
               </table>
             </div>
-            {paginated && tableData.length > 0 && (
+            {paginated && tableData?.length > 0 && (
               <TablePagination
-                count={rows.length}
+                count={rows?.length}
                 rowsPerPage={rowsPerPage}
                 page={page}
                 onChangePage={handleChangePage}

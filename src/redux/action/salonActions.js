@@ -29,7 +29,7 @@ export const assignSalonSubScription = (data, cb) => {
       type: salonTypes.ASSIGN_SALON_SUBSCRIPTION,
       payload: {
         request: {
-          url: SuperAdminApi.RESTAURANT_SUBSCRIPTION,
+          url: SuperAdminApi.SALON_SUBSCRIPTION,
           method: "post",
           data: data,
         },
@@ -47,7 +47,7 @@ export const removeSalonSubScription = (data, cb) => {
       type: salonTypes.REMOVE_SALON_SUBSCRIPTION,
       payload: {
         request: {
-          url: SuperAdminApi.RESTAURANT_SUBSCRIPTION,
+          url: SuperAdminApi.SALON_SUBSCRIPTION,
           method: "delete",
           data: data,
         },
@@ -69,7 +69,7 @@ export const createRestaurant = (data, cb) => {
       type: salonTypes.CREATE_SALON,
       payload: {
         request: {
-          url: SuperAdminApi.CREATE_RESTAURANT,
+          url: SuperAdminApi.CREATE_SALON,
           method: "post",
           data: formData,
           headers: {
@@ -85,7 +85,7 @@ export const deleteRestaurant = (data) => {
     type: salonTypes.DELETE_SALON,
     payload: {
       request: {
-        url: SuperAdminApi.DELETE_RESTAURANT,
+        url: SuperAdminApi.DELETE_SALON,
         method: "delete",
         data: { id: data },
       },
@@ -100,11 +100,11 @@ export const updateRestaurant = (data) => {
     type: salonTypes.UPDATE_SALON,
     payload: {
       request: {
-        url: SuperAdminApi.UPDATE_RESTAURANT,
+        url: SuperAdminApi.UPDATE_SALON,
         method: "put",
         data: formData,
         headers: {
-          "Content-type": "application/json",
+          "Content-type": "multipart/form-data",
         },
       },
     },
@@ -118,7 +118,7 @@ export const createRestaurantItem = (data) => {
     type: salonTypes.CREATE_SALON_ITEMS,
     payload: {
       request: {
-        url: restaurantApi.CREATE_RESTAURANT_ITEM,
+        url: restaurantApi.CREATE_SALON_ITEM,
         method: "post",
         data: formData,
         headers: {
@@ -152,7 +152,7 @@ export const deleteRestaurantItem = (data) => {
     type: salonTypes.DELETE_SALON_ITEMS,
     payload: {
       request: {
-        url: restaurantApi.DELETE_RESTAURANT_ITEM,
+        url: restaurantApi.DELETE_SALON_ITEM,
         method: "delete",
         data: data,
       },
@@ -165,7 +165,7 @@ export const getAllRestaurantItems = (resId, status) => {
     type: salonTypes.GET_ALL_SALON_ITEMS,
     payload: {
       request: {
-        url: restaurantApi.GET_ALL_RESTAURANT_ITEMS,
+        url: restaurantApi.GET_ALL_SALON_ITEMS,
         method: "get",
         params: {
           resId: resId,

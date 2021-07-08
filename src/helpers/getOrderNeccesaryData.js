@@ -18,13 +18,6 @@ function useFriendStatus(friendID) {
   function handleCheckToken() {
     const tkn = getToken();
     if (tkn) {
-      dispatch(getAllTables(restaurantId, branchId, "true"))
-        .then((res) => {
-          delayReady(true);
-        })
-        .catch((err) => {
-          delayReady(true);
-        });
 
       dispatch(getBranchCategories(restaurantId, branchId, "true"));
 

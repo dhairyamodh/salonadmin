@@ -4,25 +4,10 @@ import {
   commonTypes,
   serviceTypes,
   orderTypes,
-  tableTypes,
+  currency,
   userTypes,
 } from "../types";
 
-const datatableTypes = [
-  {
-    tableTypeName: "Ac",
-    tableTypeId: 0,
-  },
-  {
-    tableTypeName: "Non - Ac",
-    tableTypeId: 1,
-  },
-
-  {
-    tableTypeName: "Garden",
-    tableTypeId: 2,
-  },
-];
 
 const dummyActive = (payload) => {
   const { tableNumber, tableTypeId, username, tablePrice } = payload;
@@ -36,7 +21,6 @@ const dummyActive = (payload) => {
   };
 };
 const initialstate = {
-  tableTypes: datatableTypes,
   allTables: [],
   activeOrders: [],
   activeOrderIndex: undefined,
@@ -176,12 +160,6 @@ const orderReducer = (state = initialstate, action) => {
         lastOrderNumber: action.payload.data.user.orderNumber || 0,
       };
 
-    case commonTypes.GET_ALL_TABLETYPES_SUCCESS:
-      return {
-        ...state,
-        tableTypes: action.payload.data.data,
-      };
-
     case categoryTypes.GET_BRANCH_CATEGORIES_SUCCESS:
       return {
         ...state,
@@ -194,13 +172,6 @@ const orderReducer = (state = initialstate, action) => {
         allItems: getData().data,
       };
 
-    case tableTypes.GET_ALL_TABLES_SUCCESS:
-      return {
-        ...state,
-        allTables: getData().data.map((item) => {
-          return { ...item, active: false };
-        }),
-      };
 
     case orderTypes.SET_ORDER_TYPE:
       return {

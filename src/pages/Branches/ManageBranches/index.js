@@ -14,7 +14,7 @@ import AddCommonAction from "../../../components/common/Actions/AddCommonAction"
 import EditCommonAction from "../../../components/common/Actions/EditAction";
 import DeleteCommonAction from "../../../components/common/Actions/DeleteCommonAction";
 import { getAllSalons } from "../../../redux/action/salonActions";
-import { mobileRegex } from "../../../helpers/regex";
+import { mobileRegex, yupBoolean, yupMobile } from "../../../helpers/regex";
 import getErrorMessage from "../../../helpers/getErrorMessage";
 
 const PageTitle = "Branches";
@@ -44,12 +44,7 @@ const ManageBranches = () => {
       optionValueProp: "_id",
       hideAt: "Edit",
       required: true,
-      rules: {
-        required: {
-          value: true,
-          message: "Branch Name is required",
-        },
-      },
+
     },
 
     {
@@ -58,12 +53,7 @@ const ManageBranches = () => {
       label: "Branch Name",
       placeholder: "Type Branch Name",
       required: true,
-      rules: {
-        required: {
-          value: true,
-          message: "Branch Name is required",
-        },
-      },
+
     },
     {
       type: open === "Edit" ? "text" : "none",
@@ -71,40 +61,32 @@ const ManageBranches = () => {
       label: "Branch Code",
       placeholder: "Type Branch Code",
       disabled: true,
-      rules: {
-        required: {
-          value: true,
-          message: "Branch Code is required",
-        },
-      },
+
     },
     {
       type: "text",
       name: "contactPerson",
       label: "Contact Person",
       placeholder: "Type Contact Person Name",
-      rules: {
-        required: {
-          value: true,
-          message: "Contact Person is required",
-        },
-      },
+
     },
     {
       type: "text",
       name: "contactNumber",
       label: "Contact Number",
       placeholder: "Type Contact Person Number",
-      rules: {
-        required: {
-          value: true,
-          message: "Contact Number is required",
-        },
-        pattern: {
-          value: mobileRegex,
-          message: "Invalid mobile number",
-        },
-      },
+      required: true,
+      rules: yupMobile('Invalid contact number')
+      // rules: {
+      //   required: {
+      //     value: true,
+      //     message: "Contact Number is required",
+      //   },
+      //   pattern: {
+      //     value: mobileRegex,
+      //     message: "Invalid mobile number",
+      //   },
+      // },
     },
     {
       type: "select",
@@ -122,14 +104,8 @@ const ManageBranches = () => {
       ],
       optionLabelProp: "title",
       optionValueProp: "value",
+      rules: yupBoolean('Status')
 
-      required: true,
-      rules: {
-        required: {
-          value: true,
-          message: "Branch Name is required",
-        },
-      },
     },
   ];
 

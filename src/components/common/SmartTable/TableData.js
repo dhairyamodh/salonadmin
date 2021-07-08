@@ -18,6 +18,7 @@ const TableData = ({
       {data?.map((child, childindex) => {
         return (
           <tr key={childindex}>
+            <td>{++childindex}</td>
             {selectable && (
               <td>
                 <div class="checkbox">

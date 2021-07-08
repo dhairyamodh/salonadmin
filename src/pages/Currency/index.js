@@ -9,32 +9,45 @@ import AddCommonAction from "../../components/common/Actions/AddCommonAction";
 import DeleteCommonAction from "../../components/common/Actions/DeleteCommonAction";
 import CommonAddModal from "../../components/common/Modals/CommonAddModal";
 import {
-  deleteTableType,
-  createTableType,
-  updateTableType,
-  getAllTableTypes,
+  deleteCurrency,
+  createCurrency,
+  updateCurrency,
+  getAllCurrencies,
 } from "../../redux/action/tableActions";
-import { getAllBranches } from "../../redux/action/branchActions";
 import getErrorMessage from "../../helpers/getErrorMessage";
-const PageTitle = "Table Types";
+const PageTitle = "Currency ";
 
-const ManageTableTypes = () => {
-  const { tableTypes } = useSelector((state) => state.common);
+const ManageCurrencys = () => {
+  const { currency } = useSelector((state) => state.common);
 
-  const { role, restaurantId, branchId } = useSelector((state) => state.user);
+  const { role, } = useSelector((state) => state.user);
 
   const formData = [
     {
       type: "text",
-      name: "tableTypeName",
-      label: "Table Type ",
-      placeholder: "Enter Table Type ",
+      name: "currencyName",
+      label: "Currency Name ",
+      placeholder: "Enter Currency Name",
       required: true,
-
+      size: 12,
       rules: {
         required: {
           value: true,
-          message: "Table Type is required",
+          message: "Currency Name is required",
+        },
+      },
+    },
+    {
+      type: "text",
+      name: "currencySymbol",
+      label: "Currency Symbol ",
+      placeholder: "Enter Currency Symbol",
+      required: true,
+      size: 12,
+      rules: {
+        required: {
+          value: true,
+          message: "Currency Symbol is required",
         },
       },
     },
@@ -43,6 +56,7 @@ const ManageTableTypes = () => {
       type: "select",
       name: "status",
       label: "Status",
+      size: 12,
       options: [
         {
           title: "Active",
@@ -88,12 +102,12 @@ const ManageTableTypes = () => {
   };
 
   const confirmDelete = (data) => {
-    dispatch(deleteTableType(actionData.id))
+    dispatch(deleteCurrency(actionData.id))
       .then((res) => {
         if (res.payload.status === 200) {
           toggleAdd();
           dispatch(showSnackBar("Deleted succesfully"));
-          dispatch(getAllTableTypes());
+          dispatch(getAllCurrencies());
         } else {
           dispatch(
             showSnackBar(
@@ -117,7 +131,7 @@ const ManageTableTypes = () => {
   const onAdd = (data) => {
     if (open === "Add") {
       dispatch(
-        createTableType({
+        createCurrency({
           ...data,
         })
       )
@@ -125,7 +139,7 @@ const ManageTableTypes = () => {
           if (res.payload.status === 200) {
             toggleAdd();
             dispatch(showSnackBar("Table Type created successfully"));
-            dispatch(getAllTableTypes());
+            dispatch(getAllCurrencies());
           } else {
             dispatch(
               showSnackBar(
@@ -147,7 +161,7 @@ const ManageTableTypes = () => {
     }
     if (open === "Edit") {
       dispatch(
-        updateTableType({
+        updateCurrency({
           ...actionData,
           ...data,
         })
@@ -157,7 +171,7 @@ const ManageTableTypes = () => {
             dispatch(
               showSnackBar("Table type Updated Successfully", "success")
             );
-            dispatch(getAllTableTypes());
+            dispatch(getAllCurrencies());
             toggleAdd();
           } else {
             dispatch(
@@ -195,7 +209,8 @@ const ManageTableTypes = () => {
   );
 
   const headers = [
-    { title: "Table Type", key: "tableTypeName" },
+    { title: "Currency Name", key: "currencyName" },
+    { title: "Currency Symbol", key: "currencySymbol" },
     { title: "Status", key: "status" },
   ];
 
@@ -209,9 +224,9 @@ const ManageTableTypes = () => {
   };
 
   React.useEffect(() => {
-    dispatch(getAllTableTypes());
+    dispatch(getAllCurrencies());
 
-    // dispatch(getAllTableTypes());
+    // dispatch(getAllCurrencies());
   }, []);
   return (
     <>
@@ -223,6 +238,7 @@ const ManageTableTypes = () => {
           mode={open}
           onSubmit={(e) => onAdd(e)}
           data={actionData}
+          size="md"
           formData={formData}
           defaultValue={defaultValues}
         />
@@ -238,7 +254,7 @@ const ManageTableTypes = () => {
           title={PageTitle}
           headAction={AddAction}
           actions={[EditAction, DeleteAction]}
-          tableData={tableTypes}
+          tableData={currency}
           headers={headers}
         />
       </div>
@@ -246,4 +262,4 @@ const ManageTableTypes = () => {
   );
 };
 
-export default ManageTableTypes;
+export default ManageCurrencys;

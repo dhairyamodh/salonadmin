@@ -48,31 +48,34 @@ function LeftSidebar({ sidebarData }) {
 
               {sidebarData?.map((data, index) => {
                 return (
-                  <OverlayTrigger
-                    key={index}
-                    placement="right"
-                    overlay={
-                      <Tooltip id="tooltip-disabled">{data.title}</Tooltip>
-                    }
+                  // <OverlayTrigger
+                  //   key={index}
+                  //   placement="right"
+                  //   overlay={
+                  //     <Tooltip id="tooltip-disabled">{data.title}</Tooltip>
+                  //   }
+                  // >
+
+                  <button
+                    // href={`${data.title + index}`}
+                    class={`nav-link ${data.link === pathname ? "active" : ""}`}
+                    // data-toggle="tooltip-custom"
+                    // data-placement="right"
+                    // data-trigger="hover"
+                    // title={data.title}
+                    // data-original-title={data.title}
+                    onClick={() => {
+                      handleIconClickNavigate(data, index);
+                    }}
                   >
-                    <button
-                      // href={`${data.title + index}`}
-                      class={`nav-link ${data.link === pathname ? "active" : ""}`}
-                      // data-toggle="tooltip-custom"
-                      // data-placement="right"
-                      // data-trigger="hover"
-                      // title={data.title}
-                      // data-original-title={data.title}
-                      onClick={() => {
-                        handleIconClickNavigate(data, index);
-                      }}
-                    >
-                      <i
-                        // data-feather={data.icon}
-                        class={`align-self-center menu-icon icon-dual ${data.icon}`}
-                      ></i>
-                    </button>
-                  </OverlayTrigger>
+                    <i
+                      // data-feather={data.icon}
+                      class={`align-self-center menu-icon icon-dual ${data.icon}`}
+                    ></i>
+                    <h6>{data.title}</h6>
+
+                  </button>
+                  // </OverlayTrigger>
                 );
               })}
             </nav>

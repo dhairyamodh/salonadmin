@@ -6,6 +6,7 @@ export { default as textarea } from "./TextArea";
 export { default as number } from "./Number";
 export { default as duration } from "./Duration";
 export { default as select } from "./Select";
+export { default as multiselect } from "./MultiSelect";
 export { default as file } from "./File";
 export { default as dateRange } from "./DateRange";
 export { default as switch } from "./Switch";

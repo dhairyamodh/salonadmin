@@ -69,54 +69,46 @@ const ManageServices = () => {
   const formData = [
     {
       type: "text",
-      name: "serviceName",
+      name: "name",
       label: "Service Name",
-      size: 6,
+      size: 12,
 
       placeholder: "Type Service Name",
       required: true,
-      rules: {
-        required: {
-          value: true,
-          message: "Service Name is required",
-        },
-      },
+
     },
     {
       type: "file",
-      name: "serviceImage",
+      name: "imageSrc",
       label: "Service image",
-      size: 6,
+      size: 4,
+      required: true,
 
-      ...(open === "Add" && {
-        rules: {
-          required: {
-            value: true,
-            message: "Service image is required",
-          },
-        },
-      }),
     },
-
     {
       type: "number",
-      name: "servicePrice",
-      size: 3,
+      name: "salePrice",
+      size: 4,
 
-      label: "Service Price",
-      placeholder: "Type Service Price",
+      label: "Selling Price",
+      placeholder: "Type Selling Price",
       required: true,
-      rules: {
-        required: {
-          value: true,
-          message: "Service Price is required",
-        },
-      },
+
+    },
+    {
+      type: "number",
+      name: "price",
+      size: 4,
+
+      label: "Price",
+      placeholder: "Type Price",
+      required: true,
+
     },
     {
       type: "duration",
       name: "estimatedTime",
-      size: 3,
+      size: 4,
       label: "Estimate Time",
       placeholder: "Choose Estimate Time",
       // required: true,
@@ -130,7 +122,7 @@ const ManageServices = () => {
     {
       type: "select",
       name: "categoryId",
-      size: 3,
+      size: 4,
 
       label: "Category",
       options: categories,
@@ -146,7 +138,7 @@ const ManageServices = () => {
     {
       type: "select",
       name: "status",
-      size: 3,
+      size: 4,
 
       label: "Status",
       options: [
@@ -163,12 +155,23 @@ const ManageServices = () => {
       optionValueProp: "value",
 
       required: true,
-      rules: {
-        required: {
-          value: true,
-          message: "Branch Name is required",
-        },
-      },
+
+    },
+    {
+      type: "textarea",
+      name: "description",
+      size: 12,
+      label: "Description",
+      maxLength: 500,
+      placeholder: "Enter description",
+      rows: 3
+      // required: true,
+      // rules: {
+      //   required: {
+      //     value: true,
+      //     message: "Estimated time is required",
+      //   },
+      // },
     },
   ];
 
@@ -185,7 +188,7 @@ const ManageServices = () => {
 
   const handleEdit = (data) => {
     toggleAdd("Edit");
-    // delete data.serviceImage;
+    // delete data.imageSrc;
 
     setActionData(data);
   };
@@ -219,9 +222,9 @@ const ManageServices = () => {
           salonId: salonId,
           ...(isBranchAdmin && { branchId: branchId }),
           role: role,
-          ...(data?.serviceImage[0] &&
-            typeof data?.serviceImage[0] !== "string" && {
-            serviceImage: data?.serviceImage[0],
+          ...(data?.imageSrc[0] &&
+            typeof data?.imageSrc[0] !== "string" && {
+            imageSrc: data?.imageSrc[0],
           }),
         })
       )
@@ -250,10 +253,10 @@ const ManageServices = () => {
       if (data.categoryId === "") {
         delete data.categoryId;
       }
-      if (data.serviceImage.length < 1) {
-        delete data.serviceImage;
+      if (data.imageSrc.length < 1) {
+        delete data.imageSrc;
       } else {
-        data.serviceImage = data.serviceImage[0];
+        data.imageSrc = data.imageSrc[0];
       }
       dispatch(
         updateService({
@@ -358,14 +361,14 @@ const ManageServices = () => {
   );
 
   const headers = [
-    { title: "Service Name", key: "serviceName" },
+    { title: "Service Name", key: "name" },
     {
       title: "Service Image",
-      key: "serviceImage",
+      key: "imageSrc",
       type: "image",
       sourceUrl: RootUrl,
     },
-    { title: "Price", key: "servicePrice" },
+    { title: "Price", key: "price" },
     { title: "Category", key: "categoryName" },
     { title: "Status", key: "status" },
   ];

@@ -7,11 +7,11 @@ const Chart = ({ data, chartOptions, directData, headers, showCard }) => {
     series: directData
       ? data
       : headers.map((head) => {
-          return {
-            name: head.name,
-            data: data[head.key],
-          };
-        }),
+        return {
+          name: head.name,
+          data: data[head.key],
+        };
+      }),
 
     ...chartOptions,
   });
@@ -21,11 +21,11 @@ const Chart = ({ data, chartOptions, directData, headers, showCard }) => {
       series: directData
         ? data
         : headers.map((head) => {
-            return {
-              name: head.name,
-              data: data[head.key],
-            };
-          }),
+          return {
+            name: head.name,
+            data: data[head.key],
+          };
+        }),
 
       ...chartOptions,
     });

@@ -7,7 +7,7 @@ const AddCommonAction = ({ onClick, title }) => {
       onClick={() => onClick()}
       class="btn btn-gradient-primary waves-effect waves-light"
     >
-      <i class="mdi mdi-plus mr-2"></i> Add {title}
+      <i class="mdi mdi-view-list mr-2"></i> {title}
     </button>
   );
 };

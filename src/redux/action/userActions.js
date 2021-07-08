@@ -109,7 +109,7 @@ export const getUserDetails = () => {
   };
 };
 
-export const getAllUsers = (resId, branchId, status) => {
+export const getAllUsers = (salonId, branchId, status) => {
   return {
     type: userTypes.GET_ALL_USERS,
     payload: {
@@ -117,7 +117,7 @@ export const getAllUsers = (resId, branchId, status) => {
         url: userApi.GET_ALL_USERS,
         method: "GET",
         params: {
-          resId: resId,
+          salonId: salonId,
           branchId: branchId,
           status: status,
         },

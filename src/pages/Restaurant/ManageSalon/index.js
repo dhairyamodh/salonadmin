@@ -25,15 +25,18 @@ import DeleteCommonAction from "../../../components/common/Actions/DeleteCommonA
 import getErrorMessage from "../../../helpers/getErrorMessage";
 import { RootUrl } from "../../../redux/types";
 import CommonAddModal from "../../../components/common/Modals/CommonAddModal";
-import { emailRegex, mobileRegex } from "../../../helpers/regex";
+import { emailRegex, mobileRegex, yupEmail, yupMobile } from "../../../helpers/regex";
 import TableRowCommonAction from "../../../components/common/Actions/TableRowCommonAction";
+import { getAllCurrencies } from "../../../redux/action/tableActions";
 
 const PageTitle = "Salons";
 
 const AddRestaurant = () => {
   const dispatch = useDispatch();
   const salons = useSelector((state) => state.salon.allSalons);
-  const { themes, subscriptions } = useSelector((state) => state.common);
+  const { themes, subscriptions, currency } = useSelector((state) => state.common);
+  console.log("currency", currency);
+
   const [open, setOpen] = React.useState();
   const [actionData, setActionData] = React.useState();
   const [assignData, setAssignData] = React.useState();
@@ -50,12 +53,7 @@ const AddRestaurant = () => {
       size: 8,
       placeholder: "Type a name",
       required: true,
-      rules: {
-        required: {
-          value: true,
-          message: "Salon Name is required",
-        },
-      },
+
     },
     {
       type: "file",
@@ -65,12 +63,7 @@ const AddRestaurant = () => {
       size: 4,
       // disabled: disabled,
       ...(open === "Add" && {
-        rules: {
-          required: {
-            value: true,
-            message: "Item image is required",
-          },
-        },
+        required: true
       }),
     },
     {
@@ -81,16 +74,7 @@ const AddRestaurant = () => {
 
       placeholder: "Enter a valid e-mail",
       required: true,
-      rules: {
-        required: {
-          value: true,
-          message: "E-mail is required",
-        },
-        pattern: {
-          value: emailRegex,
-          message: "Invalid email",
-        },
-      },
+      rules: yupEmail('Invalid email address')
     },
     {
       type: "text",
@@ -100,12 +84,7 @@ const AddRestaurant = () => {
 
       placeholder: "Enter a Contact Person Name",
       required: true,
-      rules: {
-        required: {
-          value: true,
-          message: "Contact Person is required",
-        },
-      },
+
     },
     {
       type: "text",
@@ -115,16 +94,7 @@ const AddRestaurant = () => {
 
       placeholder: "Enter a Contact Mobile Number Name",
       required: true,
-      rules: {
-        required: {
-          value: true,
-          message: "Contact Mobile Number is required",
-        },
-        pattern: {
-          value: mobileRegex,
-          message: "Invalid Mobile Number",
-        },
-      },
+      rules: yupMobile('Invalid mobile number')
     },
     {
       type: "textarea",
@@ -134,12 +104,7 @@ const AddRestaurant = () => {
       rows: "2",
       placeholder: "Type a address",
       required: true,
-      rules: {
-        required: {
-          value: true,
-          message: "Address is required",
-        },
-      },
+
     },
     {
       type: "number",
@@ -150,12 +115,7 @@ const AddRestaurant = () => {
       placeholder: "Enter Current Balance",
       required: true,
       disabled: disabled,
-      rules: {
-        required: {
-          value: true,
-          message: "Current Balance is required",
-        },
-      },
+
     },
     {
       type: "text",
@@ -165,12 +125,7 @@ const AddRestaurant = () => {
 
       placeholder: "Enter GST Number",
       required: true,
-      rules: {
-        required: {
-          value: true,
-          message: "GST Number is required",
-        },
-      },
+
     },
     {
       type: "number",
@@ -180,12 +135,7 @@ const AddRestaurant = () => {
 
       placeholder: "Enter CGST tax",
       required: true,
-      rules: {
-        required: {
-          value: true,
-          message: "CGST is required",
-        },
-      },
+
     },
     {
       type: "number",
@@ -195,12 +145,7 @@ const AddRestaurant = () => {
 
       placeholder: "Enter SGST tax",
       required: true,
-      rules: {
-        required: {
-          value: true,
-          message: "SGST is required",
-        },
-      },
+
     },
 
     {
@@ -211,18 +156,13 @@ const AddRestaurant = () => {
 
       placeholder: "Type a tag line",
       required: true,
-      rules: {
-        required: {
-          value: true,
-          message: "Tag Line is required",
-        },
-      },
+
     },
 
     {
       type: "select",
       name: "themeId",
-      size: 3,
+      size: 4,
 
       label: "App Theme",
       options: themes,
@@ -232,8 +172,19 @@ const AddRestaurant = () => {
     },
     {
       type: "select",
+      name: "currencyId",
+      size: 4,
+
+      label: "Currency",
+      options: currency,
+      optionLabelProp: "currencyNameWithCybol",
+      optionValueProp: "_id",
+      // disabled: disabled,
+    },
+    {
+      type: "select",
       name: "status",
-      size: 3,
+      size: 4,
 
       label: "Status",
       options: [
@@ -430,6 +381,7 @@ const AddRestaurant = () => {
   React.useEffect(() => {
     dispatch(getAllSalons());
     dispatch(getAllThemes("true"));
+    dispatch(getAllCurrencies(true));
     dispatch(getAllSubscriptions("true"));
   }, []);
 

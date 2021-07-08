@@ -22,6 +22,7 @@ import { getAllBranches } from "../../../redux/action/branchActions";
 import getErrorMessage from "../../../helpers/getErrorMessage";
 import CommonImportModal from "../../../components/common/Modals/CommonImportModal";
 import ImportCommonAction from "../../../components/common/Actions/ImportCommonAction";
+import * as Yup from 'yup';
 
 const PageTitle = "Categories";
 
@@ -53,6 +54,9 @@ const ManageItemCategories = () => {
     : isSalonAdmin
       ? salonCategories
       : arraycat;
+
+
+
   const formData = [
     // {
     //   type: isSalonAdmin ? "select" : "none",
@@ -77,12 +81,8 @@ const ManageItemCategories = () => {
       label: "Category Name",
       placeholder: "Type Category Name",
       required: true,
-      rules: {
-        required: {
-          value: true,
-          message: "Category Name is required",
-        },
-      },
+
+
     },
     {
       type: "file",
@@ -90,14 +90,7 @@ const ManageItemCategories = () => {
       label: "Category image",
       placeholder: "Type Category image",
       required: open === "Add" && true,
-      ...(open === "Add" && {
-        rules: {
-          required: {
-            value: true,
-            message: "Category Name is required",
-          },
-        },
-      }),
+
     },
 
     {
@@ -118,13 +111,8 @@ const ManageItemCategories = () => {
       optionValueProp: "value",
 
       required: true,
-      rules: {
-        required: {
-          value: true,
-          message: "Branch Name is required",
-        },
-      },
-    },
+
+    }
   ];
 
   const dispatch = useDispatch();

@@ -2,16 +2,18 @@ import {
   categoryTypes,
   commonTypes,
   expenseTypes,
-  tableTypes,
+  currency,
   userTypes,
+  userGroupTypes,
 } from "../types";
 
 const initialstate = {
   themes: [],
   subscriptions: [],
-  tableTypes: [],
+  currency: [],
   categoryTypes: [],
   expenseTypes: [],
+  allUserGroup: []
 };
 
 const commonDataReducer = (state = initialstate, action) => {
@@ -34,10 +36,10 @@ const commonDataReducer = (state = initialstate, action) => {
     //     tableTypes: action.payload.data.data,
     //   };
 
-    case tableTypes.GET_ALL_TABLETYPES_SUCCESS:
+    case currency.GET_ALL_CURRENCIES_SUCCESS:
       return {
         ...state,
-        tableTypes: action.payload.data.data,
+        currency: action.payload.data.data,
       };
     case expenseTypes.GET_ALL_EXPENSE_TYPES_SUCCESS:
       return {
@@ -49,6 +51,17 @@ const commonDataReducer = (state = initialstate, action) => {
       return {
         ...state,
         categoryTypes: action.payload.data.data,
+      };
+
+    case userGroupTypes.GET_ALL_USER_GROUP_SUCCESS:
+      return {
+        ...state,
+        allUserGroup: action.payload.data.data,
+      };
+    case userGroupTypes.GET_ALL_USER_GROUP_FAIL:
+      return {
+        ...state,
+        allUserGroup: [],
       };
     case userTypes.LOGOUT_USER:
       return { ...initialstate };

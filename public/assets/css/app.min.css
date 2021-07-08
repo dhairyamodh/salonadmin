@@ -2326,10 +2326,10 @@ File: leftbar-tab Css
 }
 
 .leftbar-tab-menu .main-icon-menu {
-  width: 70px;
+  width: 100px;
   flex-direction: column;
   align-items: center;
-  padding: 20px 0;
+  /* padding: 20px 0; */
   /* background-color: #11212e; */
   background: #3f284f;
   height: 100%;
@@ -2344,8 +2344,18 @@ File: leftbar-tab Css
 
 .leftbar-tab-menu .main-icon-menu .menu-icon.icon-dual {
   color: #e16f34;
-
   fill: rgba(190, 202, 230, 0.25);
+}
+
+.leftbar-tab-menu .main-icon-menu h6 {
+  color: #ccc;
+  text-transform: capitalize;
+  white-space: nowrap;
+  width: 90%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 13px;
+  margin: 5px;
 }
 
 .leftbar-tab-menu .main-icon-menu .pro-metrica-end {
@@ -2359,13 +2369,14 @@ File: leftbar-tab Css
   flex: 1;
   flex-direction: column;
   align-items: center;
-  padding: 5px 0;
-  margin-top: 20px;
+  /* padding: 5px 0; */
+  /* margin-top: 20px; */
 }
 
 .leftbar-tab-menu .main-icon-menu .nav-link {
   position: relative;
-  padding: 0;
+  width: 100%;
+  padding: 7px 0;
   color: #e16f34;
   /* border-radius: 100px; */
   /* background: linear-gradient(145deg, #3653c7, #4062ec);
@@ -2388,6 +2399,7 @@ File: leftbar-tab Css
   align-items: center;
   justify-content: center;
   font-size: 25px;
+  flex-direction: column;
 }
 
 .leftbar-tab-menu .main-icon-menu .nav-link:hover,
@@ -2400,9 +2412,10 @@ File: leftbar-tab Css
   color: #506ee4;
 }
 
-.leftbar-tab-menu .main-icon-menu .nav-link:active .menu-icon.icon-dual,
-.leftbar-tab-menu .main-icon-menu .nav-link.active .menu-icon.icon-dual {
+.leftbar-tab-menu .main-icon-menu .nav-link.active,
+.leftbar-tab-menu .main-icon-menu .nav-link.active {
   color: #ffffff;
+  background-color: #2e1d3b;
   /* background-image: linear-gradient(
     to left top,
     #e16f34,
@@ -2420,9 +2433,14 @@ File: leftbar-tab Css
   fill: rgba(255, 255, 255, 0.25);
 }
 
-.leftbar-tab-menu .main-icon-menu .nav-link + .nav-link {
-  margin-top: 30px;
+.leftbar-tab-menu .main-icon-menu .nav-link.active h6,
+.leftbar-tab-menu .main-icon-menu .nav-link.active i {
+  color: #fff;
 }
+
+/* .leftbar-tab-menu .main-icon-menu .nav-link + .nav-link {
+  margin-top: 10px;
+} */
 
 .leftbar-tab-menu .main-icon-menu .nav-link i.drip-icon {
   line-height: 1;
@@ -2432,15 +2450,15 @@ File: leftbar-tab Css
   width: auto;
 }
 
-.leftbar-tab-menu .main-icon-menu .nav-link.active:before {
+/* .leftbar-tab-menu .main-icon-menu .nav-link.active:before {
   content: "";
   position: absolute;
-  left: 38px;
-  top: 10px;
+  left: 120%;
+  top: 25px;
   border-right: 10px solid #edf0f5;
   border-top: 10px solid transparent;
   border-bottom: 10px solid transparent;
-}
+} */
 
 @media (min-width: 992px) {
   .leftbar-tab-menu .main-icon-menu {
@@ -3579,9 +3597,9 @@ p {
 /*btn-gradient-info*/
 
 .btn-gradient-info {
-  background: linear-gradient(14deg, #65407f 0%, rgba(155, 167, 202, 0.7));
+  background: linear-gradient(14deg, #65407f 0%, rgb(155, 167, 202));
   color: #ffffff;
-  box-shadow: 0 7px 14px 0 rgba(155, 167, 202, 0.5);
+  /* box-shadow: 0 7px 14px 0 rgba(155, 167, 202, 0.5); */
   border: none;
 }
 
@@ -3597,7 +3615,7 @@ p {
 .btn-gradient-info.active,
 .btn-gradient-info:active,
 .show > .btn-gradient-info.dropdown-toggle {
-  background: linear-gradient(14deg, #65407f 0%, rgba(155, 167, 202, 0.7));
+  background: linear-gradient(14deg, #65407f 0%, rgb(155, 167, 202));
   color: #ffffff;
 }
 

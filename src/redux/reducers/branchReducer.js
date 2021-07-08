@@ -6,7 +6,7 @@ import {
   hotKeyTypes,
   serviceTypes,
   salonTypes,
-  tableTypes,
+  currency,
   userTypes,
 } from "../types";
 
@@ -17,7 +17,6 @@ const initialstate = {
   items: [],
   salonItems: [],
   hotkeys: [],
-  tables: [],
   expenses: [],
   salonExpenseTypes: [],
 };
@@ -90,11 +89,6 @@ const branchReducer = (state = initialstate, action) => {
         hotkeys: getData().data,
       };
 
-    case tableTypes.GET_ALL_TABLES_SUCCESS:
-      return {
-        ...state,
-        tables: getData().data,
-      };
     case userTypes.LOGOUT_USER:
       return { ...initialstate };
     // case salonTypes.CREATE_SALON_SUCCESS:

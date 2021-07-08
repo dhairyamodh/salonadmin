@@ -4,9 +4,8 @@ import ProtectedRoute from "./ProtectedRoute";
 import ManageBranches from "../pages/Branches/ManageBranches";
 import ManageItemCategories from "../pages/ItemCategories/ManageCategories";
 import ManageServices from "../pages/Items/ManageServices";
-import ManageTables from "../pages/Tables/ManageTables";
 import ManageHotKeys from "../pages/HotKeys/ManageHotKeys";
-import ManageTableTypes from "../pages/TableTypes/index";
+import Currency from "../pages/Currency/index";
 // import ManageCategoryTypes from "../pages/CategoryTypes/index";
 import ManageExpense from "../pages/Expense/index";
 
@@ -111,11 +110,6 @@ const DashBoardRoutes = () => {
             component={ManageServices}
           />
 
-          <ProtectedRoute
-            roles={[salonadmin, branchadmin]}
-            path="/managetables"
-            component={ManageTables}
-          />
 
           <ProtectedRoute
             roles={[salonadmin, branchadmin]}
@@ -125,8 +119,8 @@ const DashBoardRoutes = () => {
 
           <ProtectedRoute
             roles={[superadmin]}
-            path="/managetabletypes"
-            component={ManageTableTypes}
+            path="/currency"
+            component={Currency}
           />
           <ProtectedRoute
             roles={[superadmin]}

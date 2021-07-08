@@ -8,6 +8,7 @@ import { showSnackBar } from "../../../redux/action/snackActions";
 import { mobileRegex, emailRegex } from "../../../helpers/regex";
 import getErrorMessage from "../../../helpers/getErrorMessage";
 import TableTitle from "../../../components/common/SmartTable/TableTitle";
+import { getAllUserGrpups } from "../../../redux/action/userGroupActions";
 
 const AddModal = ({ open, onClose, title }) => {
   const { register, watch, errors, handleSubmit, setValue, reset } = useForm();
@@ -20,8 +21,8 @@ const AddModal = ({ open, onClose, title }) => {
   const [currRoles, setCurrRoles] = React.useState("branchadmin");
   const [currRes, setCurrRes] = React.useState();
   const [currBranch, setCurBranch] = React.useState(branchId || "all");
-
-  const currRestaurandId = salonId !== "all" ? salonId : currRes;
+  const salonUserGroup = useSelector((state) => state.common.allUserGroup);
+  const currSalonId = salonId !== "all" ? salonId : currRes;
 
   const SalonAdminOption = () => (
     <div class="form-group col-md-6">
@@ -135,11 +136,12 @@ const AddModal = ({ open, onClose, title }) => {
   }, [role]);
 
   React.useEffect(() => {
-    console.log(currRestaurandId);
-    dispatch(getAllBranches(currRestaurandId, "true"));
-  }, [currRestaurandId]);
+    dispatch(getAllBranches(currSalonId, "true"));
+    dispatch(getAllUserGrpups(currSalonId, undefined))
+
+  }, [currSalonId]);
   React.useEffect(() => {
-    dispatch(getAllBranches(currRestaurandId, "true"));
+    dispatch(getAllBranches(currSalonId, "true"));
   }, []);
 
   return (
@@ -165,7 +167,7 @@ const AddModal = ({ open, onClose, title }) => {
                     />
                   </div>
 
-                  <div class="form-group col-md-6">
+                  <div class="form-group col-md-3">
                     <label>Employee Mobile Number</label>
                     <input
                       type="text"
@@ -185,6 +187,23 @@ const AddModal = ({ open, onClose, title }) => {
                         {errors.userMobile.message || "Invalid mobile number"}
                       </div>
                     )}
+                  </div>
+
+                  <div class="form-group col-md-3">
+                    <label>Employee Group</label>
+                    <select
+                      name="status"
+                      ref={register}
+                      class="form-control"
+                      required
+                    >
+                      {salonUserGroup.map((group, index) => {
+                        return (
+                          <option value={group._id}>{group.groupName}</option>
+                        )
+                      })}
+                    </select>
+
                   </div>
                   <div class="form-group col-md-6">
                     <label>Password</label>
@@ -247,7 +266,7 @@ const AddModal = ({ open, onClose, title }) => {
                     class="btn btn-gradient-primary waves-effect waves-light"
                   >
                     Submit
-                    </button>
+                  </button>
                 </div>
               </form>
             </div>
