@@ -16,18 +16,18 @@ const MyTextField = React.forwardRef((props, ref) => {
     size,
     noPadding,
     required,
-    defaultValue
+    defaultValue,
+    onChange,
   } = props;
   const handleChange = (e) => {
     let target = {
       name,
       value: e.target.value,
     };
-    console.log("target", target);
     let newEvent = { target: target };
 
-    props.onChange(newEvent);
-  }
+    onChange(newEvent);
+  };
   return (
     <InputContainer
       noPadding={noPadding}
@@ -39,7 +39,7 @@ const MyTextField = React.forwardRef((props, ref) => {
       <select
         name={name}
         class="form-control"
-        onChange={handleChange}
+        onChange={onChange}
         defaultValue={defaultValue}
       >
         {defaultOption && defaultOption()}

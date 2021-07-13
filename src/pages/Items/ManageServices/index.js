@@ -75,15 +75,13 @@ const ManageServices = () => {
 
       placeholder: "Type Service Name",
       required: true,
-
     },
     {
       type: "file",
       name: "imageSrc",
       label: "Service image",
       size: 4,
-      required: true,
-
+      // required: true,
     },
     {
       type: "number",
@@ -93,7 +91,6 @@ const ManageServices = () => {
       label: "Selling Price",
       placeholder: "Type Selling Price",
       required: true,
-
     },
     {
       type: "number",
@@ -103,7 +100,6 @@ const ManageServices = () => {
       label: "Price",
       placeholder: "Type Price",
       required: true,
-
     },
     {
       type: "duration",
@@ -155,7 +151,6 @@ const ManageServices = () => {
       optionValueProp: "value",
 
       required: true,
-
     },
     {
       type: "textarea",
@@ -164,7 +159,7 @@ const ManageServices = () => {
       label: "Description",
       maxLength: 500,
       placeholder: "Enter description",
-      rows: 3
+      rows: 3,
       // required: true,
       // rules: {
       //   required: {
@@ -224,8 +219,8 @@ const ManageServices = () => {
           role: role,
           ...(data?.imageSrc[0] &&
             typeof data?.imageSrc[0] !== "string" && {
-            imageSrc: data?.imageSrc[0],
-          }),
+              imageSrc: data?.imageSrc[0],
+            }),
         })
       )
         .then((res) => {
@@ -245,7 +240,10 @@ const ManageServices = () => {
         .catch((err) => {
           console.log("err", err);
           dispatch(
-            showSnackBar(getErrorMessage(err) || "Failed to Add Service", "error")
+            showSnackBar(
+              getErrorMessage(err) || "Failed to Add Service",
+              "error"
+            )
           );
         });
     }

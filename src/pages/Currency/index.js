@@ -20,7 +20,7 @@ const PageTitle = "Currency ";
 const ManageCurrencys = () => {
   const { currency } = useSelector((state) => state.common);
 
-  const { role, } = useSelector((state) => state.user);
+  const { role } = useSelector((state) => state.user);
 
   const formData = [
     {
@@ -30,12 +30,6 @@ const ManageCurrencys = () => {
       placeholder: "Enter Currency Name",
       required: true,
       size: 12,
-      rules: {
-        required: {
-          value: true,
-          message: "Currency Name is required",
-        },
-      },
     },
     {
       type: "text",
@@ -44,12 +38,6 @@ const ManageCurrencys = () => {
       placeholder: "Enter Currency Symbol",
       required: true,
       size: 12,
-      rules: {
-        required: {
-          value: true,
-          message: "Currency Symbol is required",
-        },
-      },
     },
 
     {
@@ -71,11 +59,6 @@ const ManageCurrencys = () => {
       optionValueProp: "value",
 
       required: true,
-      rules: {
-        required: {
-          value: true,
-        },
-      },
     },
   ];
 

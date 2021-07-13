@@ -48,6 +48,10 @@ export const superadmin = [
         title: "Themes",
         link: "/managethemes",
       },
+      {
+        title: "Currency",
+        link: "/currency",
+      },
     ],
   },
 ];

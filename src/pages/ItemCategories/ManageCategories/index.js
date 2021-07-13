@@ -22,7 +22,7 @@ import { getAllBranches } from "../../../redux/action/branchActions";
 import getErrorMessage from "../../../helpers/getErrorMessage";
 import CommonImportModal from "../../../components/common/Modals/CommonImportModal";
 import ImportCommonAction from "../../../components/common/Actions/ImportCommonAction";
-import * as Yup from 'yup';
+import * as Yup from "yup";
 
 const PageTitle = "Categories";
 
@@ -52,10 +52,8 @@ const ManageItemCategories = () => {
   const categories = isBranchAdmin
     ? arraycat
     : isSalonAdmin
-      ? salonCategories
-      : arraycat;
-
-
+    ? salonCategories
+    : arraycat;
 
   const formData = [
     // {
@@ -81,16 +79,13 @@ const ManageItemCategories = () => {
       label: "Category Name",
       placeholder: "Type Category Name",
       required: true,
-
-
     },
     {
       type: "file",
       name: "categoryImage",
       label: "Category image",
       placeholder: "Type Category image",
-      required: open === "Add" && true,
-
+      // required: open === "Add" && true,
     },
 
     {
@@ -111,8 +106,7 @@ const ManageItemCategories = () => {
       optionValueProp: "value",
 
       required: true,
-
-    }
+    },
   ];
 
   const dispatch = useDispatch();
@@ -206,9 +200,6 @@ const ManageItemCategories = () => {
 
           ...(currSalonId && { salonId: salonId }),
           ...(currBranchId && { branchId: currBranchId }),
-          ...(typeof data?.categoryImage[0] !== "string" && {
-            categoryImage: data?.categoryImage[0],
-          }),
         })
       )
         .then((res) => {
@@ -235,13 +226,9 @@ const ManageItemCategories = () => {
         });
     }
     if (open === "Edit") {
-      if (data.categoryImage) {
-        if (data.categoryImage?.length < 1) {
-          delete data?.categoryImage;
-        } else {
-          data.categoryImage = data?.categoryImage[0];
-        }
-      }
+      // if (data.categoryImage) {
+      //   delete data?.categoryImage;
+      // }
       dispatch(
         updateCategory({
           ...actionData,
@@ -282,7 +269,7 @@ const ManageItemCategories = () => {
         salonId: salonId,
         ...(currBranchId && { branchId: branchId }),
         data: data.map((item) => {
-          item.restaurantCateId = item._id || item.id
+          item.restaurantCateId = item._id || item.id;
           delete item.id;
           delete item._id;
           return {

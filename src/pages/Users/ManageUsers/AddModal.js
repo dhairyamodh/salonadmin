@@ -111,8 +111,7 @@ const AddModal = ({ open, onClose, title }) => {
     dispatch(
       createUser({
         ...data,
-        ...(salonId !== "all" &&
-          salonId && { salonId: salonId }),
+        ...(salonId !== "all" && salonId && { salonId: salonId }),
       })
     )
       .then((res) => {
@@ -137,8 +136,7 @@ const AddModal = ({ open, onClose, title }) => {
 
   React.useEffect(() => {
     dispatch(getAllBranches(currSalonId, "true"));
-    dispatch(getAllUserGrpups(currSalonId, undefined))
-
+    dispatch(getAllUserGrpups(currSalonId, undefined));
   }, [currSalonId]);
   React.useEffect(() => {
     dispatch(getAllBranches(currSalonId, "true"));
@@ -150,9 +148,7 @@ const AddModal = ({ open, onClose, title }) => {
         <div class="col-12">
           <div class="card">
             <div class="card-body">
-              <TableTitle
-                title="Add Employee"
-              />
+              <TableTitle title="Add Employee" />
               <form class="form-parsley" onSubmit={handleSubmit(onSubmit)}>
                 <div class="row">
                   <div class="form-group col-md-6">
@@ -195,15 +191,17 @@ const AddModal = ({ open, onClose, title }) => {
                       name="status"
                       ref={register}
                       class="form-control"
-                      required
+                      // required
                     >
+                      <option value={""} selected>
+                        {"Common"}
+                      </option>
                       {salonUserGroup.map((group, index) => {
                         return (
                           <option value={group._id}>{group.groupName}</option>
-                        )
+                        );
                       })}
                     </select>
-
                   </div>
                   <div class="form-group col-md-6">
                     <label>Password</label>

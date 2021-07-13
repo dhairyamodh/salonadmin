@@ -25,7 +25,12 @@ import DeleteCommonAction from "../../../components/common/Actions/DeleteCommonA
 import getErrorMessage from "../../../helpers/getErrorMessage";
 import { RootUrl } from "../../../redux/types";
 import CommonAddModal from "../../../components/common/Modals/CommonAddModal";
-import { emailRegex, mobileRegex, yupEmail, yupMobile } from "../../../helpers/regex";
+import {
+  emailRegex,
+  mobileRegex,
+  yupEmail,
+  yupMobile,
+} from "../../../helpers/regex";
 import TableRowCommonAction from "../../../components/common/Actions/TableRowCommonAction";
 import { getAllCurrencies } from "../../../redux/action/tableActions";
 
@@ -34,7 +39,9 @@ const PageTitle = "Salons";
 const AddRestaurant = () => {
   const dispatch = useDispatch();
   const salons = useSelector((state) => state.salon.allSalons);
-  const { themes, subscriptions, currency } = useSelector((state) => state.common);
+  const { themes, subscriptions, currency } = useSelector(
+    (state) => state.common
+  );
   console.log("currency", currency);
 
   const [open, setOpen] = React.useState();
@@ -53,7 +60,6 @@ const AddRestaurant = () => {
       size: 8,
       placeholder: "Type a name",
       required: true,
-
     },
     {
       type: "file",
@@ -62,9 +68,9 @@ const AddRestaurant = () => {
       label: "Salon Logo",
       size: 4,
       // disabled: disabled,
-      ...(open === "Add" && {
-        required: true
-      }),
+      // ...(open === "Add" && {
+      //   required: true
+      // }),
     },
     {
       type: "text",
@@ -74,7 +80,7 @@ const AddRestaurant = () => {
 
       placeholder: "Enter a valid e-mail",
       required: true,
-      rules: yupEmail('Invalid email address')
+      rules: yupEmail("Invalid email address"),
     },
     {
       type: "text",
@@ -84,7 +90,6 @@ const AddRestaurant = () => {
 
       placeholder: "Enter a Contact Person Name",
       required: true,
-
     },
     {
       type: "text",
@@ -94,7 +99,7 @@ const AddRestaurant = () => {
 
       placeholder: "Enter a Contact Mobile Number Name",
       required: true,
-      rules: yupMobile('Invalid mobile number')
+      rules: yupMobile("Invalid mobile number"),
     },
     {
       type: "textarea",
@@ -104,7 +109,6 @@ const AddRestaurant = () => {
       rows: "2",
       placeholder: "Type a address",
       required: true,
-
     },
     {
       type: "number",
@@ -115,7 +119,6 @@ const AddRestaurant = () => {
       placeholder: "Enter Current Balance",
       required: true,
       disabled: disabled,
-
     },
     {
       type: "text",
@@ -125,7 +128,6 @@ const AddRestaurant = () => {
 
       placeholder: "Enter GST Number",
       required: true,
-
     },
     {
       type: "number",
@@ -135,7 +137,6 @@ const AddRestaurant = () => {
 
       placeholder: "Enter CGST tax",
       required: true,
-
     },
     {
       type: "number",
@@ -145,7 +146,6 @@ const AddRestaurant = () => {
 
       placeholder: "Enter SGST tax",
       required: true,
-
     },
 
     {
@@ -156,7 +156,6 @@ const AddRestaurant = () => {
 
       placeholder: "Type a tag line",
       required: true,
-
     },
 
     {
@@ -250,8 +249,8 @@ const AddRestaurant = () => {
             ...data,
             ...(data?.logo[0] &&
               typeof data?.logo[0] !== "string" && {
-              logo: data?.logo[0],
-            }),
+                logo: data?.logo[0],
+              }),
           },
           () => {
             toggleAdd();
@@ -281,9 +280,7 @@ const AddRestaurant = () => {
       )
         .then((res) => {
           if (res.payload.status === 200) {
-            dispatch(
-              showSnackBar("Salon Updated Successfully", "success")
-            );
+            dispatch(showSnackBar("Salon Updated Successfully", "success"));
             dispatch(getAllSalons());
             toggleAdd();
           } else {

@@ -47,15 +47,15 @@ const ManageTableTypes = () => {
       name: "categoryImage",
       label: "Category image",
       placeholder: "Type Category image",
-      required: open === "Add" && true,
-      ...(open === "Add" && {
-        rules: {
-          required: {
-            value: true,
-            message: "Category Name is required",
-          },
-        },
-      }),
+      // required: open === "Add" && true,
+      // ...(open === "Add" && {
+      //   rules: {
+      //     required: {
+      //       value: true,
+      //       message: "Category Name is required",
+      //     },
+      //   },
+      // }),
     },
     {
       type: "select",

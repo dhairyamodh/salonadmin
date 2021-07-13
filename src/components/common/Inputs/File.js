@@ -31,7 +31,6 @@ import InputContainer from "./InputContainer";
 
 import Form from "react-bootstrap/Form";
 import { RootUrl } from "../../../redux/types";
-import { Field, useFormikContext, useField } from 'formik';
 const MyTextField = React.forwardRef((props, ref) => {
   const {
     label,
@@ -43,23 +42,19 @@ const MyTextField = React.forwardRef((props, ref) => {
     size,
     mode,
     required,
-    onChange
+    onChange,
+    handleFileFieldChange,
   } = props;
   const [file, selectedFile] = React.useState();
   const [preview, setPreview] = React.useState();
-  const [field, meta, helpers] = useField(props);
-  console.log('meta', field, meta, helpers);
-  const { setValue } = helpers;
   React.useEffect(() => {
     if (!file) {
       setPreview(undefined);
       return;
     }
-    // create the preview
     const objectUrl = URL.createObjectURL(file);
     setPreview(objectUrl);
 
-    // free memory when ever this component is unmounted
     return () => URL.revokeObjectURL(objectUrl);
   }, [file]);
 
@@ -73,10 +68,9 @@ const MyTextField = React.forwardRef((props, ref) => {
 
     let newEvent = { target: target };
 
-    props.onChange(newEvent);
-  }
+    // props.onChange(newEvent);0
+  };
   const defaultValue = props.defaultValue;
-  console.log('file', file?.name);
   return (
     <div class={`form-group col-md-${size || "6"}`}>
       <label for="customFile">Choose file</label>
@@ -92,13 +86,14 @@ const MyTextField = React.forwardRef((props, ref) => {
           if (e.target.files.length > 0) {
             selectedFile(e.target.files[0]);
             // handleChange(e.target.files[0])
-            setValue(e.target.files[0])
+            // setValue(e.target.files[0])
+            handleFileFieldChange(name, e.target.files[0]);
           }
         }}
-      // {...{
-      //   ...(mode !== "Edit" && { value: value }),
-      // }}
-      // value={file ? file?.name : undefined}
+        // {...{
+        //   ...(mode !== "Edit" && { value: value }),
+        // }}
+        // value={file ? file?.name : undefined}
       />
 
       <div

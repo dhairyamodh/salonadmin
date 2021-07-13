@@ -119,13 +119,7 @@ const ManageSubscriptions = () => {
       size: 3,
 
       placeholder: "Type Subscription Name",
-      required: true,
-      rules: {
-        required: {
-          value: true,
-          message: "Subscription Name is required",
-        },
-      },
+      // required: true,
     },
     {
       type: "number",
@@ -134,13 +128,7 @@ const ManageSubscriptions = () => {
       size: 3,
 
       placeholder: "Type Subscription Amount",
-      required: true,
-      rules: {
-        required: {
-          value: true,
-          message: "Subscription Amount is required",
-        },
-      },
+      // required: true,
     },
     {
       type: "number",
@@ -149,17 +137,17 @@ const ManageSubscriptions = () => {
       size: 3,
 
       placeholder: "Type Subscription Duration",
-      required: true,
-      rules: {
-        required: {
-          value: true,
-          message: "Subscription Duration is required",
-        },
-        maxLength: {
-          value: 2,
-          message: "Please select lesser duration , maximum allowed 99",
-        },
-      },
+      // required: true,
+      // rules: {
+      //   required: {
+      //     value: true,
+      //     message: "Subscription Duration is required",
+      //   },
+      //   maxLength: {
+      //     value: 2,
+      //     message: "Please select lesser duration , maximum allowed 99",
+      //   },
+      // },
     },
 
     {
@@ -181,13 +169,13 @@ const ManageSubscriptions = () => {
       optionLabelProp: "title",
       optionValueProp: "value",
 
-      required: true,
-      rules: {
-        required: {
-          value: true,
-          message: "Branch Name is required",
-        },
-      },
+      // required: true,
+      // rules: {
+      //   required: {
+      //     value: true,
+      //     message: "Branch Name is required",
+      //   },
+      // },
     },
   ];
 
