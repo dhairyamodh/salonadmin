@@ -1,10 +1,10 @@
 const userGroupApi = {
-  GET_ALL_USER_GROUP: `/api/salon/userGroup`,
+  GET_ALL_USER_GROUP: `/salon/userGroup`,
 
-  CREATE_USER_GROUP: `/api/salon/userGroup/create`,
+  CREATE_USER_GROUP: `/salon/userGroup/create`,
 
-  UPDATE_USER_GROUP: `/api/salon/userGroup/update`,
+  UPDATE_USER_GROUP: `/salon/userGroup/update`,
 
-  DELETE_USER_GROUP: `/api/salon/userGroup/delete`,
+  DELETE_USER_GROUP: `/salon/userGroup/delete`,
 };
 export default userGroupApi;

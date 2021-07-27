@@ -1,15 +1,17 @@
 import React from "react";
+import { OverlayTrigger, Tooltip } from "react-bootstrap";
 
-const AddCommonAction = ({ onClick, title }) => {
+const ViewCommonAction = ({ onClick }) => {
   return (
-    <button
-      type="button"
-      onClick={() => onClick()}
-      class="btn btn-gradient-primary waves-effect waves-light"
+    <OverlayTrigger
+      placement="top"
+      overlay={<Tooltip id="tooltip-disabled">View</Tooltip>}
     >
-      <i class="mdi mdi-view-list mr-2"></i> {title}
-    </button>
+      <button type="button" class="btn btn-circle" onClick={() => onClick()}>
+        <i class="mdi mdi-eye-outline text-warning h4"></i>
+      </button>
+    </OverlayTrigger>
   );
 };
 
-export default AddCommonAction;
+export default ViewCommonAction;

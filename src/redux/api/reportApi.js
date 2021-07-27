@@ -1,4 +1,4 @@
 const reportApi = {
-  GET_REPORT: "/api/restaurant/reports/all",
+  GET_REPORT: "/salon/reports/all",
 };
 export default reportApi;

@@ -4,7 +4,7 @@ import snackReducer from "./snackReducer";
 import alertReducer from "./alertReducer";
 
 import userReducer from "./userReducer";
-import branchReducer from "./branchReducer";
+import allDataReducers from "./allDataReducers";
 import commonDataReducer from "./commonDataReducer";
 import orderReducer from "./orderReducer";
 import reportReducer from "./reportReducer";
@@ -21,7 +21,7 @@ export default combineReducers({
   alert: alertReducer,
   user: userReducer,
   salon: salonReducer,
-  branch: branchReducer,
+  all: allDataReducers,
   common: commonDataReducer,
   order: orderReducer,
   report: reportReducer,

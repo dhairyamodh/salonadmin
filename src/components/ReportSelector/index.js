@@ -48,11 +48,6 @@ const ReportSelector = ({
   }, [formState]);
 
   const { role, restaurantId, branchId } = useSelector((state) => state.user);
-  const branches = useSelector((state) => state.branch.allBranches);
-  const isSalonAdmin = ["salonadmin"].includes(role);
-  const isBranchAdmin = ["branchadmin"].includes(role);
-
-  const isSuperAdmin = ["superadmin"].includes(role);
 
   const handleChange = (event) => {
     if (event.target) {

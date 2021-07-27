@@ -1,7 +1,7 @@
 export const orderApi = {
-  CREATE_ORDER: `/api/restaurant/orders/create`,
-  UPDATE_ORDER: `/api/restaurant/orders/update`,
-  DELETE_ORDER: `/api/restaurant/orders/delete`,
+  CREATE_ORDER: `/salon/orders/create`,
+  UPDATE_ORDER: `/salon/orders/update`,
+  DELETE_ORDER: `/salon/orders/delete`,
 
-  GET_PREVIOS_ORDERS: `/api/restaurant/orders`,
+  GET_PREVIOS_ORDERS: `/salon/orders`,
 };

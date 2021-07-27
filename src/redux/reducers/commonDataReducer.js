@@ -7,14 +7,7 @@ import {
   userGroupTypes,
 } from "../types";
 
-const initialstate = {
-  themes: [],
-  subscriptions: [],
-  currency: [],
-  categoryTypes: [],
-  expenseTypes: [],
-  allUserGroup: []
-};
+const initialstate = {};
 
 const commonDataReducer = (state = initialstate, action) => {
   switch (action.type) {
@@ -36,33 +29,6 @@ const commonDataReducer = (state = initialstate, action) => {
     //     tableTypes: action.payload.data.data,
     //   };
 
-    case currency.GET_ALL_CURRENCIES_SUCCESS:
-      return {
-        ...state,
-        currency: action.payload.data.data,
-      };
-    case expenseTypes.GET_ALL_EXPENSE_TYPES_SUCCESS:
-      return {
-        ...state,
-        expenseTypes: action.payload.data.data,
-      };
-
-    case categoryTypes.GET_ALL_CATEGORY_TYPES_SUCCESS:
-      return {
-        ...state,
-        categoryTypes: action.payload.data.data,
-      };
-
-    case userGroupTypes.GET_ALL_USER_GROUP_SUCCESS:
-      return {
-        ...state,
-        allUserGroup: action.payload.data.data,
-      };
-    case userGroupTypes.GET_ALL_USER_GROUP_FAIL:
-      return {
-        ...state,
-        allUserGroup: [],
-      };
     case userTypes.LOGOUT_USER:
       return { ...initialstate };
     default:

@@ -1,6 +1,6 @@
 import axios from "axios";
 import axiosMiddleware from "redux-axios-middleware";
-import { RootUrl, userTypes } from "./types";
+import { BASEURL } from "../contants";
 import getToken from "../helpers/getToken";
 import { showSnackBar } from "./action/snackActions";
 import { expireSubScription } from "./action/userActions";
@@ -44,9 +44,7 @@ const options = {
 // https://github.com/svrcekmichal/redux-axios-middleware
 // https://github.com/axios/axios
 const client = axios.create({
-  // baseURL: "http://172.105.184.246:9874/",
-  // baseURL: "http://13.127.223.238:300",
-  baseURL: RootUrl,
+  baseURL: BASEURL,
 
   responseType: "json",
 

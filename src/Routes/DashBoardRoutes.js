@@ -1,32 +1,31 @@
 import React from "react";
 import { Route } from "react-router-dom";
 import ProtectedRoute from "./ProtectedRoute";
-import ManageBranches from "../pages/Branches/ManageBranches";
-import ManageItemCategories from "../pages/ItemCategories/ManageCategories";
-import ManageServices from "../pages/Items/ManageServices";
-import ManageHotKeys from "../pages/HotKeys/ManageHotKeys";
-import Currency from "../pages/Currency/index";
-// import ManageCategoryTypes from "../pages/CategoryTypes/index";
-import ManageExpense from "../pages/Expense/index";
 
-import AddSalon from "../pages/Restaurant/ManageSalon";
-import ManageSubScriptions from "../pages/Subscriptions/ManageSubscriptions";
-import ManageThemes from "../pages/Themes/ManageThemes";
-import ManageUsers from "../pages/Users/ManageUsers";
-import AddModal from "../pages/Users/ManageUsers/AddModal";
 import { useSelector } from "react-redux";
-import OrderDashboard from "../pages/OrderDashboard";
 
 import LeftSideBar from "../components/LeftSideBar/index";
 import TopBar from "../components/TopBar";
-import DashBoard from "../pages/DashBoard";
+import Salons from "../pages/Salons";
+
+import SalonsBranch from "../pages/SalonsBranch";
+
+import Users from "../pages/Users/index";
+import AddUsers from "../pages/Users/Addusers";
+import ManageThemes from "../pages/Settings/Themes";
+import ManageSubScriptions from "../pages/Settings/Subscriptions";
+
+import Currencies from "../pages/Settings/Currencies";
+import Categories from "../pages/Categories";
+import Services from "../pages/Services";
+import Bookings from "../pages/Bookings";
+
+import Customers from "../pages/Customers";
+import Expenses from "../pages/Expenses";
 import Reports from "../pages/Reports";
-import ManageExpenseTypes from "../pages/ExpenseTypes";
 
-import OrderHistory from "../pages/OrderHistory";
-
-import ExpiredSubscription from "../pages/ExpiredSubscription";
-import Printers from "../pages/Printers";
+import Offers from "../pages/Offers";
+import Deals from "../pages/Deals";
 
 const DashBoardRoutes = () => {
   const role = useSelector((state) => state.user.role);
@@ -44,46 +43,31 @@ const DashBoardRoutes = () => {
       <TopBar />
       <div className="data-container" style={{ height: "100%" }}>
         <LeftSideBar />
-
         <div
           class="dashboard-container"
           style={{ height: "100%", width: "100%", overflow: "auto" }}
         >
-          {isBranchUser && <Route exact path="/" component={OrderDashboard} />}
-          <ProtectedRoute
-            exact
-            roles={[branchadmin, branchuser]}
-            path="/order"
-            component={OrderDashboard}
-          />
-          <ProtectedRoute
-            exact
-            roles={[superadmin, branchadmin, salonadmin]}
-            path="/"
-            component={DashBoard}
-          />
           <ProtectedRoute
             roles={[superadmin]}
             path="/salons"
-            component={AddSalon}
+            component={Salons}
           />
-
           <ProtectedRoute
             roles={[superadmin, salonadmin]}
             path="/branches"
-            component={ManageBranches}
+            component={SalonsBranch}
           />
 
           <ProtectedRoute
             roles={[superadmin, salonadmin, branchadmin]}
             path="/employees"
-            component={ManageUsers}
+            component={Users}
           />
 
           <ProtectedRoute
             roles={[superadmin, salonadmin]}
             path="/adduser"
-            component={AddModal}
+            component={AddUsers}
           />
 
           <ProtectedRoute
@@ -91,8 +75,66 @@ const DashBoardRoutes = () => {
             path="/managethemes"
             component={ManageThemes}
           />
+          <ProtectedRoute
+            roles={[superadmin]}
+            path="/managesubscriptions"
+            component={ManageSubScriptions}
+          />
+          <ProtectedRoute
+            roles={[superadmin]}
+            path="/currency"
+            component={Currencies}
+          />
 
           <ProtectedRoute
+            roles={[salonadmin, branchadmin]}
+            path="/categories"
+            component={Categories}
+          />
+
+          <ProtectedRoute
+            roles={[salonadmin, branchadmin]}
+            path="/services"
+            component={Services}
+          />
+
+          <ProtectedRoute
+            roles={[salonadmin, branchadmin]}
+            path="/offers"
+            component={Offers}
+          />
+
+          <ProtectedRoute
+            roles={[salonadmin, branchadmin]}
+            path="/deals"
+            component={Deals}
+          />
+
+          <ProtectedRoute
+            roles={[salonadmin, branchadmin]}
+            path="/bookings"
+            component={Bookings}
+          />
+
+          <ProtectedRoute
+            roles={[salonadmin, branchadmin]}
+            path="/customers"
+            component={Customers}
+          />
+
+          <ProtectedRoute
+            roles={[salonadmin, branchadmin]}
+            path="/expenses"
+            component={Expenses}
+          />
+
+          <ProtectedRoute
+            roles={[salonadmin, branchadmin]}
+            path="/reports/:reportType"
+            component={Reports}
+          />
+
+          {/* <ProtectedRoute
             roles={[superadmin]}
             path="/managesubscriptions"
             component={ManageSubScriptions}
@@ -144,19 +186,7 @@ const DashBoardRoutes = () => {
             roles={[branchadmin, branchuser]}
             path="/manageprinters"
             component={Printers}
-          />
-          {/* 
-          <ProtectedRoute
-            roles={[superadmin]}
-            path="/managecategorytypes"
-            component={ManageCategoryTypes}
           /> */}
-
-          <ProtectedRoute
-            roles={[salonadmin, branchadmin]}
-            path="/reports/:reportType"
-            component={Reports}
-          />
         </div>
       </div>
     </div>

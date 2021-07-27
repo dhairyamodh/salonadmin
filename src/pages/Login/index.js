@@ -5,11 +5,11 @@ import {
   showSnackBar,
 } from "../../redux/action/snackActions";
 import { loginUser } from "../../redux/action/userActions";
-import checkDispatch from "../../helpers/checkdispatch";
 import { useHistory } from "react-router-dom";
-import { mobileRegex } from "../../helpers/regex";
-import { useForm } from "react-hook-form";
 import { SMALLLOGO } from "../../redux/types";
+
+import { useFormik } from "formik";
+import { loginValidation } from "../../validations/allValidations";
 const styles = {
   logoContainer: {
     backgroundColor: "red",
@@ -17,26 +17,31 @@ const styles = {
 };
 const Login = () => {
   const history = useHistory();
-  const { register, handleSubmit, watch, errors } = useForm();
   const isLoading = useSelector((state) => state.util.spinner);
+  const formik = useFormik({
+    initialValues: {
+      mobile: "",
+      password: "",
+    },
+    validationSchema: loginValidation,
+    onSubmit: (values) => {
+      onSubmit(values);
+    },
+  });
 
   const dispatch = useDispatch();
 
   const onSubmit = async (data) => {
-    dispatch(loginUser(data))
-      .then((res) => {
-        if (res.payload.status === 200) {
-          dispatch(showSnackBar("Login Success", "success"));
-          history.push("/");
-        }
+    dispatch(
+      loginUser(data, () => {
+        history.push("/");
       })
-      .catch((err) => {
-        dispatch(showErrorSnackBar(err));
-      });
+    );
   };
   const handleForgot = async (data) => {
     history.push("/forgotpassword");
   };
+
   return (
     <div className="account-body accountbg">
       <div className="container">
@@ -46,7 +51,7 @@ const Login = () => {
               <div className="card auth-card shadow-lg">
                 <div className="card-body">
                   <div className="px-3">
-                    {/* <div className="auth-logo-box">
+                    <div className="auth-logo-box">
                       <a
                         href="/"
                         className="logo logo-admin"
@@ -59,7 +64,7 @@ const Login = () => {
                           className="auth-logo"
                         />
                       </a>
-                    </div> */}
+                    </div>
                     <div className="text-center auth-logo-text">
                       <h4 className="mt-0 mb-3 mt-5">Let's Get Started </h4>
                       <p className="text-muted mb-0">Sign in to continue</p>
@@ -67,7 +72,7 @@ const Login = () => {
 
                     <form
                       className="form-horizontal auth-form my-4"
-                      onSubmit={handleSubmit(onSubmit)}
+                      onSubmit={formik.handleSubmit}
                     >
                       <div className="form-group">
                         <label htmlFor="username">Mobile</label>
@@ -81,19 +86,14 @@ const Login = () => {
                             className="form-control"
                             name="mobile"
                             required
-                            // value={data.mobile}
-                            ref={register({
-                              pattern: {
-                                value: mobileRegex,
-                                message: "Invalid mobile number",
-                              },
-                            })}
-                          // disabled={isLoading}
+                            onChange={formik.handleChange}
+                            value={formik.values.mobile}
+                            disabled={isLoading}
                           />
                         </div>
-                        {errors.mobile && (
+                        {formik.errors.mobile && (
                           <div class="form-text-error">
-                            {errors.mobile.message || "Invalid mobile number"}
+                            {formik.errors.mobile || "Invalid mobile number"}
                           </div>
                         )}
                       </div>
@@ -110,33 +110,14 @@ const Login = () => {
                             placeholder="Password"
                             className="form-control"
                             name="password"
-                            // value={data.password}
                             required
-                            // autoComplete="current-password"
-                            ref={register}
-                          // disabled={isLoading}
+                            onChange={formik.handleChange}
+                            value={formik.values.password}
+                            disabled={isLoading}
                           />
                         </div>
                       </div>
                       <div className="form-group row mt-4">
-                        {/* <div className="col-sm-6">
-                        <div className="custom-control custom-switch switch-success">
-                          <input
-                            className="custom-control-input"
-                            type="checkbox"
-                            name="remember"
-                            id="customSwitchSuccess"
-                          />
-
-                          <label
-                            className="custom-control-label text-muted"
-                            for="customSwitchSuccess"
-                          >
-                            Remember me
-                          </label>
-                        </div>
-                      </div> */}
-
                         <div className="col-sm-12 text-right">
                           <button
                             type="button"
@@ -153,17 +134,17 @@ const Login = () => {
                         <div className="col-12 mt-2">
                           <button
                             type="submit"
-                            // disabled={isLoading}
+                            disabled={isLoading}
                             className="btn btn-gradient-primary btn-round btn-block waves-effect waves-light"
                           >
-                            {/* {isLoading && (
+                            {isLoading && (
                               <span
                                 class="spinner-border spinner-border-sm"
                                 role="status"
                                 aria-hidden="true"
                                 style={{ marginRight: "20px" }}
                               ></span>
-                            )} */}
+                            )}
                             Log In
                             <i className="fas fa-sign-in-alt ml-1"></i>
                           </button>

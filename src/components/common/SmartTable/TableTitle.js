@@ -20,13 +20,14 @@ const TableTitle = ({ title, endAction: EndAction, headerComponents }) => {
       <div class="d-flex justify-content-between align-items-center mb-4">
         <div class="d-flex justify-content-between align-items-center">
           <h4 class="">{title}</h4>
-          {headerComponents && headerComponents?.map((Comp, index) => {
-            return (
-              <div class="ml-4">
-                <Comp />
-              </div>
-            );
-          })}
+          {headerComponents &&
+            headerComponents?.map((Comp, index) => {
+              return (
+                <div class="ml-4">
+                  <Comp />
+                </div>
+              );
+            })}
         </div>
 
         {EndAction && <EndAction />}

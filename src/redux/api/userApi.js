@@ -1,15 +1,15 @@
 const userApi = {
-  LOGIN_USER: "/api/auth/login",
+  LOGIN_USER: "/auth/login",
 
-  FORGOT_PASSWORD: "/api/auth/forgotpassword",
+  FORGOT_PASSWORD: "/auth/forgotpassword",
 
-  GET_USER_DETAILS: "/api/auth/details",
-  GET_ALL_USERS: `/api/salon/users`,
+  GET_USER_DETAILS: "/auth/details",
+  GET_ALL_USERS: `/salon/users`,
 
-  CREATE_USER: `/api/salon/users/create`,
+  CREATE_USER: `/salon/users/create`,
 
-  UPDATE_USER: `/api/salon/users/update`,
+  UPDATE_USER: `/salon/users/update`,
 
-  DELETE_USER: `/api/salon/users/delete`,
+  DELETE_USER: `/salon/users/delete`,
 };
 export default userApi;

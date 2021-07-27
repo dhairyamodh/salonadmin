@@ -41,6 +41,10 @@ const SmartTable = ({
   selectable,
   rowsPerPage: perPageRows,
   noPadding,
+  hideAdd,
+  hideEdit,
+  hideView,
+  hideDelete,
 }) => {
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("calories");
@@ -72,9 +76,15 @@ const SmartTable = ({
   };
 
   const handleCheckChange = (value, index) => {
+    let myIndex = index;
+
+    if (page > 0) {
+      myIndex = page * rowsPerPage + index;
+    }
+
     let newData = tableData;
 
-    newData[index].selected = value;
+    newData[myIndex].selected = value;
 
     setTableData([...newData]);
   };
@@ -91,7 +101,7 @@ const SmartTable = ({
   React.useEffect(() => {
     setRows(tableData);
     if (!paginated) {
-      setRowsPerPage(perPageRows || tableData?.length);
+      setRowsPerPage(perPageRows || tableData.length);
     }
   }, [tableData]);
 
@@ -122,11 +132,11 @@ const SmartTable = ({
   };
 
   const emptyRows =
-    rowsPerPage - Math.min(rowsPerPage, rows?.length - page * rowsPerPage);
+    rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
   return (
     <div class="row">
-      <div class="col-12 mt-2">
+      <div class="col-12">
         <div class={!noPadding && "card"}>
           <div class={!noPadding && "card-body"}>
             {title && (
@@ -175,9 +185,9 @@ const SmartTable = ({
                 <TableData
                   actions={actions}
                   header={headers}
-                  handleCheckChange={(value, index) =>
-                    handleCheckChange(value, index)
-                  }
+                  handleCheckChange={(value, index) => {
+                    handleCheckChange(value, index);
+                  }}
                   selectable={selectable}
                   data={stableSort(rows, getComparator(order, orderBy)).slice(
                     page * rowsPerPage,
@@ -186,9 +196,9 @@ const SmartTable = ({
                 />
               </table>
             </div>
-            {paginated && tableData?.length > 0 && (
+            {paginated && tableData.length > 0 && (
               <TablePagination
-                count={rows?.length}
+                count={rows.length}
                 rowsPerPage={rowsPerPage}
                 page={page}
                 onChangePage={handleChangePage}

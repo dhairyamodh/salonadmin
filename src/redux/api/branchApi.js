@@ -1,7 +1,7 @@
 const branchApi = {
-  GET_ALL_BRANCHES: `/api/salon/branches`,
-  CREATE_BRANCH: "/api/salon/branches/create",
-  UPDATE_BRANCH: "/api/salon/branches/update",
-  DELETE_BRANCH: `/api/salon/branches/delete`,
+  GET_ALL_BRANCHES: `/salon/branches`,
+  CREATE_BRANCH: "/salon/branches/create",
+  UPDATE_BRANCH: "/salon/branches/update",
+  DELETE_BRANCH: `/salon/branches/delete`,
 };
 export default branchApi;

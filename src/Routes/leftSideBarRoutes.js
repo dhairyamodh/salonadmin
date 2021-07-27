@@ -10,11 +10,11 @@ export const superadmin = [
     icon: "mdi mdi-food-fork-drink",
     link: "/salons",
   },
-  {
-    title: "Branch",
-    icon: "mdi mdi-source-branch",
-    link: "/branches",
-  },
+  // {
+  //   title: "Branch",
+  //   icon: "mdi mdi-source-branch",
+  //   link: "/branches",
+  // },
   {
     title: "Users",
     icon: "mdi mdi-account-outline",
@@ -31,19 +31,7 @@ export const superadmin = [
         // icon: "mdi mdi-package-variant-closed",
         link: "/managesubscriptions",
       },
-      {
-        title: "Table Types",
-        link: "/managetabletypes",
-      },
-      {
-        title: "Expense Types",
 
-        link: "/manageexpensetypes",
-      },
-      {
-        title: "Category",
-        link: "/categories",
-      },
       {
         title: "Themes",
         link: "/managethemes",
@@ -63,7 +51,11 @@ export const salonadmin = [
 
     link: "/",
   },
-
+  {
+    title: "Bookings",
+    icon: "mdi mdi-format-list-bulleted",
+    link: "/bookings",
+  },
   {
     title: "Categories",
     icon: "mdi mdi-format-list-bulleted",
@@ -76,11 +68,24 @@ export const salonadmin = [
     link: "/services",
   },
   {
-    title: "Branch",
-    icon: "mdi mdi-source-branch",
+    title: "Offers",
     role: "salonadmin",
-    link: "/branches",
+    icon: "mdi mdi-gift",
+    link: "/offers",
   },
+
+  {
+    title: "Deals",
+    role: "salonadmin",
+    icon: "mdi mdi-ticket-percent",
+    link: "/deals",
+  },
+  // {
+  //   title: "Branch",
+  //   icon: "mdi mdi-source-branch",
+  //   role: "salonadmin",
+  //   link: "/branches",
+  // },
   {
     title: "Employees",
     role: "salonadmin",
@@ -111,17 +116,17 @@ export const salonadmin = [
         title: "Cash Book",
         link: "/reports/cashbook",
       },
-      {
-        title: "Orders Report",
-        link: "/reports/orderreport",
-      },
+      // {
+      //   title: "Orders Report",
+      //   link: "/reports/orderreport",
+      // },
       {
         title: "Expense Report",
         link: "/reports/expensereport",
       },
       {
-        title: "Item Report",
-        link: "/reports/itemreport",
+        title: "Service Report",
+        link: "/reports/servicereport",
       },
       {
         title: "Sales Report",

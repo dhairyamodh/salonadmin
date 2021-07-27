@@ -1,8 +1,8 @@
-import restaurantApi from "../api/restaurantApi";
-import SuperAdminApi from "../api/superadmin";
-import { branchTypes, salonTypes } from "../types";
+import customerApi from "../api/customerApi";
+import salonApi from "../api/salonApi";
+import SuperAdminApi from "../api/superAdminApi";
+import { branchTypes, customerTypes, salonTypes } from "../types";
 import checkIfAsyncReqSuccess from "./checkIfAsyncReqSuccess";
-import { showSnackBar } from "./snackActions";
 
 export const getAllSalons = (status) => {
   return {
@@ -55,17 +55,18 @@ export const removeSalonSubScription = (data, cb) => {
     });
 };
 
-export const createRestaurant = (data, cb) => {
+export const createSalon = (data, cb, errorCb) => {
   // console.log(data);
 
   const formData = new FormData();
   Object.keys(data).forEach((key) => formData.append(key, data[key]));
   return (dispatch) =>
     checkIfAsyncReqSuccess(dispatch, {
-      successMessage: "Restaurant Added Succesfully",
-      errorMessage: "Failed to Add Restaurant",
+      successMessage: "Salon Added Succesfully",
+      errorMessage: "Failed to Add Salon",
       enableMessage: true,
       cb: cb,
+      errorCb: errorCb,
       type: salonTypes.CREATE_SALON,
       payload: {
         request: {
@@ -80,45 +81,55 @@ export const createRestaurant = (data, cb) => {
     });
 };
 
-export const deleteRestaurant = (data) => {
-  return {
-    type: salonTypes.DELETE_SALON,
-    payload: {
-      request: {
-        url: SuperAdminApi.DELETE_SALON,
-        method: "delete",
-        data: { id: data },
-      },
-    },
-  };
-};
-
-export const updateRestaurant = (data) => {
-  const formData = new FormData();
-  Object.keys(data).forEach((key) => formData.append(key, data[key]));
-  return {
-    type: salonTypes.UPDATE_SALON,
-    payload: {
-      request: {
-        url: SuperAdminApi.UPDATE_SALON,
-        method: "put",
-        data: formData,
-        headers: {
-          "Content-type": "multipart/form-data",
+export const deleteSalon = (data, cb, errorCb) => {
+  return (dispatch) =>
+    checkIfAsyncReqSuccess(dispatch, {
+      successMessage: "Salon Deleted Succesfully",
+      errorMessage: "Failed to Delete Salon",
+      enableMessage: true,
+      cb: cb,
+      type: salonTypes.DELETE_SALON,
+      payload: {
+        request: {
+          url: SuperAdminApi.DELETE_SALON,
+          method: "delete",
+          data: { id: data },
         },
       },
-    },
-  };
+    });
 };
 
-export const createRestaurantItem = (data) => {
+export const updateSalon = (data, cb, errorCb) => {
+  const formData = new FormData();
+  Object.keys(data).forEach((key) => formData.append(key, data[key]));
+  return (dispatch) =>
+    checkIfAsyncReqSuccess(dispatch, {
+      successMessage: "Salon Updated Succesfully",
+      errorMessage: "Failed to Update Salon",
+      enableMessage: true,
+      cb: cb,
+      type: salonTypes.UPDATE_SALON,
+      payload: {
+        request: {
+          url: SuperAdminApi.UPDATE_SALON,
+          method: "put",
+          data: formData,
+          headers: {
+            "Content-type": "multipart/form-data",
+          },
+        },
+      },
+    });
+};
+
+export const createSalonItem = (data) => {
   const formData = new FormData();
   Object.keys(data).forEach((key) => formData.append(key, data[key]));
   return {
     type: salonTypes.CREATE_SALON_ITEMS,
     payload: {
       request: {
-        url: restaurantApi.CREATE_SALON_ITEM,
+        url: SuperAdminApi.CREATE_SALON_ITEM,
         method: "post",
         data: formData,
         headers: {
@@ -129,14 +140,14 @@ export const createRestaurantItem = (data) => {
   };
 };
 
-export const updateRestaurantItem = (data) => {
+export const updateSalonItem = (data) => {
   const formData = new FormData();
   Object.keys(data).forEach((key) => formData.append(key, data[key]));
   return {
     type: salonTypes.UPDATE_SALON_ITEMS,
     payload: {
       request: {
-        url: restaurantApi.UPDATE_UPDATE_ITEM,
+        url: SuperAdminApi.UPDATE_UPDATE_ITEM,
         method: "PUT",
         data: formData,
         headers: {
@@ -147,12 +158,12 @@ export const updateRestaurantItem = (data) => {
   };
 };
 
-export const deleteRestaurantItem = (data) => {
+export const deleteSalonItem = (data) => {
   return {
     type: salonTypes.DELETE_SALON_ITEMS,
     payload: {
       request: {
-        url: restaurantApi.DELETE_SALON_ITEM,
+        url: SuperAdminApi.DELETE_SALON_ITEM,
         method: "delete",
         data: data,
       },
@@ -160,17 +171,198 @@ export const deleteRestaurantItem = (data) => {
   };
 };
 
-export const getAllRestaurantItems = (resId, status) => {
+export const getAllSalonItems = (resId, status) => {
   return {
     type: salonTypes.GET_ALL_SALON_ITEMS,
     payload: {
       request: {
-        url: restaurantApi.GET_ALL_SALON_ITEMS,
+        url: SuperAdminApi.GET_ALL_SALON_ITEMS,
         method: "get",
         params: {
           resId: resId,
 
           status: status,
+        },
+      },
+    },
+  };
+};
+
+export const getAllCustomers = (data) => {
+  return {
+    type: customerTypes.GET_ALL_CUSTOMERS,
+    payload: {
+      request: {
+        url: customerApi.GET_ALL_CUSTOMERS,
+        method: "get",
+        params: {
+          ...data,
+        },
+      },
+    },
+  };
+};
+
+//offfers
+
+export const createOffer = (data, cb, errorCb) => {
+  const formData = new FormData();
+  Object.keys(data).forEach((key) => formData.append(key, data[key]));
+
+  return (dispatch) =>
+    checkIfAsyncReqSuccess(dispatch, {
+      successMessage: "Offer Added Succesfully",
+      errorMessage: "Failed to add Offer",
+      enableMessage: true,
+      cb: cb,
+      errorCb: errorCb,
+      type: salonTypes.CREATE_OFFER,
+      payload: {
+        request: {
+          url: salonApi.CREATE_OFFER,
+          method: "post",
+          data: formData,
+          headers: {
+            "Content-type": "application/json",
+          },
+        },
+      },
+    });
+};
+
+export const updateOffer = (data, cb, errorCb) => {
+  const formData = new FormData();
+  Object.keys(data).forEach((key) => formData.append(key, data[key]));
+
+  return (dispatch) =>
+    checkIfAsyncReqSuccess(dispatch, {
+      successMessage: "Offer Updated Succesfully",
+      errorMessage: "Failed to update Offer",
+      enableMessage: true,
+      cb: cb,
+      errorCb: errorCb,
+      type: salonTypes.UPDATE_OFFER,
+      payload: {
+        request: {
+          url: salonApi.UPDATE_OFFER,
+          method: "PUT",
+          data: formData,
+          headers: {
+            "Content-type": "application/json",
+          },
+        },
+      },
+    });
+};
+
+export const deleteOffers = (data, cb, errorCb) => {
+  return (dispatch) =>
+    checkIfAsyncReqSuccess(dispatch, {
+      successMessage: "Offer deleted Succesfully",
+      errorMessage: "Failed to delete Offer",
+      enableMessage: true,
+      cb: cb,
+      errorCb: errorCb,
+      type: salonTypes.DELETE_OFFER,
+      payload: {
+        request: {
+          url: salonApi.DELETE_OFFER,
+          method: "delete",
+          data: data,
+        },
+      },
+    });
+};
+
+export const getAllOffers = (data) => {
+  return {
+    type: salonTypes.GET_ALL_OFFERS,
+    payload: {
+      request: {
+        url: salonApi.GET_ALL_OFFERS,
+        method: "get",
+        params: {
+          ...data,
+        },
+      },
+    },
+  };
+};
+
+//deals
+
+export const createDeal = (data, cb, errorCb) => {
+  return (dispatch) =>
+    checkIfAsyncReqSuccess(dispatch, {
+      successMessage: "Deal Added Succesfully",
+      errorMessage: "Failed to add Deal",
+      enableMessage: true,
+      cb: cb,
+      errorCb: errorCb,
+      type: salonTypes.CREATE_DEAL,
+      payload: {
+        request: {
+          url: salonApi.CREATE_DEAL,
+          method: "post",
+          data: data,
+          headers: {
+            "Content-type": "application/json",
+          },
+        },
+      },
+    });
+};
+
+export const updateDeal = (data, cb, errorCb) => {
+  return (dispatch) =>
+    checkIfAsyncReqSuccess(dispatch, {
+      successMessage: "Deal Updated Succesfully",
+      errorMessage: "Failed to update Deal",
+      enableMessage: true,
+      cb: cb,
+      errorCb: errorCb,
+      type: salonTypes.UPDATE_DEAL,
+      payload: {
+        request: {
+          url: salonApi.UPDATE_DEAL,
+          method: "PUT",
+          data: data,
+          headers: {
+            "Content-type": "application/json",
+          },
+        },
+      },
+    });
+};
+
+export const deleteDeal = (data, cb, errorCb) => {
+  return (dispatch) =>
+    checkIfAsyncReqSuccess(dispatch, {
+      successMessage: "Deal deleted Succesfully",
+      errorMessage: "Failed to delete Deal",
+      enableMessage: true,
+      cb: cb,
+      errorCb: errorCb,
+      type: salonTypes.DELETE_DEAL,
+      payload: {
+        request: {
+          url: salonApi.DELETE_DEAL,
+          method: "delete",
+          data: data,
+        },
+      },
+    });
+};
+
+export const getAllDealss = (data) => {
+  return {
+    type: salonTypes.GET_ALL_DEALS,
+    payload: {
+      request: {
+        url: salonApi.GET_ALL_DEALS,
+        method: "get",
+        params: {
+          ...data,
         },
       },
     },

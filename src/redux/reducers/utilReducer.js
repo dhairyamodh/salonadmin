@@ -1,9 +1,8 @@
 import { orderTypes, utilTypes } from "../types";
 const initialstate = {
   spinner: false,
-  enablePrinting: true,
+
   isFullScreen: false,
-  printData: undefined,
 };
 
 const utilReducer = (state = initialstate, action) => {
@@ -18,29 +17,6 @@ const utilReducer = (state = initialstate, action) => {
       return {
         ...state,
         drawerOpen: !state.drawerOpen,
-      };
-
-    case utilTypes.TOGGLE_PRINTING:
-      return {
-        ...state,
-        enablePrinting: !state.enablePrinting,
-      };
-
-    case orderTypes.CONFIRM_ORDER_SUCCESS:
-      return {
-        ...state,
-        printData: action.payload?.data?.data,
-      };
-    case utilTypes.SET_PRINT_DATA:
-      return {
-        ...state,
-        printData: action.payload,
-      };
-
-    case utilTypes.REMOVE_PRINT_DATA:
-      return {
-        ...state,
-        printData: undefined,
       };
 
     case "SPINNER_START":

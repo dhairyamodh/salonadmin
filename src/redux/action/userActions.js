@@ -2,17 +2,23 @@ import userApi from "../api/userApi";
 import { userTypes } from "../types";
 import checkIfAsyncReqSuccess from "./checkIfAsyncReqSuccess";
 
-export const loginUser = (data) => {
-  return {
-    type: userTypes.LOGIN_USER,
-    payload: {
-      request: {
-        url: userApi.LOGIN_USER,
-        method: "post",
-        data: data,
+export const loginUser = (data, cb, errorCb) => {
+  return (dispatch) =>
+    checkIfAsyncReqSuccess(dispatch, {
+      successMessage: "Login Succcess",
+      errorMessage: "Failed to Login",
+      enableMessage: true,
+      cb: cb,
+      errorCb: errorCb,
+      type: userTypes.LOGIN_USER,
+      payload: {
+        request: {
+          url: userApi.LOGIN_USER,
+          method: "post",
+          data: data,
+        },
       },
-    },
-  };
+    });
 };
 
 export const expireSubScription = () => {
@@ -109,7 +115,7 @@ export const getUserDetails = () => {
   };
 };
 
-export const getAllUsers = (salonId, branchId, status) => {
+export const getAllUsers = (resId, branchId, status) => {
   return {
     type: userTypes.GET_ALL_USERS,
     payload: {
@@ -117,7 +123,7 @@ export const getAllUsers = (salonId, branchId, status) => {
         url: userApi.GET_ALL_USERS,
         method: "GET",
         params: {
-          salonId: salonId,
+          salonId: resId,
           branchId: branchId,
           status: status,
         },
@@ -126,41 +132,59 @@ export const getAllUsers = (salonId, branchId, status) => {
   };
 };
 
-export const createUser = (data) => {
-  return {
-    type: userTypes.CREATE_USER,
-    payload: {
-      request: {
-        url: userApi.CREATE_USER,
-        method: "post",
-        data: data,
+export const createUser = (data, cb, errorCb) => {
+  return (dispatch) =>
+    checkIfAsyncReqSuccess(dispatch, {
+      successMessage: "User Added Succesfully",
+      errorMessage: "Failed to Add User",
+      enableMessage: true,
+      cb: cb,
+      errorCb: errorCb,
+      type: userTypes.CREATE_USER,
+      payload: {
+        request: {
+          url: userApi.CREATE_USER,
+          method: "post",
+          data: data,
+        },
       },
-    },
-  };
+    });
 };
 
-export const updateUser = (data) => {
-  return {
-    type: userTypes.UPDATE_USER,
-    payload: {
-      request: {
-        url: userApi.UPDATE_USER,
-        method: "put",
-        data: data,
+export const updateUser = (data, cb, errorCb) => {
+  return (dispatch) =>
+    checkIfAsyncReqSuccess(dispatch, {
+      successMessage: "User Updated Succesfully",
+      errorMessage: "Failed to update User",
+      enableMessage: true,
+      cb: cb,
+      errorCb: errorCb,
+      type: userTypes.UPDATE_USER,
+      payload: {
+        request: {
+          url: userApi.UPDATE_USER,
+          method: "put",
+          data: data,
+        },
       },
-    },
-  };
+    });
 };
 
-export const deleteUser = (data) => {
-  return {
-    type: userTypes.DELETE_USER,
-    payload: {
-      request: {
-        url: userApi.DELETE_USER,
-        method: "delete",
-        data: data,
+export const deleteUser = (data, cb, errorCb) => {
+  return (dispatch) =>
+    checkIfAsyncReqSuccess(dispatch, {
+      successMessage: "User Deleted Succesfully",
+      errorMessage: "Failed to delete User",
+      enableMessage: true,
+      cb: cb,
+      errorCb: errorCb,
+      type: userTypes.DELETE_USER,
+      payload: {
+        request: {
+          url: userApi.DELETE_USER,
+          method: "delete",
+          data: data,
+        },
       },
-    },
-  };
+    });
 };

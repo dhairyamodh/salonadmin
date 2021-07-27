@@ -15,32 +15,22 @@ const MyTextField = React.forwardRef((props, ref) => {
     defaultOption,
     size,
     noPadding,
-    required,
-    defaultValue,
-    onChange,
+    disabled,
   } = props;
-  const handleChange = (e) => {
-    let target = {
-      name,
-      value: e.target.value,
-    };
-    let newEvent = { target: target };
-
-    onChange(newEvent);
-  };
   return (
     <InputContainer
+      {...props}
       noPadding={noPadding}
       size={size}
       label={label}
       error={error}
     >
-      {required && <span className="text-danger"> *</span>}
       <select
         name={name}
         class="form-control"
-        onChange={onChange}
-        defaultValue={defaultValue}
+        ref={ref}
+        {...props}
+        size={undefined}
       >
         {defaultOption && defaultOption()}
         {options?.map((opt, index) => {

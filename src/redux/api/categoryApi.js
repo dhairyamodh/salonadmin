@@ -1,9 +1,9 @@
 const categoryApi = {
-  GET_ALL_CATEGORIES: `/api/salon/category`,
-  CREATE_CATEGORY: `/api/salon/category/create`,
-  UPDATE_CATEGORY: `/api/salon/category/update`,
-  DELETE_CATEGORY: `/api/salon/category/delete`,
+  GET_ALL_CATEGORIES: `/salon/category`,
+  CREATE_CATEGORY: `/salon/category/create`,
+  UPDATE_CATEGORY: `/salon/category/update`,
+  DELETE_CATEGORY: `/salon/category/delete`,
 
-  IMPORT_CATEGORIES: `/api/salon/category/import`,
+  IMPORT_CATEGORIES: `/salon/category/import`,
 };
 export default categoryApi;

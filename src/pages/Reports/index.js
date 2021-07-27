@@ -11,18 +11,18 @@ const Reports = () => {
   const dispatch = useDispatch();
   const { reportType } = useParams();
   const { data, isLoading } = useSelector((state) => state.report);
+  const { salonId } = useSelector((state) => state.user);
 
   const getData = (data) => {
-    dispatch(getReport(data));
+    dispatch(getReport({ ...data, salonId }));
   };
 
   const CurrentReport = reportData[role];
   const CurrentReportData = CurrentReport[reportType];
   const dataVariable = CurrentReportData.dataVariable || "data";
-  const branches = useSelector((state) => state.branch.allBranches);
 
   const intialFunction = () => {
-    dispatch(getAllBranches(restaurantId));
+    // dispatch(getAllBranches(restaurantId));
   };
 
   return (
@@ -34,7 +34,7 @@ const Reports = () => {
           reportData={data}
           getData={(data) => getData(data)}
           initialEffectFunction={() => intialFunction()}
-          optionData={{ branchId: branches }}
+          optionData={{}}
         />
       ) : (
         <Card>

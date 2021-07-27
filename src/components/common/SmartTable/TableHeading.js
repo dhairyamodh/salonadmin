@@ -1,4 +1,5 @@
 import React from "react";
+import { CURRENCY } from "../../../contants";
 
 const styles = {
   th: {
@@ -28,9 +29,6 @@ const TableHeading = ({
   return (
     <thead>
       <tr>
-        <th>
-          #
-        </th>
         {selectable && (
           <th>
             <div class="checkbox">
@@ -50,19 +48,21 @@ const TableHeading = ({
           </th>
         )}
         {data?.map((child, index) => {
+          const isCurrency = child.isCurrency;
           return (
             <th class="sorting" style={styles.th}>
               {sortable && (
                 <i
-                  class={`mdi mdi-arrow-expand-${order === "asc" ? "up" : "down"
-                    }`}
+                  class={`mdi mdi-arrow-expand-${
+                    order === "asc" ? "up" : "down"
+                  }`}
                 ></i>
               )}
               <button
                 style={styles.button}
                 onClick={createSortHandler(child.key)}
               >
-                {child.title}
+                {isCurrency && `(${CURRENCY})`} {child.title}
               </button>
             </th>
           );
