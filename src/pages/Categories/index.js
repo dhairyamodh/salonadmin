@@ -112,7 +112,7 @@ const Categories = () => {
     onDelete: deleteCategory,
     onImport: () => {},
 
-    getData: (e) => getAllSalonCategories(salonId),
+    getData: (e) => getAllSalonCategories({ salonId }),
     getImportData: () => {},
     afterAddSuccess: () => {},
     afterEditSuccess: () => {},

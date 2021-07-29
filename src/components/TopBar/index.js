@@ -12,7 +12,7 @@ const TopBar = () => {
   const handleLogout = () => {
     dispatch(logoutUser());
   };
-  return pathname !== "/order" && <View handleLogout={() => handleLogout()} />;
+  return pathname !== "/pos" && <View handleLogout={() => handleLogout()} />;
 };
 
 export default TopBar;

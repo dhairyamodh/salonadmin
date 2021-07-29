@@ -100,6 +100,9 @@ export const deleteSalon = (data, cb, errorCb) => {
 };
 
 export const updateSalon = (data, cb, errorCb) => {
+  if (data) {
+    delete data.subscription;
+  }
   const formData = new FormData();
   Object.keys(data).forEach((key) => formData.append(key, data[key]));
   return (dispatch) =>

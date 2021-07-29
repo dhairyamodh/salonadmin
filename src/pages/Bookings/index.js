@@ -10,7 +10,7 @@ import moment from "moment";
 const Bookings = () => {
   const dispatch = useDispatch();
 
-  const data = useSelector((state) => state.order.orders);
+  const data = useSelector((state) => state.all.bookings);
   const [state, setState] = React.useState({
     start: moment(),
     end: moment(),

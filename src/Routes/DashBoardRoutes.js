@@ -1,5 +1,5 @@
 import React from "react";
-import { Route } from "react-router-dom";
+import { Redirect, Route } from "react-router-dom";
 import ProtectedRoute from "./ProtectedRoute";
 
 import { useSelector } from "react-redux";
@@ -26,6 +26,8 @@ import Reports from "../pages/Reports";
 
 import Offers from "../pages/Offers";
 import Deals from "../pages/Deals";
+import PosDashboard from "../pages/PosDashboard";
+import Chairs from "../pages/Chairs";
 
 const DashBoardRoutes = () => {
   const role = useSelector((state) => state.user.role);
@@ -47,6 +49,7 @@ const DashBoardRoutes = () => {
           class="dashboard-container"
           style={{ height: "100%", width: "100%", overflow: "auto" }}
         >
+          <Redirect to="/pos" />
           <ProtectedRoute
             roles={[superadmin]}
             path="/salons"
@@ -57,19 +60,16 @@ const DashBoardRoutes = () => {
             path="/branches"
             component={SalonsBranch}
           />
-
           <ProtectedRoute
             roles={[superadmin, salonadmin, branchadmin]}
             path="/employees"
             component={Users}
           />
-
           <ProtectedRoute
             roles={[superadmin, salonadmin]}
             path="/adduser"
             component={AddUsers}
           />
-
           <ProtectedRoute
             roles={[superadmin]}
             path="/managethemes"
@@ -85,43 +85,36 @@ const DashBoardRoutes = () => {
             path="/currency"
             component={Currencies}
           />
-
           <ProtectedRoute
             roles={[salonadmin, branchadmin]}
             path="/categories"
             component={Categories}
           />
-
           <ProtectedRoute
             roles={[salonadmin, branchadmin]}
             path="/services"
             component={Services}
           />
-
           <ProtectedRoute
             roles={[salonadmin, branchadmin]}
             path="/offers"
             component={Offers}
           />
-
           <ProtectedRoute
             roles={[salonadmin, branchadmin]}
             path="/deals"
             component={Deals}
           />
-
           <ProtectedRoute
             roles={[salonadmin, branchadmin]}
             path="/bookings"
             component={Bookings}
           />
-
           <ProtectedRoute
             roles={[salonadmin, branchadmin]}
             path="/customers"
             component={Customers}
           />
-
           <ProtectedRoute
             roles={[salonadmin, branchadmin]}
             path="/expenses"
@@ -130,10 +123,20 @@ const DashBoardRoutes = () => {
 
           <ProtectedRoute
             roles={[salonadmin, branchadmin]}
+            path="/chairs"
+            component={Chairs}
+          />
+
+          <ProtectedRoute
+            roles={[salonadmin, branchadmin]}
             path="/reports/:reportType"
             component={Reports}
           />
-
+          <ProtectedRoute
+            roles={[salonadmin, branchadmin]}
+            path="/pos"
+            component={PosDashboard}
+          />
           {/* <ProtectedRoute
             roles={[superadmin]}
             path="/managesubscriptions"

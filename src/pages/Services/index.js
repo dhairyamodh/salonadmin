@@ -24,6 +24,7 @@ const Services = () => {
       type: "image",
       sourceUrl: BASEIMAGEURL,
     },
+    { title: "Sale Price", key: "salePrice" },
     { title: "Price", key: "price" },
     { title: "Category", key: "categoryName" },
     { title: "Status", key: "status" },
@@ -46,16 +47,16 @@ const Services = () => {
       // required: true,
     },
     {
-      type: "number",
+      type: "float",
       name: "salePrice",
       size: 4,
 
-      label: "Selling Price",
-      placeholder: "Type Selling Price",
+      label: "Sale Price",
+      placeholder: "Type Sale Price",
       required: true,
     },
     {
-      type: "number",
+      type: "float",
       name: "price",
       size: 4,
 
@@ -164,7 +165,7 @@ const Services = () => {
     afterImportSuccess: () => {},
   };
   React.useEffect(() => {
-    dispatch(getAllSalonCategories(salonId));
+    dispatch(getAllSalonCategories({ salonId }));
   }, []);
   return (
     <div>

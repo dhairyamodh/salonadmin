@@ -1,14 +1,14 @@
-export const CONTACTUSURL = "https://mealbill.in/contactus";
+export const CONTACTUSURL = "https://thebrowshapers.in/contactus";
 
 export const SMALLLOGO = "./images/logo-small.jpg";
 
 export const LOGINBG = "/images/logo-bg.jpg";
 
-// export const RootUrl = "https://api.mealbill.in/";
+// export const RootUrl = "https://api.thebrowshapers.in/";
 export const RootUrl = "http://54.211.119.193:4001";
 
 // export const RootUrl = "http://localhost:4000";
-// export const RootUrl = "https://mealbill.in/api";
+// export const RootUrl = "https://thebrowshapers.in/api";
 
 export const Curreny = "$";
 let primary = {
@@ -174,6 +174,41 @@ export const salonTypes = {
   GET_ALL_DEALS: "GET_ALL_DEALS",
   GET_ALL_DEALS_SUCCESS: "GET_ALL_DEALS_SUCCESS",
   GET_ALL_DEALS_FAIL: "GET_ALL_DEALS_FAIL",
+};
+export const chairTypes = {
+  CREATE_CHAIRTYPE: "CREATE_CHAIRTYPE",
+  CREATE_CHAIRTYPE_SUCCESS: "CREATE_CHAIRTYPE_SUCCESS",
+  CREATE_CHAIRTYPE_FAIL: "CREATE_CHAIRTYPE_FAIL",
+
+  UPDATE_CHAIRTYPE: "UPDATE_CHAIRTYPE",
+  UPDATE_CHAIRTYPE_SUCCESS: "UPDATE_CHAIRTYPE_SUCCESS",
+  UPDATE_CHAIRTYPE_FAIL: "UPDATE_CHAIRTYPE_FAIL",
+
+  GET_ALL_CHAIRTYPES: "GET_ALL_CHAIRTYPES",
+  GET_ALL_CHAIRTYPES_SUCCESS: "GET_ALL_CHAIRTYPES_SUCCESS",
+  GET_ALL_CHAIRTYPES_FAIL: "GET_ALL_CHAIRTYPES_FAIL",
+
+  DELETE_CHAIRTYPE: "DELETE_CHAIRTYPE",
+  DELETE_CHAIRTYPE_SUCCESS: "DELETE_CHAIRTYPE_SUCCESS",
+  DELETE_CHAIRTYPE_FAIL: "DELETE_CHAIRTYPE_FAIL",
+
+  CREATE_CHAIR: "CREATE_CHAIR",
+  CREATE_CHAIR_SUCCESS: "CREATE_CHAIR_SUCCESS",
+  CREATE_CHAIR_FAIL: "CREATE_CHAIR_FAIL",
+
+  UPDATE_CHAIR: "UPDATE_CHAIR",
+  UPDATE_CHAIR_SUCCESS: "UPDATE_CHAIR_SUCCESS",
+  UPDATE_CHAIR_FAIL: "UPDATE_CHAIR_FAIL",
+
+  GET_ALL_CHAIRS: "GET_ALL_CHAIRS",
+  GET_ALL_CHAIRS_SUCCESS: "GET_ALL_CHAIRS_SUCCESS",
+  GET_ALL_CHAIRS_FAIL: "GET_ALL_CHAIRS_FAIL",
+
+  DELETE_CHAIR: "DELETE_CHAIR",
+  DELETE_CHAIR_SUCCESS: "DELETE_CHAIR_SUCCESS",
+  DELETE_CHAIR_FAIL: "DELETE_CHAIR_FAIL",
+
+  CLOSE_MODAL: "CLOSE_MODAL",
 };
 
 export const categoryTypes = {
@@ -434,7 +469,7 @@ export const commonTypes = {
 export const orderTypes = {
   SET_ORDER_TYPE: "SET_ORDER_TYPE",
 
-  ACTIVATE_TABLE: "ACTIVATE_TABLE",
+  ACTIVATE_CHAIR: "ACTIVATE_CHAIR",
 
   ADD_OTHER_ORDER_TYPE: "ADD_OTHER_ORDER_TYPE",
 

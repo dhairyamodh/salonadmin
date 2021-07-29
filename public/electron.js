@@ -10,7 +10,7 @@ let win;
 function createWindow() {
   // Create the browser window.
   win = new BrowserWindow({
-    title: "Mealbill",
+    title: "TheBrowShapers",
     width: 800,
     height: 600,
     webPreferences: {

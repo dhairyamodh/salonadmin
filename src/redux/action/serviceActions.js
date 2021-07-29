@@ -75,7 +75,7 @@ export const deleteService = (data, cb, errorCb) => {
     });
 };
 
-export const getSalonServices = (status) => {
+export const getSalonServices = (data) => {
   return {
     type: serviceTypes.GET_SALON_SERVICES,
     payload: {
@@ -83,7 +83,7 @@ export const getSalonServices = (status) => {
         url: servicesApi.GET_SALON_SERVICES,
         method: "get",
         params: {
-          status: status,
+          ...data,
         },
       },
     },

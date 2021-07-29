@@ -4,6 +4,8 @@ export { default as textarea } from "./TextArea";
 // export { default as searchText } from "./SearchText";
 
 export { default as number } from "./Number";
+export { default as float } from "./Float";
+
 export { default as select } from "./Select";
 export { default as file } from "./File";
 export { default as dateRange } from "./DateRange";

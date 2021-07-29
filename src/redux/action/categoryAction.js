@@ -70,7 +70,7 @@ export const deleteCategory = (data, cb, errorCb) => {
     });
 };
 
-export const getAllSalonCategories = (id, status) => {
+export const getAllSalonCategories = (data) => {
   return {
     type: categoryTypes.GET_SALON_CATEGORIES,
     payload: {
@@ -78,8 +78,7 @@ export const getAllSalonCategories = (id, status) => {
         url: categoryApi.GET_ALL_CATEGORIES,
         method: "get",
         params: {
-          salonId: id,
-          status: status,
+          ...data,
         },
       },
     },

@@ -69,7 +69,7 @@ const ExpiredSubscription = () => {
                         }}
                         class="btn btn-lg btn-gradient-primary "
                       >
-                        Contact Mealbill
+                        Contact TheBrowShapers
                       </button>
                     </div>
                   </div>

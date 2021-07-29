@@ -5,7 +5,6 @@ export const DATEFORMAT = "DD/MM/YYYY";
 // export const BASEURL = "http://54.211.119.193:4001/api";
 export const BASEURL = "http://192.168.0.111:4001/api";
 
-
 export const BASEIMAGEURL = BASEURL.replace("/api", "");
 
 export const TIMEFORMAT = "HH:mm:ss";
@@ -41,9 +40,9 @@ export const MONTHSARRAY = [
 ];
 
 export const TYPESOFORDERS = [
-  { key: "Dine In", value: 0, bgColor: "#6d81f5" },
-  { key: "Parcel", value: 1, bgColor: `rgb(255, 234, 173)` },
-  { key: "Home Delivery", value: 2, bgColor: "rgb(198, 255, 186)" },
+  { key: "Chair", value: 0, bgColor: "#6d81f5" },
+
+  { key: "New Order", value: 1, bgColor: "#6d81f5" },
 ];
 
 export const SHORTCUTKEYS = [{ key: "Search and add item", value: "CTRL+S" }];

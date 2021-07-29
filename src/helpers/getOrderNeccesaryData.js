@@ -1,15 +1,20 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllTables } from "../redux/action/tableActions";
-import { getBranchCategories } from "../redux/action/categoryActions";
+import { getAllSalonCategories } from "../redux/action/categoryAction";
+import { getAllChaires } from "../redux/action/chairActions";
+// import { getAllTables } from "../redux/action/tableActions";
+// import { getBranchCategories } from "../redux/action/categoryActions";
 
-import { getBranchServices } from "../redux/action/serviceActions";
+import {
+  getBranchServices,
+  getSalonServices,
+} from "../redux/action/serviceActions";
 
 import getToken from "./getToken";
 
 function useFriendStatus(friendID) {
   const dispatch = useDispatch();
-  const { restaurantId, branchId } = useSelector((state) => state.user);
+  const { salonId, branchId } = useSelector((state) => state.user);
   const [ready, setReady] = useState(false);
 
   const delayReady = () => {
@@ -18,10 +23,20 @@ function useFriendStatus(friendID) {
   function handleCheckToken() {
     const tkn = getToken();
     if (tkn) {
+      dispatch(getSalonServices({ salonId }))
+        .then((res) => {
+          delayReady(true);
+        })
+        .catch((err) => {
+          delayReady(true);
+        });
+      dispatch(getAllSalonCategories({ salonId }));
 
-      dispatch(getBranchCategories(restaurantId, branchId, "true"));
+      dispatch(getAllChaires({ salonId }));
 
-      dispatch(getBranchServices(branchId, "true"));
+      // dispatch(getBranchCategories(restaurantId, branchId, "true"));
+
+      // dispatch(getBranchServices(branchId, "true"));
     } else {
       delayReady(true);
     }

@@ -95,6 +95,11 @@ const CommonActionModal = ({
                       mode={mode}
                       handleFileFieldChange={handleFileFieldChange}
                       handleOtherChange={handleOtherChange}
+                      disabled={
+                        item.disabled ||
+                        (item?.disabledCondition &&
+                          item?.disabledCondition({ mode }))
+                      }
                     />
                   )
                 );

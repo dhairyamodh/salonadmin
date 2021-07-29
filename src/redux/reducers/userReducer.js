@@ -13,8 +13,8 @@ const initialstate = {
   role: superadmin,
   allUsers: [],
   salonId: "all",
-  cgst: 0,
-  sgst: 0,
+  taxPercentage: 0,
+
   hasSubscriptionExpired: false,
 };
 

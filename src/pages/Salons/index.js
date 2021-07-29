@@ -39,7 +39,7 @@ const Salons = () => {
   const { themes, subscriptions, currencies } = useSelector(
     (state) => state.all
   );
-  console.log('currencies', currencies);
+  console.log("currencies", currencies);
   const formData = [
     {
       type: "text",
@@ -48,6 +48,9 @@ const Salons = () => {
       size: 4,
       placeholder: "Type a name",
       required: true,
+      // disabledCondition: ({ mode }) => {
+      //   return mode === "edit";
+      // },
     },
     {
       type: "text",
@@ -138,31 +141,22 @@ const Salons = () => {
       required: true,
       //   disabled: disabled,
     },
-    {
-      type: "text",
-      name: "gstNumber",
-      label: "GST Number",
-      size: 3,
+    // {
+    //   type: "text",
+    //   name: "gstNumber",
+    //   label: "GST Number",
+    //   size: 3,
 
-      placeholder: "Enter GST Number",
-      required: true,
-    },
-    {
-      type: "number",
-      name: "cgst",
-      label: "CGST",
-      size: 3,
-
-      placeholder: "Enter CGST tax",
-      required: true,
-    },
+    //   placeholder: "Enter GST Number",
+    //   required: true,
+    // },
     {
       type: "number",
-      name: "sgst",
-      label: "SGST",
+      name: "taxPercentage",
+      label: "Tax Percentage",
       size: 3,
 
-      placeholder: "Enter SGST tax",
+      placeholder: "Enter Tax Percentage",
       required: true,
     },
 
@@ -310,14 +304,14 @@ const Salons = () => {
     onAdd: createSalon,
     onEdit: updateSalon,
     onDelete: deleteSalon,
-    onImport: () => { },
+    onImport: () => {},
 
     getData: getAllSalons,
-    getImportData: () => { },
-    afterAddSuccess: () => { },
-    afterEditSuccess: () => { },
-    afterDeleteSuccess: () => { },
-    afterImportSuccess: () => { },
+    getImportData: () => {},
+    afterAddSuccess: () => {},
+    afterEditSuccess: () => {},
+    afterDeleteSuccess: () => {},
+    afterImportSuccess: () => {},
   };
 
   const onAddNewSubscription = (data) => {

@@ -5,6 +5,7 @@ export const superadmin = [
 
     link: "/",
   },
+
   {
     title: "Salon",
     icon: "mdi mdi-food-fork-drink",
@@ -52,34 +53,55 @@ export const salonadmin = [
     link: "/",
   },
   {
+    title: "POS",
+    icon: "mdi mdi-cart-outline",
+
+    link: "/pos",
+  },
+  {
     title: "Bookings",
-    icon: "mdi mdi-format-list-bulleted",
+    icon: "mdi mdi-calendar-multiselect",
     link: "/bookings",
   },
   {
-    title: "Categories",
-    icon: "mdi mdi-format-list-bulleted",
-    link: "/categories",
-  },
-  {
-    title: "Services",
-    role: "salonadmin",
-    icon: "mdi mdi-package-variant-closed",
-    link: "/services",
-  },
-  {
-    title: "Offers",
-    role: "salonadmin",
-    icon: "mdi mdi-gift",
-    link: "/offers",
+    title: "Resources",
+
+    icon: "mdi mdi-link-variant",
+
+    children: [
+      {
+        title: "Categories",
+        icon: "mdi mdi-format-list-bulleted",
+        link: "/categories",
+      },
+      {
+        title: "Services",
+        role: "salonadmin",
+        icon: "mdi mdi-package-variant-closed",
+        link: "/services",
+      },
+      {
+        title: "Offers",
+        role: "salonadmin",
+        icon: "mdi mdi-gift",
+        link: "/offers",
+      },
+
+      {
+        title: "Deals",
+        role: "salonadmin",
+        icon: "mdi mdi-ticket-percent",
+        link: "/deals",
+      },
+      {
+        title: "Chairs",
+        role: "salonadmin",
+        icon: "mdi mdi-chair-school",
+        link: "/chairs",
+      },
+    ],
   },
 
-  {
-    title: "Deals",
-    role: "salonadmin",
-    icon: "mdi mdi-ticket-percent",
-    link: "/deals",
-  },
   // {
   //   title: "Branch",
   //   icon: "mdi mdi-source-branch",

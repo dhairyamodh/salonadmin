@@ -1,71 +1,74 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import PageCreator from "../../components/PageCreator";
-import { BASEIMAGEURL, DATEFORMAT, dateRanges } from "../../contants";
+
+import moment from "moment";
 
 import {
-  getAllOffers,
-  createOffer,
-  updateOffer,
-  deleteOffers,
-} from "../../redux/action/salonActions";
-import { getSalonServices } from "../../redux/action/serviceActions";
+  getAllChaires,
+  createChair,
+  updateChair,
+  deleteChair,
+} from "../../redux/action/chairActions";
 
-const Offers = () => {
+const Chairs = () => {
   const dispatch = useDispatch();
 
-  const { offers: data, salonServices } = useSelector((state) => state.all);
+  const data = useSelector((state) => state.all.chairs);
 
   const { role, salonId, branchId } = useSelector((state) => state.user);
 
   const tableHeaders = [
-    { title: "Title", key: "offerTitle" },
     {
-      title: "Sub Title",
-      key: "offerSubTitle",
+      title: "Chair Number",
+      key: "chairNumber",
     },
-    {
-      title: "Image",
-      key: "offerImage",
-      type: "image",
-      sourceUrl: BASEIMAGEURL,
-    },
-    {
-      title: "Services",
-      key: "servicesWithComa",
-    },
+
+    //   { title: "Chair Type", key: "tableType" },
+    { title: "Extra Price", key: "chairPrice", isCurrency: true },
+
+    { title: "Status", key: "status" },
   ];
+
   const formData = [
-    {
-      type: "text",
-      name: "offerTitle",
-      label: "Title",
-      placeholder: "Type Title",
-      required: true,
-    },
+    // {
+    //   type: "select",
+    //   name: "chairTypeId",
+    //   label: "Chair Type",
+    //   options: tableTypes,
+    //   optionLabelProp: "tableTypeName",
+    //   optionValueProp: "id",
+    // },
 
     {
       type: "text",
-      name: "offerSubTitle",
-      label: "Sub Title",
-      placeholder: "Type Sub Title",
+      name: "chairNumber",
+      label: "Chair Number",
+      placeholder: "Type Chair Number",
       required: true,
+      rules: {
+        required: {
+          value: true,
+          message: "Chair Number is required",
+        },
+      },
     },
+
     {
-      type: "file",
-      name: "offerImage",
-      label: "Image",
-      placeholder: "Choose image",
-      // required: open === "Add" && true,
+      type: "float",
+      name: "chairPrice",
+      label: "Extra Price",
+      placeholder: "Type Extra Price",
+      required: true,
+
+      rules: {
+        required: {
+          value: true,
+          message: "Extra Priceis required",
+        },
+      },
     },
-    {
-      type: "multiselect",
-      name: "services",
-      label: "Services",
-      placeholder: "Choose Services",
-      options: salonServices,
-      size: 6,
-    },
+
     {
       type: "select",
       name: "status",
@@ -84,17 +87,22 @@ const Offers = () => {
       optionValueProp: "value",
 
       required: true,
+      rules: {
+        required: {
+          value: true,
+        },
+      },
     },
   ];
+
   const pageProps = {
-    title: "Offers",
+    title: "Chairs",
     layout: "tabular",
     tableHeaders: tableHeaders,
     tableData: data,
-    formData: formData,
     searchByField: undefined,
     searchByLabel: undefined,
-
+    formData: formData,
     sortable: true,
 
     paginated: true,
@@ -109,12 +117,12 @@ const Offers = () => {
 
     defaultFormValues: { salonId, role: role },
     deleteVariableTitle: undefined,
-    onAdd: createOffer,
-    onEdit: updateOffer,
-    onDelete: deleteOffers,
+    onAdd: createChair,
+    onEdit: updateChair,
+    onDelete: deleteChair,
     onImport: () => {},
 
-    getData: (e) => getAllOffers({ salonId }),
+    getData: (e) => getAllChaires({ salonId }),
     getImportData: () => {},
     afterAddSuccess: () => {},
     afterEditSuccess: () => {},
@@ -122,9 +130,6 @@ const Offers = () => {
     afterImportSuccess: () => {},
   };
 
-  React.useEffect(() => {
-    dispatch(getSalonServices({ salonId }));
-  }, []);
   return (
     <div>
       <PageCreator {...pageProps} />
@@ -132,4 +137,4 @@ const Offers = () => {
   );
 };
 
-export default Offers;
+export default Chairs;

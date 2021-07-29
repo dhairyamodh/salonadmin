@@ -11,6 +11,8 @@ import {
   userGroupTypes,
   commonTypes,
   customerTypes,
+  chairTypes,
+  orderTypes,
 } from "../types";
 
 const initialstate = {
@@ -36,6 +38,8 @@ const initialstate = {
   expenses: [],
   offers: [],
   deals: [],
+  chairs: [],
+  bookings: [],
 };
 
 const branchReducer = (state = initialstate, action) => {
@@ -45,6 +49,12 @@ const branchReducer = (state = initialstate, action) => {
       return {
         ...state,
         salons: getData().data,
+      };
+
+    case orderTypes.GET_PREVIOS_ORDERS_SUCCESS:
+      return {
+        ...state,
+        bookings: getData().data,
       };
 
     case branchTypes.GET_ALL_BRANCHES_SUCCESS:
@@ -129,6 +139,12 @@ const branchReducer = (state = initialstate, action) => {
       return {
         ...state,
         deals: getData().data,
+      };
+
+    case chairTypes.GET_ALL_CHAIRS_SUCCESS:
+      return {
+        ...state,
+        chairs: getData().data,
       };
     // case categoryTypes.GET_SALON_CATEGORIES_SUCCESS:
     //   return {

@@ -249,7 +249,7 @@ const ManageUsers = () => {
         onClick={() => {
           toggleAdd("Add");
           if (isSalonAdmin) {
-            dispatch(getSalonServices(true));
+            dispatch(getSalonServices({ salonId }));
           }
           setTableOpen(false);
         }}
