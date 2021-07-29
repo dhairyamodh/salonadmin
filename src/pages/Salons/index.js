@@ -36,16 +36,26 @@ const Salons = () => {
 
   const salons = useSelector((state) => state.all.salons);
 
-  const { themes, subscriptions, currency } = useSelector(
-    (state) => state.common
+  const { themes, subscriptions, currencies } = useSelector(
+    (state) => state.all
   );
+  console.log('currencies', currencies);
   const formData = [
     {
       type: "text",
       name: "name",
       label: "Salon Name",
-      size: 8,
+      size: 4,
       placeholder: "Type a name",
+      required: true,
+    },
+    {
+      type: "text",
+      name: "domainName",
+      label: "Domain Name",
+      size: 4,
+
+      placeholder: "Enter a Domain Name",
       required: true,
     },
     {
@@ -190,7 +200,7 @@ const Salons = () => {
       size: 4,
 
       label: "Currency",
-      options: currency,
+      options: currencies,
       optionLabelProp: "currencyNameWithCybol",
       optionValueProp: "_id",
       required: true,
@@ -251,7 +261,7 @@ const Salons = () => {
 
   React.useEffect(() => {
     dispatch(getAllThemes("true"));
-    dispatch(getAllCurrencies(true));
+    dispatch(getAllCurrencies("true"));
     dispatch(getAllSubscriptions("true"));
   }, []);
 
@@ -300,14 +310,14 @@ const Salons = () => {
     onAdd: createSalon,
     onEdit: updateSalon,
     onDelete: deleteSalon,
-    onImport: () => {},
+    onImport: () => { },
 
     getData: getAllSalons,
-    getImportData: () => {},
-    afterAddSuccess: () => {},
-    afterEditSuccess: () => {},
-    afterDeleteSuccess: () => {},
-    afterImportSuccess: () => {},
+    getImportData: () => { },
+    afterAddSuccess: () => { },
+    afterEditSuccess: () => { },
+    afterDeleteSuccess: () => { },
+    afterImportSuccess: () => { },
   };
 
   const onAddNewSubscription = (data) => {

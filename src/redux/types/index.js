@@ -5,12 +5,12 @@ export const SMALLLOGO = "./images/logo-small.jpg";
 export const LOGINBG = "/images/logo-bg.jpg";
 
 // export const RootUrl = "https://api.mealbill.in/";
-export const RootUrl = "http://localhost:4000";
+export const RootUrl = "http://54.211.119.193:4001";
 
 // export const RootUrl = "http://localhost:4000";
 // export const RootUrl = "https://mealbill.in/api";
 
-export const Curreny = "₹";
+export const Curreny = "$";
 let primary = {
   light: "#FFB2A4",
   main: "#F0583C",
