@@ -12,7 +12,11 @@ import OrderButton from "./OrderButton";
 import OrderConfirmModal from "../../../components/common/Modals/OrderConfirmModal";
 import { setKOTPrintData } from "../../../redux/action/utilActions";
 import moment from "moment";
-import { DATETIMEFORMAT } from "../../../contants";
+import {
+  DATETIMEFORMAT,
+  TIME24FORMAT,
+  TIMEAMPMFORMAT,
+} from "../../../contants";
 import getFloat from "../../../helpers/getFloat";
 
 function parseFloat2Decimals(value) {
@@ -117,6 +121,9 @@ const OrderTotalDisplay = () => {
       orderNumber: lastOrderNumber + (activeOrders.length - index),
       branchCode: branchCode,
       orderType: activeOrders[index].orderType,
+      startDate: new Date(),
+      startTime: moment(new Date(), TIMEAMPMFORMAT).format(TIME24FORMAT),
+
       ...customerData,
     };
 

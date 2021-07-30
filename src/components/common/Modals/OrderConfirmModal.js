@@ -8,13 +8,15 @@ const OrderConfirmModal = ({
   enableRemarks,
 }) => {
   // const [state, setState] = React.useState({
-  //   customerName: "Jamna",
-  //   customerMobile: "89888888888",
+  //   userName: "Jamna",
+  //   userMobile: "89888888888",
   //   remarks: undefined,
   // });
   const [state, setState] = React.useState({
-    customerName: undefined,
-    customerMobile: undefined,
+    userName: undefined,
+    userMobile: undefined,
+    userEmail: undefined,
+
     remarks: undefined,
   });
 
@@ -42,17 +44,17 @@ const OrderConfirmModal = ({
 
       <input
         type="text"
-        name="customerName"
+        name="userName"
         onChange={(e) => handleChange(e)}
         className="form-control mt-3 "
         style={{
           borderColor: "gray",
         }}
         placeholder="Customer Name"
-        value={state.customerName}
+        value={state.userName}
       />
       <input
-        name="customerMobile"
+        name="userMobile"
         type="number"
         max="10"
         maxLength="10"
@@ -61,22 +63,20 @@ const OrderConfirmModal = ({
         style={{
           borderColor: "gray",
         }}
-        value={state.customerMobile}
+        value={state.userMobile}
         placeholder="Customer Mobile Number"
       />
-      {enableRemarks && (
-        <textarea
-          name="remarks"
-          rows="4"
-          onChange={(e) => handleChange(e)}
-          className="form-control mt-3 "
-          style={{
-            borderColor: "gray",
-          }}
-          value={state.remarks}
-          placeholder="Remarks"
-        />
-      )}
+      <input
+        type="email"
+        name="userEmail"
+        onChange={(e) => handleChange(e)}
+        className="form-control mt-3 "
+        style={{
+          borderColor: "gray",
+        }}
+        value={state.userEmail}
+        placeholder="Customer Email"
+      />
     </SweetAlert>
   );
 };

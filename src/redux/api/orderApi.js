@@ -4,4 +4,6 @@ export const orderApi = {
   DELETE_ORDER: `/salon/orders/delete`,
 
   GET_PREVIOS_ORDERS: `/salon/orders`,
+
+  GET_FILTERED_ORDERS: `/salon/orders/filteredorders`,
 };

@@ -148,6 +148,7 @@ const ManageUsers = () => {
   };
 
   const confirmDelete = (data) => {
+    console.log("actionType", actionType);
     if (actionType === "employee") {
       dispatch(
         deleteUser(actionData, () => {
@@ -270,7 +271,13 @@ const ManageUsers = () => {
   };
 
   const DeleteAction = (action) => (
-    <DeleteCommonAction onClick={() => handleDelete(action.data.branchUser)} />
+    <DeleteCommonAction
+      onClick={() => {
+        setActionType("employee");
+
+        handleDelete(action.data.branchUser);
+      }}
+    />
   );
 
   const EditGroupAction = (action) => (

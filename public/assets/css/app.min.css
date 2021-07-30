@@ -11485,3 +11485,20 @@ input:-webkit-autofill:focus {
 .rc-time-picker-input {
   padding: 0.375rem 0.75rem;
 }
+
+.card-text-outline {
+  text-align: center;
+  padding: 0 5px;
+  border: 1px solid white;
+  border-radius: 10px;
+}
+
+.list-card-left,
+.list-card-left .h5 {
+  color: white;
+}
+
+.booking-details h6 {
+  color: black;
+  font-weight: 600;
+}

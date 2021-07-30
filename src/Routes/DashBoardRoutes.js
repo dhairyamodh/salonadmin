@@ -18,7 +18,7 @@ import ManageSubScriptions from "../pages/Settings/Subscriptions";
 import Currencies from "../pages/Settings/Currencies";
 import Categories from "../pages/Categories";
 import Services from "../pages/Services";
-import Bookings from "../pages/Bookings";
+import Bookings from "../pages/Bookings/index";
 
 import Customers from "../pages/Customers";
 import Expenses from "../pages/Expenses";
@@ -28,6 +28,8 @@ import Offers from "../pages/Offers";
 import Deals from "../pages/Deals";
 import PosDashboard from "../pages/PosDashboard";
 import Chairs from "../pages/Chairs";
+
+import DashBoard from "../pages/DashBoard";
 
 const DashBoardRoutes = () => {
   const role = useSelector((state) => state.user.role);
@@ -49,7 +51,14 @@ const DashBoardRoutes = () => {
           class="dashboard-container"
           style={{ height: "100%", width: "100%", overflow: "auto" }}
         >
-          <Redirect to="/pos" />
+          <Redirect to="/bookings" />
+
+          <ProtectedRoute
+            exact
+            roles={[salonadmin]}
+            path="/"
+            component={DashBoard}
+          />
           <ProtectedRoute
             roles={[superadmin]}
             path="/salons"

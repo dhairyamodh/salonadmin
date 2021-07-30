@@ -42,6 +42,14 @@ const initialstate = {
   bookings: [],
 };
 
+const findBookingAndUpdate = (bookings, currBooking) => {
+  const foundIndex = bookings.findIndex((item) => item.id === currBooking.id);
+  if (foundIndex >= 0) {
+    bookings[foundIndex].isPaid = "true";
+  }
+  return bookings;
+};
+
 const branchReducer = (state = initialstate, action) => {
   const getData = () => action.payload.data;
   switch (action.type) {
@@ -50,8 +58,18 @@ const branchReducer = (state = initialstate, action) => {
         ...state,
         salons: getData().data,
       };
-
+    case orderTypes.UPDATE_ORDER_SUCCESS:
+      return {
+        ...state,
+        bookings: [...findBookingAndUpdate(state.bookings, getData().data)],
+      };
     case orderTypes.GET_PREVIOS_ORDERS_SUCCESS:
+      return {
+        ...state,
+        bookings: getData().data,
+      };
+
+    case orderTypes.GET_FILTERED_ORDERS_SUCCESS:
       return {
         ...state,
         bookings: getData().data,

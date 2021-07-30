@@ -37,6 +37,19 @@ export const getAllOrders = (data) => {
   };
 };
 
+export const getFilteredOrders = (data) => {
+  return {
+    type: orderTypes.GET_FILTERED_ORDERS,
+    payload: {
+      request: {
+        url: orderApi.GET_FILTERED_ORDERS,
+        method: "post",
+        data: data,
+      },
+    },
+  };
+};
+
 export const activateTable = (
   chairTypeId,
   chairNumber,
@@ -140,6 +153,27 @@ export const confirmOrder = (data, cb, errorCb) => {
         request: {
           url: orderApi.CREATE_ORDER,
           method: "post",
+          data: data,
+          headers: {
+            "Content-type": "application/json",
+          },
+        },
+      },
+    });
+};
+
+export const updateOrder = (data, cb, errorCb) => {
+  return (dispatch) =>
+    checkIfAsyncReqSuccess(dispatch, {
+      successMessage: "Booking Updated Successfull",
+      errorMessage: "Failed To Booking",
+      cb: cb,
+      errorCb: errorCb,
+      type: orderTypes.UPDATE_ORDER,
+      payload: {
+        request: {
+          url: orderApi.UPDATE_ORDER,
+          method: "put",
           data: data,
           headers: {
             "Content-type": "application/json",

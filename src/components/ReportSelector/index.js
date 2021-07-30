@@ -47,7 +47,7 @@ const ReportSelector = ({
     setFormErrors(formState.errors);
   }, [formState]);
 
-  const { role, restaurantId, branchId } = useSelector((state) => state.user);
+  const { role, salonId, branchId } = useSelector((state) => state.user);
 
   const handleChange = (event) => {
     if (event.target) {
@@ -74,7 +74,7 @@ const ReportSelector = ({
     getReportData({
       ...body,
       role,
-      restaurantId: restaurantId,
+      salonId: salonId,
       reportType,
       dataType: dataType,
     });
@@ -101,39 +101,28 @@ const ReportSelector = ({
 
             return (
               role !== item?.hideAt && (
-                <MyInput
-                  value={state[item.name]}
-                  {...item}
-                  onChange={(e) => handleChange(e)}
-                  key={index}
-                  noPadding
-                  name={item.name}
-                  label={item.label}
-                  placeholder={item.placeholder}
-                  defaultValue={defaultValues ? defaultValues[item.name] : ""}
-                  ref={register(item.rules)}
-                  error={formErrors[item.name]?.message}
-                  {...(item?.hasOptions && { options: optionData[item.name] })}
-                />
+                <>
+                  <MyInput
+                    value={state[item.name]}
+                    {...item}
+                    onChange={(e) => handleChange(e)}
+                    key={index}
+                    noPadding
+                    name={item.name}
+                    label={item.label}
+                    placeholder={item.placeholder}
+                    defaultValue={defaultValues ? defaultValues[item.name] : ""}
+                    ref={register(item.rules)}
+                    error={formErrors[item.name]?.message}
+                    {...(item?.hasOptions && {
+                      options: optionData[item.name],
+                    })}
+                  />
+                </>
               )
             );
           })}
         </div>
-        {/* <div class="form-group mb-0">
-          <button
-            type="submit"
-            class="btn btn-gradient-primary waves-effect waves-light"
-          >
-            Submit
-          </button>
-          <button
-            type="button"
-            onClick={() => setValue("lio", "lodu")}
-            class="btn btn-gradient-danger waves-effect ml-3"
-          >
-            Cancel
-          </button>
-        </div> */}
       </form>
     );
   };

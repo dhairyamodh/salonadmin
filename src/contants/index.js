@@ -1,6 +1,23 @@
 import moment from "moment";
 
+export const ORDERSTATUS = [
+  {
+    key: "Pending",
+    value: false,
+  },
+  {
+    key: "Completed",
+    value: true,
+  },
+];
+
 export const DATEFORMAT = "DD/MM/YYYY";
+
+export const DATEMONTHFORMAT = "DD MMM";
+
+export const TIMEAMPMFORMAT = "h:mm A";
+
+export const TIME24FORMAT = "HH:mm";
 
 // export const BASEURL = "http://54.211.119.193:4001/api";
 export const BASEURL = "http://192.168.0.111:4001/api";
@@ -38,6 +55,8 @@ export const MONTHSARRAY = [
   "Nov",
   "Dec",
 ];
+
+export const WEEKARRAY = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
 export const TYPESOFORDERS = [
   { key: "Chair", value: 0, bgColor: "#6d81f5" },
