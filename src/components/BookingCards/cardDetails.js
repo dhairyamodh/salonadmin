@@ -5,10 +5,75 @@ import SmartTable from "../common/SmartTable";
 import {
   DATEFORMAT,
   DATEMONTHFORMAT,
+  ORDERSTATUS,
   TIME24FORMAT,
   TIMEAMPMFORMAT,
 } from "../../contants";
+const getTextClass = (st) => {
+  const dangerbgClass = "border-danger text-danger";
+  const warningbgClass = "border-warning text-warning";
 
+  const successbgClass = "border-success text-success";
+  const confirmedgClass = "border-primary text-primary";
+
+  switch (st) {
+    case ORDERSTATUS[0].value:
+      return warningbgClass;
+
+      break;
+
+    case ORDERSTATUS[1].value:
+      return confirmedgClass;
+
+      break;
+
+    case ORDERSTATUS[2].value:
+      return successbgClass;
+
+      break;
+
+    case ORDERSTATUS[3].value:
+      return dangerbgClass;
+
+      break;
+
+    default:
+      break;
+  }
+};
+
+const getBTNClass = (st) => {
+  const dangerbgClass = "btn-gradient-danger";
+  const warningbgClass = "btn-gradient-warning";
+
+  const successbgClass = "btn-gradient-success";
+  const confirmedgClass = "btn-gradient-primary";
+
+  switch (st) {
+    case ORDERSTATUS[0].value:
+      return warningbgClass;
+
+      break;
+
+    case ORDERSTATUS[1].value:
+      return confirmedgClass;
+
+      break;
+
+    case ORDERSTATUS[2].value:
+      return successbgClass;
+
+      break;
+
+    case ORDERSTATUS[3].value:
+      return dangerbgClass;
+
+      break;
+
+    default:
+      break;
+  }
+};
 const CardDetails = ({ tabeleheaders, data, onClose, onConfirm }) => {
   const {
     userName,
@@ -27,13 +92,93 @@ const CardDetails = ({ tabeleheaders, data, onClose, onConfirm }) => {
     orderNumber,
     taxPercentage,
     instruction,
+    orderStatus,
   } = data;
 
   const orderDate = moment(startDate).format(DATEFORMAT);
   const orderTime = moment(startTime, [TIME24FORMAT]).format(TIMEAMPMFORMAT);
-  const dangerClass = "border-warning text-warning";
-  const successClass = "border-success text-success";
-  const orderStatus = isPaid === "true";
+  const paidStatus = isPaid === "true";
+  const isCanceled = orderStatus === ORDERSTATUS[3].value;
+  const bottomButtons = (orderStatus) => {
+    switch (orderStatus) {
+      case ORDERSTATUS[0].value:
+        return (
+          <div class="row">
+            <div class="col-md-4 mt-2 mb-2">
+              <button
+                onClick={() => onConfirm("confirmed")}
+                class={`btn waves-effect waves-light ${getBTNClass(
+                  "confirmed"
+                )}`}
+                data-row-id="1"
+                type="button"
+              >
+                Confirm Booking
+              </button>
+            </div>
+            <div class="col-md-4 mt-2 mb-2">
+              <button
+                onClick={() => onConfirm("canceled")}
+                class={`btn waves-effect waves-light ${getBTNClass(
+                  "canceled"
+                )}`}
+                data-row-id="1"
+                type="button"
+              >
+                Cancel Booking
+              </button>
+            </div>
+          </div>
+        );
+
+        break;
+
+      case ORDERSTATUS[1].value:
+        return (
+          <div class="row">
+            <div class="col-md-4 mt-2 mb-2">
+              <button
+                onClick={() => onConfirm("confirmed", { isPaid: true })}
+                class={`btn waves-effect waves-light ${getBTNClass(
+                  "completed"
+                )}`}
+                data-row-id="1"
+                type="button"
+              >
+                Complete Payment
+              </button>
+            </div>
+            <div class="col-md-4 mt-2 mb-2">
+              <button
+                onClick={() => onConfirm("canceled", { isPaid: false })}
+                class={`btn waves-effect waves-light ${getBTNClass(
+                  "canceled"
+                )}`}
+                data-row-id="1"
+                type="button"
+              >
+                Cancel Booking
+              </button>
+            </div>
+          </div>
+        );
+
+        break;
+
+      case ORDERSTATUS[2].value:
+        return <></>;
+
+        break;
+
+      case ORDERSTATUS[3].value:
+        return <></>;
+
+        break;
+
+      default:
+        break;
+    }
+  };
 
   return (
     <Card>
@@ -54,17 +199,23 @@ const CardDetails = ({ tabeleheaders, data, onClose, onConfirm }) => {
           </div>
         </div>
         <div class="row">
-          <div class="col-md-6 border-right">
+          <div class="col-md-4 border-right">
+            {" "}
+            <strong>Booking Number</strong> <br />
+            <p class="text">#{orderNumber}</p>
+          </div>
+          <div class="col-md-4 border-right">
             {" "}
             <strong>Email</strong> <br />
-            <p class="text-muted">
+            <p class="text">
               <i class="icon-email"></i> {userEmail}
             </p>
           </div>
-          <div class="col-md-6">
+
+          <div class="col-md-4">
             {" "}
             <strong>Mobile</strong> <br />
-            <p class="text-muted">
+            <p class="text">
               <i class="icon-mobile"></i>
               {userMobile}
             </p>
@@ -92,11 +243,11 @@ const CardDetails = ({ tabeleheaders, data, onClose, onConfirm }) => {
             {" "}
             <strong>Booking Status</strong> <br />
             <span
-              class={`text-uppercase small border badge-pill  ${
-                orderStatus ? successClass : dangerClass
-              }`}
+              class={`text-uppercase small border badge-pill  ${getTextClass(
+                orderStatus
+              )}`}
             >
-              {orderStatus ? "Completed" : "Pending"}
+              {orderStatus}
             </span>
           </div>
         </div>
@@ -119,11 +270,23 @@ const CardDetails = ({ tabeleheaders, data, onClose, onConfirm }) => {
                       <td>
                         <span
                           class={` ${
-                            orderStatus ? "text-success" : "text-warning"
+                            isCanceled
+                              ? "text-danger"
+                              : paidStatus
+                              ? "text-success"
+                              : "text-warning"
                           }  font-weight-normal`}
                         >
-                          <i class="fa fa-check-circle"></i>{" "}
-                          {orderStatus ? "Completed" : "Pending"}
+                          {paidStatus ? (
+                            <i class="fa fa-check-circle"></i>
+                          ) : (
+                            <i class="fa fa-close"></i>
+                          )}{" "}
+                          {isCanceled
+                            ? "Canceled"
+                            : paidStatus
+                            ? "Completed"
+                            : "Pending"}
                         </span>
                       </td>
                     </tr>
@@ -172,7 +335,8 @@ const CardDetails = ({ tabeleheaders, data, onClose, onConfirm }) => {
               <p class="text-lg">{instruction}</p>
             </div>
           )}
-          {!orderStatus && (
+          <div class="col-md-12">{bottomButtons(orderStatus)}</div>
+          {/* {!orderStatus && (
             <div class="col-md-12 mt-2 mb-2">
               <button
                 onClick={onConfirm}
@@ -183,7 +347,7 @@ const CardDetails = ({ tabeleheaders, data, onClose, onConfirm }) => {
                 <i class="fa fa-close"></i> Confirm Order
               </button>
             </div>
-          )}
+          )} */}
         </div>
       </Card.Body>
     </Card>

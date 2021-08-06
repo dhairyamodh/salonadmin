@@ -51,7 +51,7 @@ const Login = () => {
               <div className="card auth-card shadow-lg">
                 <div className="card-body">
                   <div className="px-3">
-                    <div className="auth-logo-box">
+                    {/* <div className="auth-logo-box">
                       <a
                         href="/"
                         className="logo logo-admin"
@@ -64,7 +64,7 @@ const Login = () => {
                           className="auth-logo"
                         />
                       </a>
-                    </div>
+                    </div> */}
                     <div className="text-center auth-logo-text">
                       <h4 className="mt-0 mb-3 mt-5">Let's Get Started </h4>
                       <p className="text-muted mb-0">Sign in to continue</p>

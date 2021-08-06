@@ -27,6 +27,7 @@ export const createCategory = (data, cb, errorCb) => {
 };
 
 export const updateCategory = (data, cb, errorCb) => {
+  console.log("updateCategory", data);
   const formData = new FormData();
   Object.keys(data).forEach((key) => formData.append(key, data[key]));
 

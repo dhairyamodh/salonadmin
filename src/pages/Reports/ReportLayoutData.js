@@ -74,7 +74,7 @@ export default {
 
           headers: [
             {
-              title: "Orders",
+              title: "Bookings",
               key: "totalOrders",
               icon: "typcn typcn-printer",
             },

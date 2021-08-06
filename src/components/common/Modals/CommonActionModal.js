@@ -53,7 +53,6 @@ const CommonActionModal = ({
   };
 
   const localSubmit = (values) => {
-    // console.log("values", values);
     onSubmit({ ...data, ...values, ...fileFields, ...otherFields });
   };
 

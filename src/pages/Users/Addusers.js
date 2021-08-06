@@ -21,9 +21,11 @@ const AddModal = ({ open, onClose, title }) => {
   } = useSelector((state) => state.all);
 
   const { role, salonId, branchId } = useSelector((state) => state.user);
-  const [currRoles, setCurrRoles] = React.useState("branchadmin");
+  const [currRoles, setCurrRoles] = React.useState("salonadmin");
   const [currRes, setCurrRes] = React.useState();
   const [currBranch, setCurBranch] = React.useState(branchId || "all");
+  const isSuperAdmin = role === "superadmin";
+  const isSalonAdmin = role === "salonadmin";
 
   const currSalonId = salonId !== "all" ? salonId : currRes;
 
@@ -116,6 +118,7 @@ const AddModal = ({ open, onClose, title }) => {
         {
           ...data,
           ...(salonId !== "all" && salonId && { salonId: salonId }),
+          ...(isSalonAdmin && { role: "employee" }),
         },
         () => {
           reset();
@@ -235,10 +238,10 @@ const AddModal = ({ open, onClose, title }) => {
                       <option value={true}>Inactive</option>
                     </select>
                   </div>
-                  <RoleOption />
+                  {isSuperAdmin && <RoleOption />}
 
                   {salonId === "all" && <SalonAdminOption />}
-                  {!["salonadmin"].includes(currRoles) && (
+                  {["superadmin"].includes(currRoles) && (
                     <>
                       <BranchAdminOption />
                     </>

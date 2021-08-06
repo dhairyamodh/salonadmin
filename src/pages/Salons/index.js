@@ -151,7 +151,7 @@ const Salons = () => {
     //   required: true,
     // },
     {
-      type: "number",
+      type: "float",
       name: "taxPercentage",
       label: "Tax Percentage",
       size: 3,

@@ -14,6 +14,7 @@ const ReportSelector = ({
   optionData,
   dataType,
   noPadding,
+  refreshEffect,
 }) => {
   const { reportType } = useParams();
   const defaultValues = {
@@ -91,6 +92,12 @@ const ReportSelector = ({
     initialEffectFunction();
     getData(getValues());
   }, [reportType]);
+
+  React.useEffect(() => {
+    if (refreshEffect) {
+      getData(getValues());
+    }
+  }, [refreshEffect]);
 
   const FormSelector = () => {
     return (

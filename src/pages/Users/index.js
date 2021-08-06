@@ -25,6 +25,8 @@ import {
   updateUserGrpups,
 } from "../../redux/action/userGroupActions";
 import { getSalonServices } from "../../redux/action/serviceActions";
+import EmployeeScheduleModal from "../../components/common/Modals/EmployeeScheduleModal";
+import ScheduleCommonAction from "../../components/common/Actions/ScheduleCommonAction";
 
 const PageTitle = "Employees";
 
@@ -218,6 +220,26 @@ const ManageUsers = () => {
     }
   };
 
+  const handeOpenScheduleModal = (data) => {
+    toggleAdd("schedule");
+    setActionData(data);
+  };
+
+  const handleSchedule = (data) => {
+    // console.log("handleSchedule", data);
+    dispatch(
+      updateUser(
+        {
+          ...actionData,
+          ...data,
+        },
+        () => {
+          dispatch(getAllUsers(selectedRes, selectedBranch));
+          toggleAdd();
+        }
+      )
+    );
+  };
   const AddAction = () => {
     return (
       <AddCommonAction
@@ -298,6 +320,14 @@ const ManageUsers = () => {
     />
   );
 
+  const ScheduleAction = (action) => (
+    <ScheduleCommonAction
+      onClick={() => {
+        handeOpenScheduleModal(action.data);
+      }}
+    />
+  );
+
   const headers = [
     { title: "Employee Name", key: "userName" },
 
@@ -373,6 +403,11 @@ const ManageUsers = () => {
     salonadmin: [BranchFilter, EmployeeGroupAction],
   };
 
+  const tableActions = {
+    superadmin: [EditAction, DeleteAction],
+    salonadmin: [EditAction, DeleteAction, ScheduleAction],
+  };
+
   React.useEffect(() => {
     dispatch(getAllSalons("true"));
   }, []);
@@ -383,6 +418,13 @@ const ManageUsers = () => {
 
   return (
     <div class="page-content-tab">
+      <EmployeeScheduleModal
+        open={open === "schedule"}
+        onClose={() => toggleAdd()}
+        mode={open}
+        data={actionData}
+        onSubmit={(e) => handleSchedule(e)}
+      />
       <CommonTableModal
         headers={groupHeaders}
         headerComponents={headerGroupComponents()}
@@ -416,7 +458,7 @@ const ManageUsers = () => {
         title={PageTitle}
         headerComponents={headerComponents[role]}
         headAction={AddAction}
-        actions={[EditAction, DeleteAction]}
+        actions={tableActions[role]}
         tableData={users}
         headers={headers}
         sortable={true}

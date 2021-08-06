@@ -27,10 +27,7 @@ const selectorData = [
     showPlaceHolder: true,
     label: "Booking Date",
     required: true,
-    options: {
-      singleDatePicker: true,
-      hideRanges: true,
-    },
+    options: {},
     rules: {
       required: {
         value: true,
@@ -101,6 +98,7 @@ const OrderHistory = () => {
   const data = useSelector((state) => state.all.bookings);
   const { role, salonId, branchId } = useSelector((state) => state.user);
   const [open, setOpen] = React.useState();
+  const [refreshCount, setRefreshCount] = React.useState(0);
 
   const handleCardClick = (data) => {
     setOpen(data);
@@ -109,8 +107,16 @@ const OrderHistory = () => {
   const handleCloseCard = (data) => {
     setOpen();
   };
-  const handleConfirm = () => {
-    dispatch(updateOrder(open));
+  const handleConfirm = (status, otherOptions) => {
+    dispatch(
+      updateOrder({ ...open, orderStatus: status, ...otherOptions }, (data) => {
+        setRefreshCount(refreshCount + 1);
+        if (data?.data?.data) {
+          console.log("data?.data?.data", data?.data?.data);
+          setOpen(data?.data?.data);
+        }
+      })
+    );
   };
 
   // const handleDelete = (data) => {
@@ -152,6 +158,7 @@ const OrderHistory = () => {
             initialEffectFunction={initialEffectFunction}
             optionData={optionData}
             noPadding={true}
+            refreshEffect={refreshCount}
           />
         </div>
         <div
@@ -167,7 +174,9 @@ const OrderHistory = () => {
             <CardDetails
               data={open}
               onClose={() => handleCloseCard()}
-              onConfirm={() => handleConfirm()}
+              onConfirm={(status, otherOptions) =>
+                handleConfirm(status, otherOptions)
+              }
               tabeleheaders={tabeleheaders}
             />
           </div>

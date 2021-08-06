@@ -27,7 +27,7 @@ const ExpiredSubscription = () => {
               <div class="card auth-card shadow-lg">
                 <div class="card-body">
                   <div class="px-3">
-                    <div class="auth-logo-box">
+                    {/* <div class="auth-logo-box">
                       <a
                         href="/analytics/analytics-index"
                         class="logo logo-admin"
@@ -39,7 +39,7 @@ const ExpiredSubscription = () => {
                           className="auth-logo"
                         />
                       </a>
-                    </div>
+                    </div> */}
                     <img
                       src="http://metrica.laravel.themesbrand.com/assets/images/404.png"
                       alt=""

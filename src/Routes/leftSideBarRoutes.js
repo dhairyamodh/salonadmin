@@ -139,7 +139,7 @@ export const salonadmin = [
         link: "/reports/cashbook",
       },
       // {
-      //   title: "Orders Report",
+      //   title: "Bookings Report",
       //   link: "/reports/orderreport",
       // },
       {
@@ -158,7 +158,7 @@ export const salonadmin = [
   },
 
   // {
-  //   title: "Manage Tables",
+  //   title: "Manage Chairs",
   //   icon: "mdi mdi-table-column-plus-after",
   //   link: "/managetables",
   // },
@@ -223,7 +223,7 @@ export const branchadmin = [
         link: "/categories",
       },
       {
-        title: "Tables",
+        title: "Chairs",
         icon: "mdi mdi-table-column-plus-after",
         link: "/managetables",
       },

@@ -110,7 +110,7 @@ export default {
         width: 4,
         headers: [
           {
-            name: "Orders",
+            name: "Bookings",
             key: "numberOfOrders",
             dataVariable: "numberOfOrders",
           },
@@ -137,7 +137,7 @@ export default {
               curve: "smooth",
             },
             title: {
-              text: "Number of Orders",
+              text: "Number of Bookings",
               align: "left",
             },
             grid: {
@@ -168,7 +168,7 @@ export default {
             isCurrency: true,
           },
           {
-            title: "Today's Number of Orders",
+            title: "Today's Number of Bookings",
             icon: "dripicons-basket",
 
             key: "totalOrders",
@@ -181,7 +181,7 @@ export default {
             isCurrency: true,
           },
           {
-            title: " Total Active Tables",
+            title: " Total Active Chairs",
             icon: "mdi mdi-soccer-field",
 
             key: "totalTables",
@@ -385,7 +385,7 @@ export default {
             isCurrency: true,
           },
           {
-            title: "Today's Number of Orders",
+            title: "Today's Number of Bookings",
             icon: "dripicons-basket",
 
             key: "totalOrders",
@@ -397,7 +397,7 @@ export default {
             isCurrency: true,
           },
           {
-            title: " Total Active Tables",
+            title: " Total Active Chairs",
             icon: "mdi mdi-soccer-field",
 
             key: "totalTables",
@@ -507,7 +507,7 @@ export default {
         width: 4,
         headers: [
           {
-            name: "Orders",
+            name: "Bookings",
             key: "numberOfOrders",
             dataVariable: "numberOfOrders",
           },
@@ -534,7 +534,7 @@ export default {
               curve: "smooth",
             },
             title: {
-              text: "Number of Orders",
+              text: "Number of Bookings",
               align: "left",
             },
             grid: {

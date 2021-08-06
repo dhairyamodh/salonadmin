@@ -23,7 +23,7 @@ function ItemsSearchModal({ open, onClose }) {
           if (activeOrderIndex || activeOrderIndex === 0) {
             dispatch(pushItemToActiveOrder(item, selectedOrderTypeId));
           } else {
-            alert("No Tables Active");
+            alert("No Chairs Active");
           }
         } else {
           dispatch(pushItemToActiveOrder(item, selectedOrderTypeId));

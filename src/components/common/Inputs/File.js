@@ -50,7 +50,6 @@ const MyTextField = React.forwardRef((props, ref) => {
       setPreviewModal(`${BASEIMAGEURL}/${defaultValue}`);
     }
   };
-  console.log("file", file);
 
   return (
     <div class={`form-group col-md-${size || "6"}`}>

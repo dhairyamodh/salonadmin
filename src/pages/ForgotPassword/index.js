@@ -68,7 +68,7 @@ const ForgotPassword = () => {
               <div className="card auth-card shadow-lg">
                 <div className="card-body">
                   <div className="px-3">
-                    <div className="auth-logo-box">
+                    {/* <div className="auth-logo-box">
                       <a
                         href="/"
                         className="logo logo-admin"
@@ -81,7 +81,7 @@ const ForgotPassword = () => {
                           className="auth-logo"
                         />
                       </a>
-                    </div>
+                    </div> */}
                     <div className="text-center auth-logo-text">
                       <h4 className="mt-0 mb-3 mt-5">Forgot Password ? </h4>
 

@@ -3,11 +3,20 @@ import moment from "moment";
 export const ORDERSTATUS = [
   {
     key: "Pending",
-    value: false,
+    value: "pending",
+  },
+  {
+    key: "Confirmed",
+    value: "confirmed",
   },
   {
     key: "Completed",
-    value: true,
+    value: "completed",
+  },
+
+  {
+    key: "Canceled",
+    value: "canceled",
   },
 ];
 
@@ -25,6 +34,8 @@ export const BASEURL = "http://192.168.0.111:4001/api";
 export const BASEIMAGEURL = BASEURL.replace("/api", "");
 
 export const TIMEFORMAT = "HH:mm:ss";
+
+export const TIMEONLY = "HH:mm";
 
 export const DATETIMEFORMAT = "DD/MM/YYYY HH:mm";
 
