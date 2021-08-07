@@ -18,6 +18,7 @@ import {
   TIMEAMPMFORMAT,
 } from "../../../contants";
 import getFloat from "../../../helpers/getFloat";
+import PaymentModal from "../../../components/common/Modals/PaymentModal";
 
 function parseFloat2Decimals(value) {
   return parseFloat(parseFloat(value).toFixed(2));
@@ -67,6 +68,7 @@ const OrderTotalDisplay = () => {
   // const [otherCharges, setOtherCharges] = React.useState(0);
   const [orderConfirmOpen, setOrderConfirmOpen] = React.useState();
   const [KOTModalOpen, setKOTModalOpen] = React.useState(false);
+  const [confirmOpen, setConfirmOpen] = React.useState();
 
   const {
     activeOrderIndex: index,
@@ -88,6 +90,34 @@ const OrderTotalDisplay = () => {
   //   setDiscount(0);
   // }, [index]);
 
+  const handleCloseConfirmModal = () => {
+    setConfirmOpen();
+  };
+
+  const handleOpenConfirmModal = (data) => {
+    setConfirmOpen(data);
+  };
+
+  const handleCompletePayment = (paymentData) => {
+    dispatch(
+      confirmOrder(
+        {
+          ...confirmOpen,
+          ...paymentData,
+          orderStatus: "completed",
+          isPaid: true,
+        },
+        () => {
+          setOtherCharges(0);
+          setDiscount(0);
+          setConfirmOpen();
+
+          dispatch(deleteLocalOrder(index));
+        }
+      )
+    );
+  };
+
   const toggleOrderConfirmModal = () => {
     setOrderConfirmOpen(!orderConfirmOpen);
   };
@@ -97,7 +127,7 @@ const OrderTotalDisplay = () => {
   };
 
   const handleOpenMdoal = (type) => {
-    if (activeOrders[index].items.length > 0) setOrderConfirmOpen(type);
+    if (activeOrders[index].items.length > 0) setOrderConfirmOpen(true);
     else {
       alert("No Items selected");
     }
@@ -129,14 +159,16 @@ const OrderTotalDisplay = () => {
 
     toggleOrderConfirmModal();
 
-    dispatch(
-      confirmOrder(orderdata, () => {
-        setOtherCharges(0);
-        setDiscount(0);
+    handleOpenConfirmModal(orderdata);
 
-        dispatch(deleteLocalOrder(index));
-      })
-    );
+    // dispatch(
+    //   confirmOrder(orderdata, () => {
+    //     setOtherCharges(0);
+    //     setDiscount(0);
+
+    //     dispatch(deleteLocalOrder(index));
+    //   })
+    // );
   };
 
   const getData = (mydiscount) => {
@@ -303,6 +335,12 @@ const OrderTotalDisplay = () => {
           onCancel={() => toggleOrderConfirmModal()}
         />
       )}
+      <PaymentModal
+        open={confirmOpen}
+        onClose={() => handleCloseConfirmModal()}
+        data={confirmOpen}
+        onSubmit={(data) => handleCompletePayment(data)}
+      />
     </div>
   );
 };

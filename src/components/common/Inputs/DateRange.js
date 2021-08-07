@@ -45,7 +45,10 @@ const DateRange = (props) => {
           locale: {
             format: DATEFORMAT,
           },
-          maxDate: new Date(),
+          ...(!options?.removeMaxDate && {
+            maxDate: new Date(),
+          }),
+
           ...(!options?.hideRanges && {
             ranges: dateRanges,
           }),

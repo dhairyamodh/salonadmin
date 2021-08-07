@@ -9,6 +9,15 @@ import {
   TIME24FORMAT,
   TIMEAMPMFORMAT,
 } from "../../contants";
+
+const getPaymentString = (methos) => {
+  return methos
+    .map((data, index) => {
+      return data.paymentMethodType;
+    })
+    .join(", ");
+};
+
 const getTextClass = (st) => {
   const dangerbgClass = "border-danger text-danger";
   const warningbgClass = "border-warning text-warning";
@@ -46,7 +55,7 @@ const getBTNClass = (st) => {
   const dangerbgClass = "btn-gradient-danger";
   const warningbgClass = "btn-gradient-warning";
 
-  const successbgClass = "btn-gradient-success";
+  const successbgClass = "btn-gradient-info";
   const confirmedgClass = "btn-gradient-primary";
 
   switch (st) {
@@ -74,13 +83,21 @@ const getBTNClass = (st) => {
       break;
   }
 };
-const CardDetails = ({ tabeleheaders, data, onClose, onConfirm }) => {
+const CardDetails = ({
+  tabeleheaders,
+  data,
+  onClose,
+  onConfirm,
+  onOrderConfirm,
+}) => {
   const {
     userName,
     userEmail,
     userMobile,
     orderItems,
     paymentMethod,
+    paymentMethods,
+
     isPaid,
     itemsTotal,
     taxCharges,
@@ -93,12 +110,18 @@ const CardDetails = ({ tabeleheaders, data, onClose, onConfirm }) => {
     taxPercentage,
     instruction,
     orderStatus,
+    employeeName,
   } = data;
 
   const orderDate = moment(startDate).format(DATEFORMAT);
   const orderTime = moment(startTime, [TIME24FORMAT]).format(TIMEAMPMFORMAT);
   const paidStatus = isPaid === "true";
   const isCanceled = orderStatus === ORDERSTATUS[3].value;
+
+  const methosOfPayment =
+    paymentMethods && paymentMethods.length > 0
+      ? getPaymentString(paymentMethods)
+      : "No";
   const bottomButtons = (orderStatus) => {
     switch (orderStatus) {
       case ORDERSTATUS[0].value:
@@ -138,8 +161,8 @@ const CardDetails = ({ tabeleheaders, data, onClose, onConfirm }) => {
           <div class="row">
             <div class="col-md-4 mt-2 mb-2">
               <button
-                onClick={() => onConfirm("confirmed", { isPaid: true })}
-                class={`btn waves-effect waves-light ${getBTNClass(
+                onClick={() => onOrderConfirm(data)}
+                class={`btn  waves-effect waves-light ${getBTNClass(
                   "completed"
                 )}`}
                 data-row-id="1"
@@ -194,9 +217,11 @@ const CardDetails = ({ tabeleheaders, data, onClose, onConfirm }) => {
               <i class="fa fa-close"></i> Close
             </button>
           </div>
-          <div class="col-md-12 text-center mb-3">
-            <h6 class="text-uppercase mt-2">{userName}</h6>
-          </div>
+          {employeeName && (
+            <div class="col-md-12 text-center mb-3">
+              <h6 class="text-uppercase mt-2">Employee : {employeeName}</h6>
+            </div>
+          )}
         </div>
         <div class="row">
           <div class="col-md-4 border-right">
@@ -262,7 +287,7 @@ const CardDetails = ({ tabeleheaders, data, onClose, onConfirm }) => {
                     <tr class="h6">
                       <td class="border-top-0">Payment Method</td>
                       <td class="border-top-0 ">
-                        <i class="fa fa-money"></i> {paymentMethod || "No"}
+                        <i class="fa fa-money"></i> {methosOfPayment || "No"}
                       </td>
                     </tr>
                     <tr class="h6">

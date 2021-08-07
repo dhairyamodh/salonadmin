@@ -18,6 +18,7 @@ import ListCard from "../../components/BookingCards/cards";
 import CardDetails from "../../components/BookingCards/cardDetails";
 
 import ReportSelector from "../../components/ReportSelector";
+import PaymentModal from "../../components/common/Modals/PaymentModal";
 
 const selectorData = [
   {
@@ -27,7 +28,9 @@ const selectorData = [
     showPlaceHolder: true,
     label: "Booking Date",
     required: true,
-    options: {},
+    options: {
+      removeMaxDate: true,
+    },
     rules: {
       required: {
         value: true,
@@ -98,6 +101,8 @@ const OrderHistory = () => {
   const data = useSelector((state) => state.all.bookings);
   const { role, salonId, branchId } = useSelector((state) => state.user);
   const [open, setOpen] = React.useState();
+  const [confirmOpen, setConfirmOpen] = React.useState();
+
   const [refreshCount, setRefreshCount] = React.useState(0);
 
   const handleCardClick = (data) => {
@@ -107,6 +112,16 @@ const OrderHistory = () => {
   const handleCloseCard = (data) => {
     setOpen();
   };
+
+  const handleCloseConfirmModal = () => {
+    setConfirmOpen();
+  };
+
+  const handleOpenConfirmModal = (data) => {
+    setConfirmOpen(data);
+  };
+
+  const handleOrderConfirm = (orderData) => {};
   const handleConfirm = (status, otherOptions) => {
     dispatch(
       updateOrder({ ...open, orderStatus: status, ...otherOptions }, (data) => {
@@ -116,6 +131,22 @@ const OrderHistory = () => {
           setOpen(data?.data?.data);
         }
       })
+    );
+  };
+
+  const handleCompletePayment = (paymentData) => {
+    dispatch(
+      updateOrder(
+        { ...confirmOpen, ...paymentData, orderStatus: "completed" },
+        (data) => {
+          setRefreshCount(refreshCount + 1);
+          if (data?.data?.data) {
+            // console.log("data?.data?.data", data?.data?.data);
+            setOpen(data?.data?.data);
+            setConfirmOpen();
+          }
+        }
+      )
     );
   };
 
@@ -178,9 +209,16 @@ const OrderHistory = () => {
                 handleConfirm(status, otherOptions)
               }
               tabeleheaders={tabeleheaders}
+              onOrderConfirm={(data) => handleOpenConfirmModal(data)}
             />
           </div>
         )}
+        <PaymentModal
+          open={confirmOpen}
+          onClose={() => handleCloseConfirmModal()}
+          data={confirmOpen}
+          onSubmit={(data) => handleCompletePayment(data)}
+        />
       </div>
     </>
   );

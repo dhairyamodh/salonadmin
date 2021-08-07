@@ -9,7 +9,15 @@ const OrderButton = ({ onClick, enableKOT, onKOTButtonClick }) => {
       role="group"
       aria-label="Basic example"
     >
-      {enableKOT && (
+      <button
+        onClick={() => onClick()}
+        type="button"
+        class="btn btn-primary btn-block"
+      >
+        <i class={`mdi mdi-cash-multiple mr-2`}></i>
+        Complete Payment
+      </button>
+      {/* {enableKOT && (
         <button
           onClick={() => onKOTButtonClick()}
           type="button"
@@ -31,7 +39,7 @@ const OrderButton = ({ onClick, enableKOT, onKOTButtonClick }) => {
             {ot.type}
           </button>
         );
-      })}
+      })} */}
     </div>
   );
 };
