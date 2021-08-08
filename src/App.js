@@ -8,7 +8,7 @@ import { BrowserRouter, HashRouter } from "react-router-dom";
 import { isMobile } from "react-device-detect";
 import MobileDetected from "./pages/MobileDetected";
 function App() {
-  return !isMobile ? (
+  return (
     <HashRouter>
       <Provider store={Store()}>
         {/* <button
@@ -23,9 +23,10 @@ function App() {
         <Routes />
       </Provider>
     </HashRouter>
-  ) : (
-    <MobileDetected />
-  );
+  )
+  //  : (
+  //   <MobileDetected />
+  // );
 }
 
 export default App;

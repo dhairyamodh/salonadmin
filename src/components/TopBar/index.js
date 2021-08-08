@@ -6,7 +6,6 @@ import View from "./view";
 
 const TopBar = () => {
   const { pathname } = useLocation();
-  console.log(pathname);
   const dispatch = useDispatch();
 
   const handleLogout = () => {

@@ -17,8 +17,8 @@ export const superadmin = [
   //   link: "/branches",
   // },
   {
-    title: "Users",
-    icon: "mdi mdi-account-outline",
+    title: "Employees",
+    icon: "mdi mdi-account-check-outline",
     link: "/employees",
   },
 
@@ -247,7 +247,7 @@ export const branchadmin = [
   // },
 ];
 
-export const branchuser = [
+export const employee = [
   // {
   //   title: "Dashboard",
   //   icon: "mdi mdi-view-dashboard-outline",
@@ -266,21 +266,21 @@ export const branchuser = [
   //     { title: "Reports", link: "/dum" },
   //   ],
   // },
+  {
+    title: "Bookings",
+    icon: "mdi mdi-calendar-multiselect",
+    link: "/bookings",
+  },
+  {
+    title: "POS",
+    icon: "mdi mdi-cart-outline",
+    link: "/pos",
+  },
 
-  {
-    title: "Order Dashboard",
-    icon: "mdi mdi-bowling",
-    link: "/order/",
-  },
-  {
-    title: "Expenses",
-    icon: "mdi mdi-wallet",
-    link: "/manageexpense",
-  },
 ];
 export default {
   superadmin,
   salonadmin,
   branchadmin,
-  branchuser,
+  employee,
 };

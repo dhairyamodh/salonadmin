@@ -48,9 +48,9 @@ const Salons = () => {
       size: 4,
       placeholder: "Type a name",
       required: true,
-      // disabledCondition: ({ mode }) => {
-      //   return mode === "edit";
-      // },
+      disabledCondition: ({ mode }) => {
+        return mode === "edit";
+      },
     },
     {
       type: "text",
@@ -131,16 +131,18 @@ const Salons = () => {
       placeholder: "Type a address",
       required: true,
     },
-    {
-      type: "number",
-      name: "balance",
-      label: "Current Balance",
-      size: 3,
+    // {
+    //   type: "number",
+    //   name: "balance",
+    //   label: "Current Balance",
+    //   size: 3,
 
-      placeholder: "Enter Current Balance",
-      required: true,
-      //   disabled: disabled,
-    },
+    //   placeholder: "Enter Current Balance",
+    //   required: true,
+    //   disabledCondition: ({ mode }) => {
+    //     return mode === "edit";
+    //   },
+    // },
     // {
     //   type: "text",
     //   name: "gstNumber",
@@ -164,7 +166,7 @@ const Salons = () => {
       type: "text",
       name: "tagLine",
       label: "Tag Line",
-      size: 12,
+      size: 9,
 
       placeholder: "Type a tag line",
       required: true,
@@ -304,14 +306,14 @@ const Salons = () => {
     onAdd: createSalon,
     onEdit: updateSalon,
     onDelete: deleteSalon,
-    onImport: () => {},
+    onImport: () => { },
 
     getData: getAllSalons,
-    getImportData: () => {},
-    afterAddSuccess: () => {},
-    afterEditSuccess: () => {},
-    afterDeleteSuccess: () => {},
-    afterImportSuccess: () => {},
+    getImportData: () => { },
+    afterAddSuccess: () => { },
+    afterEditSuccess: () => { },
+    afterDeleteSuccess: () => { },
+    afterImportSuccess: () => { },
   };
 
   const onAddNewSubscription = (data) => {

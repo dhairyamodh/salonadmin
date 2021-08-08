@@ -61,30 +61,30 @@ const selectorData = [
       },
     },
   },
-  {
-    type: "select",
-    name: "paymentTypeId",
-    label: "Payment Type",
-    optionLabelProp: "type",
-    optionValueProp: "id",
-    hasOptions: true,
-    required: true,
+  // {
+  //   type: "select",
+  //   name: "paymentTypeId",
+  //   label: "Payment Type",
+  //   optionLabelProp: "type",
+  //   optionValueProp: "id",
+  //   hasOptions: true,
+  //   required: true,
 
-    getOptionLabel: (opt) => opt.type,
-    defaultOption: () => (
-      <option selected value="all">
-        All
-      </option>
-    ),
+  //   getOptionLabel: (opt) => opt.type,
+  //   defaultOption: () => (
+  //     <option selected value="all">
+  //       All
+  //     </option>
+  //   ),
 
-    size: 4,
-    rules: {
-      required: {
-        value: true,
-        message: "Payment Type is required",
-      },
-    },
-  },
+  //   size: 4,
+  //   rules: {
+  //     required: {
+  //       value: true,
+  //       message: "Payment Type is required",
+  //     },
+  //   },
+  // },
 ];
 
 const tabeleheaders = [
@@ -121,7 +121,7 @@ const OrderHistory = () => {
     setConfirmOpen(data);
   };
 
-  const handleOrderConfirm = (orderData) => {};
+  const handleOrderConfirm = (orderData) => { };
   const handleConfirm = (status, otherOptions) => {
     dispatch(
       updateOrder({ ...open, orderStatus: status, ...otherOptions }, (data) => {
@@ -169,7 +169,7 @@ const OrderHistory = () => {
   // React.useEffect(() => {
   //   dispatch(getAllOrders({ salonId, ...state }));
   // }, [state]);
-  const initialEffectFunction = () => {};
+  const initialEffectFunction = () => { };
 
   const optionData = {
     orderStatus: ORDERSTATUS,

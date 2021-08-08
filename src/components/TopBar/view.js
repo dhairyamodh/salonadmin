@@ -1,6 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
+import { BASEIMAGEURL } from "../../contants";
 import { RootUrl } from "../../redux/types";
 
 const View = ({ handleLogout }) => {
@@ -85,7 +86,7 @@ const View = ({ handleLogout }) => {
               onClick={() => handleNavigate("/")}
             >
               <img
-                src={RootUrl + "/" + salonLogo}
+                src={BASEIMAGEURL + "/" + salonLogo}
                 style={{ height: "50px", width: "auto" }}
               />
             </li>
@@ -94,7 +95,7 @@ const View = ({ handleLogout }) => {
               <div class="nav-link waves-effect waves-light nav-user">
                 <span class="ml-1 font-weight-bold nav-user-name hidden-sm text-uppercase h4">
                   Salon Super Admin
-              </span></div>
+                </span></div>
               {/* <img
                 src={"./images/logo.png"}
                 style={{ height: "50px", width: "auto" }}

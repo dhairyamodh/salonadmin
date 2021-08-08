@@ -40,7 +40,7 @@ const DashBoardRoutes = () => {
   const superadmin = "superadmin";
   const salonadmin = "salonadmin";
   const branchadmin = "branchadmin";
-  const branchuser = "branchuser";
+  const employee = "employee";
 
   return (
     <div style={{ height: "100%", display: "flex", flexDirection: "column" }}>
@@ -51,7 +51,8 @@ const DashBoardRoutes = () => {
           class="dashboard-container"
           style={{ height: "100%", width: "100%", overflow: "auto" }}
         >
-          <Redirect to="/bookings" />
+          {employee &&
+            <Redirect to="/bookings" />}
 
           <ProtectedRoute
             exact
@@ -115,7 +116,7 @@ const DashBoardRoutes = () => {
             component={Deals}
           />
           <ProtectedRoute
-            roles={[salonadmin, branchadmin]}
+            roles={[salonadmin, employee]}
             path="/bookings"
             component={Bookings}
           />
@@ -142,7 +143,7 @@ const DashBoardRoutes = () => {
             component={Reports}
           />
           <ProtectedRoute
-            roles={[salonadmin, branchadmin]}
+            roles={[salonadmin, employee]}
             path="/pos"
             component={PosDashboard}
           />
