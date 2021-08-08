@@ -41,16 +41,17 @@ const EmployeeScheduleModal = ({ open, onClose, data, onSubmit }) => {
   const isLoading = useSelector((state) => state.util.spinner);
   const initialValues = {
     employeeSchedule:
-      data?.employeeSchedule ||
-      WEEKARRAY.map((d, i) => {
-        return {
-          dayName: d,
-          dayIndex: i,
-          isWorking: false,
-          startTime: "00:00",
-          endTime: "00:00",
-        };
-      }),
+      data?.employeeSchedule?.length > 0
+        ? data?.employeeSchedule
+        : WEEKARRAY.map((d, i) => {
+            return {
+              dayName: d,
+              dayIndex: i,
+              isWorking: false,
+              startTime: "00:00",
+              endTime: "00:00",
+            };
+          }),
   };
 
   return (

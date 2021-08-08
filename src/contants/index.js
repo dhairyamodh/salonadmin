@@ -28,7 +28,9 @@ export const TIMEAMPMFORMAT = "h:mm A";
 
 export const TIME24FORMAT = "HH:mm";
 
-export const BASEURL = "http://54.211.119.193:4001/api";
+// export const BASEURL = "http://54.211.119.193:4001/api";
+export const BASEURL = "http://52.55.94.175:4001/api";
+
 // export const BASEURL = "http://192.168.0.111:4001/api";
 
 export const BASEIMAGEURL = BASEURL.replace("/api", "");
