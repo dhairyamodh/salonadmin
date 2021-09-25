@@ -3,7 +3,7 @@ import axiosMiddleware from "redux-axios-middleware";
 import { BASEURL } from "../contants";
 import getToken from "../helpers/getToken";
 import { showSnackBar } from "./action/snackActions";
-import { expireSubScription } from "./action/userActions";
+import { expireSubScription } from "./action/employeeActions";
 const options = {
   returnRejectedPromiseOnError: true,
   interceptors: {

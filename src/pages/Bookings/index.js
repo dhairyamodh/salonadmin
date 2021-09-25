@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { showSnackBar } from "../../redux/action/snackActions";
 
 import DeleteCommonAction from "../../components/common/Actions/DeleteCommonAction";
 
-import { deleteService } from "../../redux/action/serviceActions";
+import { deleteService, getSalonServices } from "../../redux/action/serviceActions";
 
 import "bootstrap-daterangepicker/daterangepicker.css";
 import moment from "moment";
@@ -19,6 +19,7 @@ import CardDetails from "../../components/BookingCards/cardDetails";
 
 import ReportSelector from "../../components/ReportSelector";
 import PaymentModal from "../../components/common/Modals/PaymentModal";
+import getFloat from "../../helpers/getFloat";
 
 const selectorData = [
   {
@@ -99,7 +100,7 @@ const tabeleheaders = [
 const OrderHistory = () => {
   const dispatch = useDispatch();
   const data = useSelector((state) => state.all.bookings);
-  const { role, salonId, branchId } = useSelector((state) => state.user);
+  const { role, salonId, branchId, taxPercentage } = useSelector((state) => state.user);
   const [open, setOpen] = React.useState();
   const [confirmOpen, setConfirmOpen] = React.useState();
 
@@ -121,13 +122,11 @@ const OrderHistory = () => {
     setConfirmOpen(data);
   };
 
-  const handleOrderConfirm = (orderData) => { };
   const handleConfirm = (status, otherOptions) => {
     dispatch(
       updateOrder({ ...open, orderStatus: status, ...otherOptions }, (data) => {
         setRefreshCount(refreshCount + 1);
         if (data?.data?.data) {
-          console.log("data?.data?.data", data?.data?.data);
           setOpen(data?.data?.data);
         }
       })
@@ -175,6 +174,84 @@ const OrderHistory = () => {
     orderStatus: ORDERSTATUS,
     paymentTypeId: TYPESOFPAYMENTS,
   };
+  const getData = () => {
+    let itemsTotal = 0;
+    let taxCharges = 0;
+
+    let grandTotal = 0;
+    let chairPrice = 0;
+    let discount = open.discount || 0;
+    let otherCharges = open.otherCharges || 0;
+    if (open) {
+      open.orderItems.forEach((item) => {
+        itemsTotal += getFloat(item.salePrice);
+      });
+
+      taxCharges = getFloat((itemsTotal * getFloat(taxPercentage)) / 100);
+
+      chairPrice = open.chairPrice ? open.chairPrice : 0;
+    }
+
+    grandTotal =
+      itemsTotal +
+      taxCharges +
+      chairPrice +
+      (getFloat(otherCharges) -
+        getFloat(discount))
+    return {
+      itemsTotal,
+      taxCharges,
+      otherCharges,
+      taxPercentage: taxPercentage,
+      discount,
+      chairPrice,
+      grandTotal: grandTotal.toFixed(2),
+    };
+  };
+  const pushItem = (item) => {
+    const iteminde = open.orderItems.findIndex((data) => {
+      return data._id === item._id;
+    });
+    console.log('newopen', open);
+
+    if (iteminde < 0) {
+      let newOrderItems = open.orderItems = [...open.orderItems, item]
+      open.orderItems = newOrderItems
+      open.itemsTotal = getData().itemsTotal
+      open.taxPercentage = getData().taxPercentage
+      open.taxCharges = getData().taxCharges
+      open.grandTotal = getData().grandTotal
+      open.discount = getData().discount
+    }
+    setRefreshCount(refreshCount + 1);
+    setOpen(open)
+  }
+  const deleteItem = (item) => {
+    let newOpen = open
+    let newOrderItems = newOpen.orderItems.filter((i) => i._id !== item._id)
+    newOpen.orderItems = newOrderItems
+    newOpen.itemsTotal = getData().itemsTotal
+    newOpen.taxPercentage = getData().taxPercentage
+    newOpen.taxCharges = getData().taxCharges
+    newOpen.grandTotal = getData().grandTotal
+    newOpen.discount = getData().discount
+    setRefreshCount(refreshCount + 1);
+    setOpen(newOpen)
+  }
+  useEffect(() => {
+    dispatch(getSalonServices({ salonId }))
+  }, [data])
+  console.log('open', open);
+  const handleUpdate = () => {
+    dispatch(
+      updateOrder({ ...open }, (data) => {
+        setRefreshCount(refreshCount + 1);
+        if (data?.data?.data) {
+          setOpen(data?.data?.data);
+        }
+      })
+    );
+  }
   return (
     <>
       <div class="row" style={{ marginBottom: 50 }}>
@@ -205,6 +282,9 @@ const OrderHistory = () => {
             <CardDetails
               data={open}
               onClose={() => handleCloseCard()}
+              onPushItem={(item) => pushItem(item)}
+              onDeleteItem={(item) => deleteItem(item)}
+              onUpdate={() => handleUpdate()}
               onConfirm={(status, otherOptions) =>
                 handleConfirm(status, otherOptions)
               }

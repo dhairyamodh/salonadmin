@@ -21,6 +21,7 @@ const Customers = () => {
     // props.setValue({ start, end });
     // onChange(setState({ start, end }));
     setState({ start, end });
+    dispatch(getAllCustomers({ salonId, start, end }));
   };
 
   const { role, salonId, branchId } = useSelector((state) => state.user);
@@ -100,17 +101,17 @@ const Customers = () => {
 
     defaultFormValues: { salonId, role: role },
     deleteVariableTitle: undefined,
-    onAdd: () => {},
-    onEdit: () => {},
-    onDelete: () => {},
-    onImport: () => {},
+    onAdd: () => { },
+    onEdit: () => { },
+    onDelete: () => { },
+    onImport: () => { },
 
     getData: (e) => getAllCustomers({ salonId, ...state }),
-    getImportData: () => {},
-    afterAddSuccess: () => {},
-    afterEditSuccess: () => {},
-    afterDeleteSuccess: () => {},
-    afterImportSuccess: () => {},
+    getImportData: () => { },
+    afterAddSuccess: () => { },
+    afterEditSuccess: () => { },
+    afterDeleteSuccess: () => { },
+    afterImportSuccess: () => { },
   };
 
   return (

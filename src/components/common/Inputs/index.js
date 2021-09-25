@@ -9,6 +9,8 @@ export { default as float } from "./Float";
 export { default as select } from "./Select";
 export { default as file } from "./File";
 export { default as dateRange } from "./DateRange";
+export { default as dateTime } from "./DateTime";
+
 export { default as switch } from "./Switch";
 
 export { default as multiselect } from "./MultiSelect";

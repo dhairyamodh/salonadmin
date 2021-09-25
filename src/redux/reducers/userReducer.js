@@ -63,12 +63,12 @@ const userReducer = (state = initialstate, action) => {
         ...getData().user,
       };
 
-    case userTypes.GET_ALL_USERS_SUCCESS:
+    case userTypes.GET_ALL_EMPLOYEES_SUCCESS:
       return {
         ...state,
         allUsers: getData().data,
       };
-    case userTypes.GET_ALL_USERS_FAIL:
+    case userTypes.GET_ALL_EMPLOYEES_FAIL:
       return {
         ...state,
         allUsers: [],

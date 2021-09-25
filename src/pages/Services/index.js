@@ -67,7 +67,7 @@ const Services = () => {
     {
       type: "duration",
       name: "estimatedTime",
-      size: 4,
+      size: 3,
       label: "Estimate Time",
       placeholder: "Choose Estimate Time",
       // required: true,
@@ -81,7 +81,7 @@ const Services = () => {
     {
       type: "select",
       name: "categoryId",
-      size: 4,
+      size: 3,
 
       label: "Category",
       options: salonCategories,
@@ -93,11 +93,19 @@ const Services = () => {
         </option>
       ),
     },
+    {
+      type: "switch",
+      name: "nextDayService",
+      size: 3,
+
+      label: "Next Day Service",
+      placeholder: "Choose Next Day Service",
+    },
 
     {
       type: "select",
       name: "status",
-      size: 4,
+      size: 3,
 
       label: "Status",
       options: [
@@ -155,14 +163,14 @@ const Services = () => {
     onAdd: createService,
     onEdit: updateService,
     onDelete: deleteService,
-    onImport: () => {},
+    onImport: () => { },
 
     getData: (e) => getSalonServices(salonId),
-    getImportData: () => {},
-    afterAddSuccess: () => {},
-    afterEditSuccess: () => {},
-    afterDeleteSuccess: () => {},
-    afterImportSuccess: () => {},
+    getImportData: () => { },
+    afterAddSuccess: () => { },
+    afterEditSuccess: () => { },
+    afterDeleteSuccess: () => { },
+    afterImportSuccess: () => { },
   };
   React.useEffect(() => {
     dispatch(getAllSalonCategories({ salonId }));

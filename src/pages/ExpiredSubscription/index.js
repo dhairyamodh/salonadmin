@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
-import { expireSubScription, logoutUser } from "../../redux/action/userActions";
+import { expireSubScription, logoutUser } from "../../redux/action/employeeActions";
 import { CONTACTUSURL, SMALLLOGO } from "../../redux/types/index";
 const ExpiredSubscription = () => {
   const dispatch = useDispatch();

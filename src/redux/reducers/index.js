@@ -10,6 +10,7 @@ import orderReducer from "./orderReducer";
 import reportReducer from "./reportReducer";
 import dashboardReducer from "./dashboardReducer";
 import salonReducer from "./salonReducer";
+import bookingReducer from "./bookingReducer";
 
 const initialState = {
   values: {},
@@ -26,4 +27,5 @@ export default combineReducers({
   order: orderReducer,
   report: reportReducer,
   dashboard: dashboardReducer,
+  booking: bookingReducer
 });

@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { useLocation } from "react-router";
-import { logoutUser } from "../../redux/action/userActions";
+import { logoutUser } from "../../redux/action/employeeActions";
 import View from "./view";
 
 const TopBar = () => {

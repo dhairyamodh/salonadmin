@@ -10,8 +10,8 @@ import Salons from "../pages/Salons";
 
 import SalonsBranch from "../pages/SalonsBranch";
 
-import Users from "../pages/Users/index";
-import AddUsers from "../pages/Users/Addusers";
+import Employees from "../pages/Employees/index";
+import AddUsers from "../pages/Employees/Addusers";
 import ManageThemes from "../pages/Settings/Themes";
 import ManageSubScriptions from "../pages/Settings/Subscriptions";
 
@@ -21,6 +21,7 @@ import Services from "../pages/Services";
 import Bookings from "../pages/Bookings/index";
 
 import Customers from "../pages/Customers";
+import Users from "../pages/Users";
 import Expenses from "../pages/Expenses";
 import Reports from "../pages/Reports";
 
@@ -35,7 +36,7 @@ const DashBoardRoutes = () => {
   const role = useSelector((state) => state.user.role);
 
   const isBranchAdmin = role === "branchadmin";
-  const isBranchUser = role === "branchuser";
+  const isEmployee = role === "employee";
 
   const superadmin = "superadmin";
   const salonadmin = "salonadmin";
@@ -51,7 +52,7 @@ const DashBoardRoutes = () => {
           class="dashboard-container"
           style={{ height: "100%", width: "100%", overflow: "auto" }}
         >
-          {employee &&
+          {isEmployee &&
             <Redirect to="/bookings" />}
 
           <ProtectedRoute
@@ -73,7 +74,7 @@ const DashBoardRoutes = () => {
           <ProtectedRoute
             roles={[superadmin, salonadmin, branchadmin]}
             path="/employees"
-            component={Users}
+            component={Employees}
           />
           <ProtectedRoute
             roles={[superadmin, salonadmin]}
@@ -124,6 +125,11 @@ const DashBoardRoutes = () => {
             roles={[salonadmin, branchadmin]}
             path="/customers"
             component={Customers}
+          />
+          <ProtectedRoute
+            roles={[salonadmin, branchadmin]}
+            path="/users"
+            component={Users}
           />
           <ProtectedRoute
             roles={[salonadmin, branchadmin]}

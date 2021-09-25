@@ -52,7 +52,7 @@ export default useFriendStatus;
 // import { useState, useEffect } from "react";
 // import { useDispatch } from "react-redux";
 // import getToken from "./getToken";
-// import { getUserDetails } from "../redux/action/userActions";
+// import { getUserDetails } from "../redux/action/employeeActions";
 
 // const checkIfAppReady = (data) => {
 // const dispatch = useDispatch();

@@ -33,6 +33,14 @@ const Customers = () => {
       title: "Deal Code",
       key: "dealCode",
     },
+    {
+      title: "Start Date",
+      key: "dealStartDate",
+    },
+    {
+      title: "End Date",
+      key: "dealEndDate",
+    },
   ];
 
   const formData = [
@@ -53,6 +61,7 @@ const Customers = () => {
     },
     {
       type: "number",
+      size: 3,
       name: "dealDiscount",
       label: "Discount(%)",
       placeholder: "Type Discount",
@@ -60,12 +69,48 @@ const Customers = () => {
     },
     {
       type: "text",
+      size: 3,
       name: "dealCode",
       label: "Deal Code",
       placeholder: "Type Sub Title",
       required: true,
     },
-
+    {
+      type: "dateTime",
+      size: 3,
+      name: "dealStartDate",
+      label: "Deal Start Date & Time",
+      placeholder: "Deal Start Date & Time",
+      required: true,
+      options: {
+        singleDatePicker: true,
+        hideRanges: true,
+      },
+      rules: {
+        required: {
+          value: true,
+          message: "Start Date & time is required",
+        },
+      },
+    },
+    {
+      type: "dateTime",
+      name: "dealEndDate",
+      size: 3,
+      label: "Deal End Date & Time",
+      placeholder: "Deal End Date & Time",
+      required: true,
+      options: {
+        singleDatePicker: true,
+        hideRanges: true,
+      },
+      rules: {
+        required: {
+          value: true,
+          message: "Start Date & time is required",
+        },
+      },
+    },
     {
       type: "select",
       name: "status",
@@ -112,14 +157,14 @@ const Customers = () => {
     onAdd: createDeal,
     onEdit: updateDeal,
     onDelete: deleteDeal,
-    onImport: () => {},
+    onImport: () => { },
 
     getData: (e) => getAllDealss({ salonId }),
-    getImportData: () => {},
-    afterAddSuccess: () => {},
-    afterEditSuccess: () => {},
-    afterDeleteSuccess: () => {},
-    afterImportSuccess: () => {},
+    getImportData: () => { },
+    afterAddSuccess: () => { },
+    afterEditSuccess: () => { },
+    afterDeleteSuccess: () => { },
+    afterImportSuccess: () => { },
   };
 
   return (

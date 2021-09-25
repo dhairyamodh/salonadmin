@@ -4,7 +4,7 @@ import {
   showErrorSnackBar,
   showSnackBar,
 } from "../../redux/action/snackActions";
-import { loginUser } from "../../redux/action/userActions";
+import { loginUser } from "../../redux/action/employeeActions";
 import { useHistory } from "react-router-dom";
 import { SMALLLOGO } from "../../redux/types";
 

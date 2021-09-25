@@ -121,6 +121,12 @@ export const salonadmin = [
     link: "/customers",
   },
   {
+    title: "Users",
+    role: "salonadmin",
+    icon: "mdi mdi-account-outline",
+    link: "/users",
+  },
+  {
     title: "Expenses",
     icon: "mdi mdi-wallet-outline",
     link: "/expenses",

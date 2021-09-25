@@ -39,7 +39,6 @@ const Salons = () => {
   const { themes, subscriptions, currencies } = useSelector(
     (state) => state.all
   );
-  console.log("currencies", currencies);
   const formData = [
     {
       type: "text",
@@ -48,9 +47,9 @@ const Salons = () => {
       size: 4,
       placeholder: "Type a name",
       required: true,
-      disabledCondition: ({ mode }) => {
-        return mode === "edit";
-      },
+      // disabledCondition: ({ mode }) => {
+      //   return mode === "edit";
+      // },
     },
     {
       type: "text",

@@ -18,6 +18,7 @@ import {
 const initialstate = {
   salons: [],
   branches: [],
+  employees: [],
   users: [],
   allUserGroup: [],
   categories: [],
@@ -81,7 +82,13 @@ const branchReducer = (state = initialstate, action) => {
         branches: getData().data,
       };
 
-    case userTypes.GET_ALL_USERS_SUCCESS:
+    case userTypes.GET_ALL_EMPLOYEES_SUCCESS:
+      return {
+        ...state,
+        employees: getData().data,
+      };
+
+    case userTypes.GET_ALL_WEB_USERS_SUCCESS:
       return {
         ...state,
         users: getData().data,

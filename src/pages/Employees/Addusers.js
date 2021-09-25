@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllSalons } from "../../redux/action/salonActions";
 import { getAllBranches } from "../../redux/action/branchActions";
-import { createUser } from "../../redux/action/userActions";
+import { createUser } from "../../redux/action/employeeActions";
 import { showSnackBar } from "../../redux/action/snackActions";
 import { mobileRegex, emailRegex } from "../../helpers/regex";
 import getErrorMessage from "../../helpers/getErrorMessage";
@@ -103,8 +103,7 @@ const AddModal = ({ open, onClose, title }) => {
           <option value="salonadmin">Salon Admin</option>
         )}
         {/* )} */}
-        <option value="branchadmin">Branch Admin</option>
-        <option value="branchuser">Branch Employee</option>
+        <option value="employee">Employee</option>
       </select>
     </div>
   );
@@ -187,7 +186,7 @@ const AddModal = ({ open, onClose, title }) => {
                       name="status"
                       ref={register}
                       class="form-control"
-                      // required
+                    // required
                     >
                       <option value={""} selected>
                         {"Common"}

@@ -44,14 +44,14 @@ const EmployeeScheduleModal = ({ open, onClose, data, onSubmit }) => {
       data?.employeeSchedule?.length > 0
         ? data?.employeeSchedule
         : WEEKARRAY.map((d, i) => {
-            return {
-              dayName: d,
-              dayIndex: i,
-              isWorking: false,
-              startTime: "00:00",
-              endTime: "00:00",
-            };
-          }),
+          return {
+            dayName: d,
+            dayIndex: i,
+            isWorking: false,
+            startTime: "10:00",
+            endTime: "19:00",
+          };
+        }),
   };
 
   return (
@@ -64,7 +64,7 @@ const EmployeeScheduleModal = ({ open, onClose, data, onSubmit }) => {
           // reset();
         }}
         title={`${data?.userName}'s Schedule`}
-        // title={`${mode} ${title}`}
+      // title={`${mode} ${title}`}
       >
         <Formik
           initialValues={initialValues}
@@ -93,10 +93,10 @@ const EmployeeScheduleModal = ({ open, onClose, data, onSubmit }) => {
                           <TableHeading
                             data={headers || []}
                             hasActions={false}
-                            onRequestSort={() => {}}
+                            onRequestSort={() => { }}
                             sortable={false}
                             selectable={false}
-                            onSelectAll={(e) => {}}
+                            onSelectAll={(e) => { }}
                             order={order}
                           />
                           <tbody>

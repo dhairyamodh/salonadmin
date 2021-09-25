@@ -8,7 +8,7 @@ import {
   forgotPassword,
   getOtp,
   loginUser,
-} from "../../redux/action/userActions";
+} from "../../redux/action/employeeActions";
 import checkDispatch from "../../helpers/checkdispatch";
 import { useHistory } from "react-router-dom";
 import { mobileRegex } from "../../helpers/regex";
@@ -123,7 +123,7 @@ const ForgotPassword = () => {
                                 message: "Invalid mobile number",
                               },
                             })}
-                            // disabled={isLoading}
+                          // disabled={isLoading}
                           />
                         </div>
                         {errors.mobile && (
@@ -150,7 +150,7 @@ const ForgotPassword = () => {
                                 required
                                 // autoComplete="current-password"
                                 ref={register}
-                                // disabled={isLoading}
+                              // disabled={isLoading}
                               />
                             </div>
                           </div>
@@ -171,7 +171,7 @@ const ForgotPassword = () => {
                                 required
                                 // autoComplete="current-password"
                                 ref={register}
-                                // disabled={isLoading}
+                              // disabled={isLoading}
                               />
                             </div>
                           </div>
@@ -193,7 +193,7 @@ const ForgotPassword = () => {
                                 required
                                 // autoComplete="current-password"
                                 ref={register}
-                                // disabled={isLoading}
+                              // disabled={isLoading}
                               />
                             </div>
                           </div>

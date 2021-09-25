@@ -9,6 +9,8 @@ import {
   TIME24FORMAT,
   TIMEAMPMFORMAT,
 } from "../../contants";
+import DeleteCommonAction from "../common/Actions/DeleteCommonAction";
+import ListItemSelector from "./ListItemSelector";
 
 const getPaymentString = (methos) => {
   return methos
@@ -83,11 +85,17 @@ const getBTNClass = (st) => {
       break;
   }
 };
+
+
+
 const CardDetails = ({
   tabeleheaders,
-  data,
   onClose,
+  data,
   onConfirm,
+  onUpdate,
+  onPushItem,
+  onDeleteItem,
   onOrderConfirm,
 }) => {
   const {
@@ -112,7 +120,15 @@ const CardDetails = ({
     orderStatus,
     employeeName,
   } = data;
-
+  console.log('orderItems', orderItems);
+  const DeleteGroupAction = (action) => (
+    <DeleteCommonAction
+      onClick={() => {
+        // handleDelete(action.data);
+        onDeleteItem(action.data)
+      }}
+    />
+  );
   const orderDate = moment(startDate).format(DATEFORMAT);
   const orderTime = moment(startTime, [TIME24FORMAT]).format(TIMEAMPMFORMAT);
   const paidStatus = isPaid === "true";
@@ -151,6 +167,16 @@ const CardDetails = ({
                 Cancel Booking
               </button>
             </div>
+            <div class="col-md-4 mt-2 mb-2">
+              <button
+                onClick={() => onUpdate()}
+                class={`btn waves-effect waves-light btn-success shadow-none`}
+                data-row-id="1"
+                type="button"
+              >
+                Update Booking
+              </button>
+            </div>
           </div>
         );
 
@@ -183,13 +209,34 @@ const CardDetails = ({
                 Cancel Booking
               </button>
             </div>
+            <div class="col-md-4 mt-2 mb-2">
+              <button
+                onClick={() => onUpdate()}
+                class={`btn waves-effect waves-light btn-success shadow-none`}
+                data-row-id="1"
+                type="button"
+              >
+                Update Booking
+              </button>
+            </div>
           </div>
         );
 
         break;
 
       case ORDERSTATUS[2].value:
-        return <></>;
+        return <>
+          <div class="col-md-4 mt-2 mb-2">
+            <button
+              onClick={() => onUpdate()}
+              class={`btn waves-effect waves-light btn-success shadow-none`}
+              data-row-id="1"
+              type="button"
+            >
+              Update Booking
+            </button>
+          </div>
+        </>;
 
         break;
 
@@ -277,7 +324,8 @@ const CardDetails = ({
           </div>
         </div>
         <hr />
-        <SmartTable headers={tabeleheaders} tableData={orderItems} />
+        <SmartTable headers={tabeleheaders} tableData={orderItems} actions={[DeleteGroupAction]} />
+        <ListItemSelector onPushItem={onPushItem} onDeleteItem={onDeleteItem} />
         <div class="row">
           <div class="col-md-7 border-top">
             <div class="row">
@@ -294,13 +342,12 @@ const CardDetails = ({
                       <td>Payment Status</td>
                       <td>
                         <span
-                          class={` ${
-                            isCanceled
-                              ? "text-danger"
-                              : paidStatus
+                          class={` ${isCanceled
+                            ? "text-danger"
+                            : paidStatus
                               ? "text-success"
                               : "text-warning"
-                          }  font-weight-normal`}
+                            }  font-weight-normal`}
                         >
                           {paidStatus ? (
                             <i class="fa fa-check-circle"></i>
@@ -310,8 +357,8 @@ const CardDetails = ({
                           {isCanceled
                             ? "Canceled"
                             : paidStatus
-                            ? "Completed"
-                            : "Pending"}
+                              ? "Completed"
+                              : "Pending"}
                         </span>
                       </td>
                     </tr>

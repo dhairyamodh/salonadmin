@@ -1,7 +1,8 @@
 import customerApi from "../api/customerApi";
+import userApi from "../api/userApi";
 import salonApi from "../api/salonApi";
 import SuperAdminApi from "../api/superAdminApi";
-import { branchTypes, customerTypes, salonTypes } from "../types";
+import { branchTypes, customerTypes, salonTypes, userTypes } from "../types";
 import checkIfAsyncReqSuccess from "./checkIfAsyncReqSuccess";
 
 export const getAllSalons = (status) => {
@@ -197,6 +198,21 @@ export const getAllCustomers = (data) => {
     payload: {
       request: {
         url: customerApi.GET_ALL_CUSTOMERS,
+        method: "get",
+        params: {
+          ...data,
+        },
+      },
+    },
+  };
+};
+
+export const getAllUsers = (data) => {
+  return {
+    type: userTypes.GET_ALL_WEB_USERS,
+    payload: {
+      request: {
+        url: userApi.GET_ALL_WEB_USERS,
         method: "get",
         params: {
           ...data,

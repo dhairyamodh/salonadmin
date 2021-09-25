@@ -1,4 +1,4 @@
-import userApi from "../api/userApi";
+import employeeApi from "../api/employeeApi";
 import { userTypes } from "../types";
 import checkIfAsyncReqSuccess from "./checkIfAsyncReqSuccess";
 
@@ -13,7 +13,7 @@ export const loginUser = (data, cb, errorCb) => {
       type: userTypes.LOGIN_USER,
       payload: {
         request: {
-          url: userApi.LOGIN_USER,
+          url: employeeApi.LOGIN_USER,
           method: "post",
           data: data,
         },
@@ -38,7 +38,7 @@ export const getOtp = (mobile, cb) => {
       type: userTypes.FORGOT_PASSWORD,
       payload: {
         request: {
-          url: userApi.FORGOT_PASSWORD,
+          url: employeeApi.FORGOT_PASSWORD,
           method: "post",
           data: {
             mobile: mobile,
@@ -59,7 +59,7 @@ export const forgotPassword = (data, cb) => {
       type: userTypes.FORGOT_PASSWORD,
       payload: {
         request: {
-          url: userApi.FORGOT_PASSWORD,
+          url: employeeApi.FORGOT_PASSWORD,
           method: "put",
           data: data,
         },
@@ -92,7 +92,7 @@ export const getUserDetails = () => {
     type: userTypes.GET_USER_DETAILS,
     payload: {
       request: {
-        url: userApi.GET_USER_DETAILS,
+        url: employeeApi.GET_USER_DETAILS,
         method: "GET",
       },
     },
@@ -115,12 +115,12 @@ export const getUserDetails = () => {
   };
 };
 
-export const getAllUsers = (resId, branchId, status) => {
+export const getAllEmployees = (resId, branchId, status) => {
   return {
-    type: userTypes.GET_ALL_USERS,
+    type: userTypes.GET_ALL_EMPLOYEES,
     payload: {
       request: {
-        url: userApi.GET_ALL_USERS,
+        url: employeeApi.GET_ALL_EMPLOYEES,
         method: "GET",
         params: {
           salonId: resId,
@@ -143,7 +143,7 @@ export const createUser = (data, cb, errorCb) => {
       type: userTypes.CREATE_USER,
       payload: {
         request: {
-          url: userApi.CREATE_USER,
+          url: employeeApi.CREATE_USER,
           method: "post",
           data: data,
         },
@@ -162,7 +162,7 @@ export const updateUser = (data, cb, errorCb) => {
       type: userTypes.UPDATE_USER,
       payload: {
         request: {
-          url: userApi.UPDATE_USER,
+          url: employeeApi.UPDATE_USER,
           method: "put",
           data: data,
         },
@@ -181,7 +181,7 @@ export const deleteUser = (data, cb, errorCb) => {
       type: userTypes.DELETE_USER,
       payload: {
         request: {
-          url: userApi.DELETE_USER,
+          url: employeeApi.DELETE_USER,
           method: "delete",
           data: data,
         },
