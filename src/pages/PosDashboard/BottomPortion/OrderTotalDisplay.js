@@ -1,6 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  checkoutOrder,
   confirmOrder,
   deleteLocalOrder,
   setDiscount,
@@ -19,6 +20,7 @@ import {
 } from "../../../contants";
 import getFloat from "../../../helpers/getFloat";
 import PaymentModal from "../../../components/common/Modals/PaymentModal";
+import useSocket from "../../../hooks/useSocket";
 
 function parseFloat2Decimals(value) {
   return parseFloat(parseFloat(value).toFixed(2));
@@ -63,6 +65,11 @@ const styles = {
   },
 };
 const OrderTotalDisplay = () => {
+  const {
+    messages: messageHistory,
+    sendToAdminm,
+    sendToCustomer,
+  } = useSocket("one");
   const dispatch = useDispatch();
   // const [discount, setDiscount] = React.useState(0);
   // const [otherCharges, setOtherCharges] = React.useState(0);
@@ -143,8 +150,8 @@ const OrderTotalDisplay = () => {
       grandTotal: parseFloat(getData().grandTotal),
       orderItems: activeOrders[index].items,
       orderBy: name,
-      paymentType: payment.type,
-      paymentTypeId: payment.id,
+      // paymentType: payment.type,
+      // paymentTypeId: payment.id,
       chairNumber: activeOrders[index].chairNumber,
       tableId: activeOrders[index]._id,
 
@@ -155,18 +162,18 @@ const OrderTotalDisplay = () => {
       startTime: moment(new Date(), TIMEAMPMFORMAT).format(TIME24FORMAT),
 
       ...customerData,
+      ...payment,
     };
+    sendToCustomer(orderdata);
+    // toggleOrderConfirmModal();
 
-    toggleOrderConfirmModal();
-
-    handleOpenConfirmModal(orderdata);
+    // handleOpenConfirmModal(orderdata);
 
     // dispatch(
-    //   confirmOrder(orderdata, () => {
-    //     setOtherCharges(0);
-    //     setDiscount(0);
-
-    //     dispatch(deleteLocalOrder(index));
+    //   checkoutOrder(orderdata, () => {
+    //     // setOtherCharges(0);
+    //     // setDiscount(0);
+    //     // dispatch(deleteLocalOrder(index));
     //   })
     // );
   };
@@ -320,7 +327,8 @@ const OrderTotalDisplay = () => {
         <OrderButton
           enableKOT={enableKOT}
           onClick={(type) => {
-            handleOpenMdoal(type);
+            // handleOpenMdoal(type);
+            handleConfirmOrder();
           }}
         />
       </div>

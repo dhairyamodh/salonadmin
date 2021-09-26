@@ -5,6 +5,7 @@ import getOrderNeccesaryData from "../../helpers/getOrderNeccesaryData";
 import useFullscreenStatus from "../../hooks/useFullscreenStatus";
 import BottomPortion from "./BottomPortion";
 import CenterPortion from "./CenterPortion/index";
+import PaymentPortion from "./PaymentPortion";
 
 import TopPortion from "./TopPortion";
 
@@ -22,7 +23,7 @@ const PosDashboard = () => {
       ref={ref}
       style={{
         height: "100%",
-        width: '100%',
+        width: "100%",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
@@ -32,6 +33,7 @@ const PosDashboard = () => {
       <TopPortion />
       <CenterPortion />
       <BottomPortion />
+      <PaymentPortion />
       {/* <CenterPortion />
 
       <BottomPortion /> */}

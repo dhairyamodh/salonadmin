@@ -12,6 +12,13 @@ export const toggleFullScreen = () => {
   };
 };
 
+export const setSoketConnectionStataus = (data) => {
+  return {
+    type: utilTypes.TOGGLE_SOCKET_CONNECTION,
+    payload: data,
+  };
+};
+
 export const togglePrinting = () => {
   return {
     type: utilTypes.TOGGLE_PRINTING,

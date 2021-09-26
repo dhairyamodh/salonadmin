@@ -2,24 +2,24 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import { BASEIMAGEURL } from "../../contants";
+import useFullscreenStatus from "../../hooks/useFullscreenStatus";
+import { toggleFullScreen } from "../../redux/action/utilActions";
 import { RootUrl } from "../../redux/types";
 
 const View = ({ handleLogout }) => {
   const dispatch = useDispatch();
+  const ref = React.useRef();
   const history = useHistory();
   const superadmin = "superadmin";
   const salonadmin = "salonadmin";
   const branchadmin = "branchadmin";
   const branchuser = "branchuser";
   const [open, setOpen] = React.useState(false);
+
   const roles = [superadmin, salonadmin, branchadmin, branchuser];
-  const {
-    role,
-    name,
-    salonLogo,
-    salonName,
-    branchName,
-  } = useSelector((state) => state.user);
+  const { role, name, salonLogo, salonName, branchName } = useSelector(
+    (state) => state.user
+  );
   const setRole = (role) => {
     dispatch({
       type: "SET_ROLE",
@@ -27,6 +27,7 @@ const View = ({ handleLogout }) => {
     });
   };
   const handleNavigate = (link) => history.push(link);
+  const handleFullscreen = () => dispatch(toggleFullScreen());
 
   return (
     <div class="topbar">
@@ -77,6 +78,12 @@ const View = ({ handleLogout }) => {
               <i data-feather="align-right" class="align-self-center"></i>
             </a>
           </li>
+          <li class="mr-2">
+            <div class="dropdown-item" onClick={() => handleFullscreen()}>
+              <i class="dripicons-exit text-muted mr-2"></i>
+              isFullScreen
+            </div>
+          </li>
         </ul>
 
         <ul class="list-unstyled topbar-nav mb-0">
@@ -95,7 +102,8 @@ const View = ({ handleLogout }) => {
               <div class="nav-link waves-effect waves-light nav-user">
                 <span class="ml-1 font-weight-bold nav-user-name hidden-sm text-uppercase h4">
                   Salon Super Admin
-                </span></div>
+                </span>
+              </div>
               {/* <img
                 src={"./images/logo.png"}
                 style={{ height: "50px", width: "auto" }}

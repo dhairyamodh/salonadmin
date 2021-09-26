@@ -141,6 +141,27 @@ export const setKOTitemsData = (data) => {
   };
 };
 
+export const checkoutOrder = (data, cb, errorCb) => {
+  return (dispatch) =>
+    checkIfAsyncReqSuccess(dispatch, {
+      successMessage: "Order Successfull",
+      errorMessage: "Failed To Order",
+      cb: cb,
+      errorCb: errorCb,
+      type: orderTypes.CHECKOUT_ORDER,
+      payload: {
+        request: {
+          url: orderApi.CHECKOUT_ORDER,
+          method: "post",
+          data: data,
+          headers: {
+            "Content-type": "application/json",
+          },
+        },
+      },
+    });
+};
+
 export const confirmOrder = (data, cb, errorCb) => {
   return (dispatch) =>
     checkIfAsyncReqSuccess(dispatch, {

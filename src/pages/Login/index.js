@@ -18,6 +18,8 @@ const styles = {
 const Login = () => {
   const history = useHistory();
   const isLoading = useSelector((state) => state.util.spinner);
+  const isLogged = useSelector((state) => state.user.isLogged);
+
   const formik = useFormik({
     initialValues: {
       mobile: "",
@@ -41,6 +43,12 @@ const Login = () => {
   const handleForgot = async (data) => {
     history.push("/forgotpassword");
   };
+
+  React.useEffect(() => {
+    if (isLogged) {
+      history.push("/");
+    }
+  }, [isLogged]);
 
   return (
     <div className="account-body accountbg">

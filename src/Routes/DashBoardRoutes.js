@@ -31,6 +31,7 @@ import PosDashboard from "../pages/PosDashboard";
 import Chairs from "../pages/Chairs";
 
 import DashBoard from "../pages/DashBoard";
+import CustomerView from "../pages/CustomerView";
 
 const DashBoardRoutes = () => {
   const role = useSelector((state) => state.user.role);
@@ -42,19 +43,26 @@ const DashBoardRoutes = () => {
   const salonadmin = "salonadmin";
   const branchadmin = "branchadmin";
   const employee = "employee";
+  const screenmanager = "screenmanager";
+  const isScreenManager = role === screenmanager;
 
   return (
     <div style={{ height: "100%", display: "flex", flexDirection: "column" }}>
-      <TopBar />
+      <TopBar isScreenManager={isScreenManager} />
       <div className="data-container" style={{ height: "100%" }}>
-        <LeftSideBar />
+        {!isScreenManager && <LeftSideBar />}
         <div
           class="dashboard-container"
           style={{ height: "100%", width: "100%", overflow: "auto" }}
         >
-          {isEmployee &&
-            <Redirect to="/bookings" />}
+          {isEmployee && <Redirect to="/bookings" />}
 
+          <ProtectedRoute
+            exact
+            roles={[screenmanager]}
+            path="/"
+            component={CustomerView}
+          />
           <ProtectedRoute
             exact
             roles={[salonadmin]}

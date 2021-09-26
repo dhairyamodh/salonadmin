@@ -15,7 +15,8 @@ const OrderButton = ({ onClick, enableKOT, onKOTButtonClick }) => {
         class="btn btn-primary btn-block"
       >
         <i class={`mdi mdi-cash-multiple mr-2`}></i>
-        Complete Payment
+        {/* Complete Payment */}
+        Checkout
       </button>
       {/* {enableKOT && (
         <button
